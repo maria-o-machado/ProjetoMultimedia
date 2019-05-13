@@ -51,7 +51,6 @@ function create() {
     game.scale.pageAlignVertically = true;
     game.scale.pageAlignHorizontally = true;
 
-
     //  A simple background for our game
     game.add.tileSprite(0, 0, 3000,750,'background');
     game.world.setBounds(0, 0, 3000, 750);
@@ -62,101 +61,103 @@ function create() {
 
     saudenivel.width=280;
     barrasaude.width=280;
-    armadilha= game.add.sprite(250, 115, 'armadilha');
-    poder= game.add.sprite(340, 90, 'poder');
-    poder.width=60;
-    poder.height=60;
 
-     map = game.add.tilemap('mapa');
-     map.addTilesetImage( 'novochao');
-     map.setCollision([1,2]);
-     layer = map.createLayer('Camada de Tiles 1');
-     //layer.debug = true;
+		map = game.add.tilemap('mapa');
+		map.addTilesetImage( 'novochao');
+		map.setCollision([1,2]);
+		layer = map.createLayer('Camada de Tiles 1');
+		//layer.debug = true;
 
-     //layer.resizeWorld();
+		//layer.resizeWorld();
+		player = game.add.sprite(63, game.world.height - 280 , 'rato');
 
+		// We need to enable physics on the player
+		game.physics.arcade.enable(player);
 
-
-    player = game.add.sprite(63, game.world.height - 280 , 'rato');
-
-    //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.3;
-    player.body.gravity.y = 800;
-    player.body.collideWorldBounds = false;
-    player.width=104;
-    player.height=56;
+		// Player physics properties. Give the little guy a slight bounce.
+		player.body.bounce.y = 0.3;
+		player.body.gravity.y = 800;
+		player.body.collideWorldBounds = false;
+		player.width=104;
+		player.height=56;
 		player.goesRight=true;
 
-    //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
+		//  Our two animations, walking left and right.
+		player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
+		player.animations.add('right', [6, 7, 8, 9, 10, 11], 20, true);
 
-    player.animations.add('right', [6, 7, 8, 9, 10, 11], 20, true);
-
-		//queijos bons
-    queijosB = game.add.group();
-    queijosB.enableBody = true;
-    queijoB = queijosB.create(1080, game.world.height-600, 'queijoBom');
+		//QUEIJOS BONS
+		queijosB = game.add.group();
+		queijosB.enableBody = true;
+		queijoB = queijosB.create(1080, game.world.height-600, 'queijoBom');
 		queijoB.body.gravity.y = 100;
-    queijoB.height=50;
-    queijoB.width=50;
+		queijoB.height=50;
+		queijoB.width=50;
 
-    //queijos venenosos
-    queijosV = game.add.group();
-    queijosV.enableBody = true;
+		//QUEIJOS VENENOSOS
+		queijosV = game.add.group();
+		queijosV.enableBody = true;
 		game.physics.arcade.enable(queijosV);
 
-    queijoV=queijosV.create(200, game.world.height-250,'queijoVenenoso');
-    queijoV.body.gravity.y = 100;
-    queijoV.height=50;
-    queijoV.width=50;
+		queijoV=queijosV.create(200, game.world.height-250,'queijoVenenoso');
+		queijoV.body.gravity.y = 100;
+		queijoV.height=50;
+		queijoV.width=50;
 
 		queijoV=queijosV.create(500, game.world.height-400,'queijoVenenoso');
-    queijoV.body.gravity.y = 100;
-    queijoV.height=50;
-    queijoV.width=50;
+		queijoV.body.gravity.y = 100;
+		queijoV.height=50;
+		queijoV.width=50;
 
-    cursors = game.input.keyboard.createCursorKeys();
-
-    mulher = game.add.sprite(450, game.world.height - 450 , 'pessoa');
-    mulher.width=86
-    mulher.height=213
-    game.physics.arcade.enable(mulher);
-    mulher.body.collideWorldBounds = true;
-    mulher.animations.add('left', [0], 9, true);
-    mulher.animations.add('right', [1], 9, true);
-    mulher.body.velocity.x = 100;
-    mulher.animations.play('right');
+		//HUMANOS
+		mulher = game.add.sprite(450, game.world.height - 450 , 'pessoa');
+		mulher.width=86
+		mulher.height=213
+		game.physics.arcade.enable(mulher);
+		mulher.body.collideWorldBounds = true;
+		mulher.animations.add('left', [0], 9, true);
+		mulher.animations.add('right', [1], 9, true);
+		mulher.body.velocity.x = 100;
+		mulher.animations.play('right');
 
 		mulher1 = game.add.sprite(1880, game.world.height - 450 , 'pessoa');
 		mulher1.width=86
-    mulher1.height=213
-    game.physics.arcade.enable(mulher1);
-    mulher1.body.collideWorldBounds = true;
-    mulher1.animations.add('left', [0], 9, true);
-    mulher1.animations.add('right', [1], 9, true);
-    mulher1.body.velocity.x = 100;
-    mulher1.animations.play('right');
+		mulher1.height=213
+		game.physics.arcade.enable(mulher1);
+		mulher1.body.collideWorldBounds = true;
+		mulher1.animations.add('left', [0], 9, true);
+		mulher1.animations.add('right', [1], 9, true);
+		mulher1.body.velocity.x = 100;
+		mulher1.animations.play('right');
 
-
+		//ARMADILHAS
 		armadilhas = game.add.group();
 		game.physics.arcade.enable(armadilhas);
-    armadilhas.enableBody = true;
-    armadilha=armadilhas.create(2260, game.world.height-500,'armadilha');
-    armadilha.body.gravity.y = 100;
+		armadilhas.enableBody = true;
+		armadilha=armadilhas.create(2260, game.world.height-500,'armadilha');
+		armadilha.body.gravity.y = 100;
+
+		armadilha= game.add.sprite(250, 115, 'armadilha');
 
 
+		//PODER
+		poderes = game.add.group();
+		game.physics.arcade.enable(poderes);
+		poderes.enableBody = true;
+		poderesImunidade=poderes.create(340, game.world.height-730,'poder');
+		poderesImunidade.width=60;
+		poderesImunidade.height=60;
+		poderesImunidade.body.gravity.y = 100;
 
-		game.physics.arcade.enable(poder);
 
-     //toca
-    passa = game.add.sprite(2900, game.world.height-370, 'toca');
-    game.physics.arcade.enable(passa);
-    passa.height = 75;
-    passa.width = 94;
-    game.camera.follow(player);
+		 //TOCA
+		passa = game.add.sprite(2900, game.world.height-370, 'toca');
+		game.physics.arcade.enable(passa);
+		passa.height = 75;
+		passa.width = 94;
+		game.camera.follow(player);
+
+		cursors = game.input.keyboard.createCursorKeys();
 }
 
 
@@ -220,7 +221,7 @@ function tocarArmadilha (player, armadilha) {
     resetGame();   }
 }
 
-function tocarPoder (player, poder) {
+function tocarPoderImunidade (player, poder) {
     poder.kill();
     poderCons=1;
     timeout= setTimeout(desativaPoder, 15000);
@@ -252,7 +253,7 @@ function update() {
     game.physics.arcade.collide(queijosV, layer);
     game.physics.arcade.collide(queijosV, layer);
 		game.physics.arcade.collide(armadilhas, layer);
-    game.physics.arcade.collide(poder, layer);
+    game.physics.arcade.collide(poderes, layer);
     game.physics.arcade.collide(passa, layer);
 
     game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
@@ -260,7 +261,7 @@ function update() {
     game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
 		game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
     game.physics.arcade.overlap(player, armadilhas, tocarArmadilha, null, this);
-    game.physics.arcade.overlap(player, poder, tocarPoder, null, this);
+    game.physics.arcade.overlap(player, poderesImunidade, tocarPoderImunidade, null, this);
     game.physics.arcade.overlap(player, passa, finish, null, this);
 
    	if (mulher){
