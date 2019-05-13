@@ -137,8 +137,8 @@ function create() {
 		armadilhas.enableBody = true;
 		armadilha=armadilhas.create(2260, game.world.height-500,'armadilha');
 		armadilha.body.gravity.y = 100;
+		armadilha=armadilhas.create(250, game.world.height-637,'armadilha');
 
-		armadilha= game.add.sprite(250, 115, 'armadilha');
 
 
 		//PODER
@@ -237,7 +237,7 @@ function tocarPoderImunidade (player, poder) {
 function tocarPoderVelocidade (player, poder) {
     poder.kill();
     poderConsVel=1;
-    timeout= setTimeout(desativaPoderVelocidade, 15000);
+    timer= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function desativaPoder(){
