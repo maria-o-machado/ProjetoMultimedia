@@ -95,44 +95,28 @@ function create() {
 
     player.animations.add('right', [6, 7, 8, 9, 10, 11], 20, true);
 
-
-
-
+		//queijos bons
     queijosB = game.add.group();
-
     queijosB.enableBody = true;
+    queijoB = queijosB.create(1080, game.world.height-600, 'queijoBom');
+		queijoB.body.gravity.y = 100;
+    queijoB.height=50;
+    queijoB.width=50;
 
+    //queijos venenosos
     queijosV = game.add.group();
-
     queijosV.enableBody = true;
+		game.physics.arcade.enable(queijosV);
 
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 10; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var queijoB = queijosB.create(3000* Math.random(), 756* Math.random(), 'queijoBom');
+    queijoV=queijosV.create(200, game.world.height-250,'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=50;
+    queijoV.width=50;
 
-        queijoB.height=50;
-        queijoB.width=50;
-
-        //  Let gravity do its thing
-        queijoB.body.gravity.y = 100;
-
-        //  This just gives each star a slightly random bounce value
-        queijoB.body.bounce.y =  Math.random() * 0.2;
-
-
-
-
-        queijoV=queijosV.create(3000* Math.random(), 756* Math.random(),'queijoVenenoso');
-	    queijoV.body.gravity.y = 100;
-		game.physics.arcade.enable(queijoV);
-		queijoV.height=50;
-	    queijoV.width=50;
-	    queijoV.body.bounce.y = 0.1 + Math.random() * 0.2;
-    }
-
-
+		queijoV=queijosV.create(500, game.world.height-400,'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=50;
+    queijoV.width=50;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -145,7 +129,7 @@ function create() {
     mulher.animations.add('left', [0], 9, true);
     mulher.animations.add('right', [1], 9, true);
     mulher.body.velocity.x = 100;
-    mulher.animations.play('left');
+    mulher.animations.play('right');
 
 
     game.physics.arcade.enable(armadilha);
@@ -158,8 +142,6 @@ function create() {
     passa.height = 75;
     passa.width = 94;
     game.camera.follow(player);
-
-
 }
 
 
@@ -168,12 +150,6 @@ function resetGame(){
     clearTimeout(timeout);
     poderCons=0;
     game.state.restart();
-
-
-
-
-
-
 }
 
 function finish(player) {
@@ -182,7 +158,6 @@ function finish(player) {
     clearTimeout(timeout);
     poderCons=0;
     location.href = "nivel2.html"
-
 }
 
 function comerQueijo (player, queijo) {
@@ -190,14 +165,10 @@ function comerQueijo (player, queijo) {
     if (saudenivel.width!= 280){
     	saudenivel.width+=70;
     }
-
-
     queijo.kill();
-
 }
 
 function comerQueijoMau (player, queijoMau) {
-
     // Removes the star from the screen
     if (poderCons==0){
        	saudenivel.width-=70;
@@ -205,10 +176,8 @@ function comerQueijoMau (player, queijoMau) {
         	player.kill();
             resetGame();
         }
-
-
-    queijoMau.kill();
-}
+    	queijoMau.kill();
+		}
 }
 
 function ataqueMulher (player,mulher) {
@@ -239,7 +208,6 @@ function tocarArmadilha (player, armadilha) {
 function tocarPoder (player, poder) {
     poder.kill();
     poderCons=1;
-    saudenivel.width=280;
     timeout= setTimeout(desativaPoder, 15000);
 
 
@@ -248,10 +216,6 @@ function tocarPoder (player, poder) {
 
 function desativaPoder(){
     poderCons=0;
-    console.log("now");
-
-
-
 }
 
 
@@ -275,9 +239,6 @@ function update() {
     game.physics.arcade.collide(poder, layer);
     game.physics.arcade.collide(passa, layer);
 
-
-
-
     game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
     game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
     game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
@@ -285,11 +246,8 @@ function update() {
     game.physics.arcade.overlap(player, poder, tocarPoder, null, this);
     game.physics.arcade.overlap(player, passa, finish, null, this);
 
-
-
-
    	if (mulher){
-        if (mulher.x <450){
+        if (mulher.x <425){
             mulher.body.velocity.x = 100;
             mulher.animations.play('right');
         }
@@ -336,10 +294,8 @@ function update() {
     {
         player.body.velocity.y = -450;
     }
-
 }
 
 </script>
-
 </body>
 </html>
