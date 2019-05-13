@@ -20,6 +20,7 @@ var plataformas;
 var player;
 var cursors;
 var poderCons=0;
+var poderConsVel=0;
 var stars;
 var mulher;
 var score = 0;
@@ -149,6 +150,12 @@ function create() {
 		poderesImunidade.height=60;
 		poderesImunidade.body.gravity.y = 100;
 
+		poderesVelocidade=poderes.create(2185, game.world.height-730,'poder');
+		poderesVelocidade.width=60;
+		poderesVelocidade.height=60;
+		poderesVelocidade.body.gravity.y = 100;
+		poderesVelocidade.tint=0xFFFF00;
+
 
 		 //TOCA
 		passa = game.add.sprite(2900, game.world.height-370, 'toca');
@@ -225,13 +232,20 @@ function tocarPoderImunidade (player, poder) {
     poder.kill();
     poderCons=1;
     timeout= setTimeout(desativaPoder, 15000);
+}
 
-
-
-    }
+function tocarPoderVelocidade (player, poder) {
+    poder.kill();
+    poderConsVel=1;
+    timeout= setTimeout(desativaPoderVelocidade, 15000);
+}
 
 function desativaPoder(){
     poderCons=0;
+}
+
+function desativaPoderVelocidade(){
+    poderConsVel=0;
 }
 
 
@@ -262,7 +276,8 @@ function update() {
 		game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
     game.physics.arcade.overlap(player, armadilhas, tocarArmadilha, null, this);
     game.physics.arcade.overlap(player, poderesImunidade, tocarPoderImunidade, null, this);
-    game.physics.arcade.overlap(player, passa, finish, null, this);
+		game.physics.arcade.overlap(player, poderesVelocidade, tocarPoderVelocidade, null, this);
+		game.physics.arcade.overlap(player, passa, finish, null, this);
 
    	if (mulher){
         if (mulher.x <425){
@@ -292,15 +307,24 @@ function update() {
     if (cursors.left.isDown)
     {
         //  Move to the left
-        player.body.velocity.x = -300;
-
+				if (poderConsVel==0){
+					player.body.velocity.x = -300;
+				}
+        else{
+					player.body.velocity.x = -400;
+				}
         player.animations.play('left');
 				player.goesRight = false;
     }
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        player.body.velocity.x = 300;
+				if (poderConsVel==0){
+					player.body.velocity.x = 300;
+				}
+        else{
+					player.body.velocity.x = 400;
+				}
 
         player.animations.play('right');
 				player.goesRight = true;
@@ -321,7 +345,12 @@ function update() {
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.onFloor() && hitPlatform)
     {
-        player.body.velocity.y = -450;
+				if (poderConsVel==0){
+        	player.body.velocity.y = -450;
+				}
+				else{
+					player.body.velocity.y = -500;
+				}
     }
 }
 
