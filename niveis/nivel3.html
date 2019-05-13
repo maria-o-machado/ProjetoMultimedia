@@ -1,0 +1,466 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Nivel3</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1344 , 756, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+ 
+var plataformas;
+var player;
+var cursors;
+
+var stars;
+var score = 0;
+
+var mulher;
+var timeout;
+var timer;
+var poderCons=0;
+var poderConsTam=0;
+
+
+
+function preload() {
+    game.load.image('background', '../resources/background2.jpg');
+    game.load.image('chao', '../resources/chao2.jpg');
+    game.load.image('queijoBom', '../resources/QueijoBom.png');
+    game.load.image('queijoVenenoso', '../resources/QueijoVenenoso.png');
+    game.load.image('toca', '../resources/Toca.png');
+    game.load.image('poder', '../resources/Poderes.png');
+    game.load.image('poderAumenta', '../resources/poderAumenta.png');
+    game.load.image('armadilha', '../resources/Armadilha3.png');
+    game.load.image('saude', '../resources/saude.png');
+    game.load.image('saudenivel', '../resources/saudenivel.png');
+    game.load.spritesheet('Pessoa', '../resources/pessoas.png',1010,2430);
+    game.load.spritesheet('rato', '../resources/ratos.png', 166.67, 90);
+    game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
+
+}
+
+
+function create() {
+
+    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40); 
+     //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.pageAlignVertically = true;
+    game.scale.pageAlignHorizontally = true;
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'background');
+    saudenivel= game.add.sprite(40, 15, 'saude');
+    barrasaude=game.add.sprite(40, 15, 'saudenivel');
+    saudenivel.width=280;
+    barrasaude.width=280;
+
+    //game.setCollisionBetween(3, 12, true, 'solid');
+    //PLATAFORMAS
+    plataformas=game.add.group();
+    plataformas.enableBody = true;
+
+    // CHAO
+    //PRIMEIRO PISO
+    var chao = plataformas.create(0,  game.world.height - 30, 'chao');
+    chao.width=300;
+    chao.height=30;
+    game.physics.enable(chao);
+    chao.body.immovable = true;
+
+    //SEGUNDO PISO
+    chao = plataformas.create(500,  game.world.height - 116, 'chao');
+    chao.width=125;
+    chao.height=30;
+    game.physics.enable(chao);
+    chao.body.immovable = true;
+
+
+    // TERCEIRO PISO
+    chao = plataformas.create(750,  game.world.height - 50, 'chao');
+    chao.width=300;
+    chao.height=30;
+    game.physics.enable(chao);
+    chao.body.immovable = true;
+
+    //QUARTO PISO
+    chao = plataformas.create(1150,  game.world.height - 125, 'chao');
+    game.physics.enable(chao);
+    chao.width=150;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(850,  game.world.height - 215, 'chao');
+    game.physics.enable(chao);
+    chao.width=250;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(500,  game.world.height - 300, 'chao');
+    game.physics.enable(chao);
+    chao.width=200;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(300,  game.world.height - 375, 'chao');
+    game.physics.enable(chao);
+    chao.width=100;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(600,  game.world.height - 425, 'chao');
+    game.physics.enable(chao);
+    chao.width=200;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(900,  game.world.height - 500, 'chao');
+    game.physics.enable(chao);
+    chao.width=150;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(1150,  game.world.height - 550, 'chao');
+    game.physics.enable(chao);
+    chao.width=200;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    chao = plataformas.create(0,  game.world.height - 425, 'chao');
+    game.physics.enable(chao);
+    chao.width=100;
+    chao.height=30;
+    chao.body.immovable = true;
+
+    player = game.add.sprite(53, game.world.height - 200 , 'rato');
+
+    //  We need to enable physics on the player
+    game.physics.arcade.enable(player);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.3;
+    player.body.gravity.y = 500;
+    player.body.collideWorldBounds = true;
+    player.width=87;
+    player.height=47.25;
+    player.goesRight=true;
+
+    //  Our two animations, walking left and right.
+    player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
+    player.animations.add('right', [6, 7, 8, 9,10, 11], 20, true);
+
+    //QUEIJOS BRANCOS
+    queijosB = game.add.group();
+    queijosB.enableBody = true;
+
+    queijoB = queijosB.create(1150, game.world.height - 340, 'queijoBom');
+    queijoB.body.gravity.y = 100;
+    queijoB.height=37.5;
+    queijoB.width=37.5;
+
+    queijoB = queijosB.create(550, game.world.height - 500, 'queijoBom');
+    queijoB.body.gravity.y = 100;
+    queijoB.height=37.5;
+    queijoB.width=37.5;
+
+    //QUEIJOS VENENOSOS
+    queijosV = game.add.group();
+    queijosV.enableBody = true;
+
+    queijoV = queijosV.create(175, game.world.height - 230, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+    queijoV = queijosV.create(300, game.world.height - 500, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+    queijoV = queijosV.create(575, game.world.height - 300, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+    queijoV = queijosV.create(700, game.world.height - 650, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+    queijoV = queijosV.create(1000, game.world.height - 700, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+
+    //Poderes
+    poderes = game.add.group();
+    poderes.enableBody = true;
+    poderesImunidade = poderes.create(1250, game.world.height - 340, 'poder');
+    poderesImunidade.body.gravity.y = 100;
+    poderesImunidade.height=45;
+    poderesImunidade.width=45;
+
+    poderesTamanho = poderes.create(5, game.world.height - 675, 'poderAumenta');
+    poderesTamanho.body.gravity.y = 100;
+    poderesTamanho.height=45;
+    poderesTamanho.width=45;
+
+
+    //HUMANO
+
+    mulher = game.add.sprite( 850, game.world.height - 375, 'Pessoa');
+    mulher.width=64.5;
+    mulher.height=159.75;
+    game.physics.arcade.enable(mulher);
+    mulher.body.collideWorldBounds = true;
+    mulher.animations.add('left', [0], 9, true);
+    mulher.animations.add('right', [1], 9, true);
+    mulher.body.velocity.x = 70;
+    mulher.animations.play('right');
+
+    mulher3 = game.add.sprite(1050, game.world.height - 375, 'Pessoa');
+    mulher3.width=64.5;
+    mulher3.height=159.75;
+    game.physics.arcade.enable(mulher3);
+    mulher3.body.collideWorldBounds = true;
+    mulher3.animations.add('left', [0], 9, true);
+    mulher3.animations.add('right', [1], 9, true);
+    mulher3.body.velocity.x = -70;
+    mulher3.animations.play('left');
+
+    mulher1 = game.add.sprite(600, game.world.height - 585, 'Pessoa');
+    mulher1.width=64.5;
+    mulher1.height=159.75;
+    game.physics.arcade.enable(mulher1);
+    mulher1.body.collideWorldBounds = true;
+    mulher1.animations.add('left', [0], 9, true);
+    mulher1.animations.add('right', [1], 9, true);
+    mulher1.body.velocity.x = 70;
+    mulher1.animations.play('right');
+
+    //armadilhas
+    arma = game.add.group();
+    arma.enableBody = true;
+    armadilhas=arma.create(920, game.world.height-100,'armadilha');
+    armadilhas.body.gravity.y = 100;  
+    game.physics.arcade.enable(armadilhas);
+
+    //toca
+    end = game.add.group();
+    end.enableBody = true;
+    passa = end.create (1250, game.world.height-650, 'toca');
+    passa.body.gravity.y = 100; 
+    game.physics.arcade.enable(passa);
+    passa.height = 67.5;
+    passa.width = 75;
+
+    cursors = game.input.keyboard.createCursorKeys(); 
+}
+
+function comerQueijo (player, queijo) {
+
+    if (saudenivel.width< 280){
+        saudenivel.width+=70;
+    }
+    queijo.kill();
+
+}
+
+function comerQueijoMau (player, queijoMau) {
+
+    // Removes the star from the screen
+    if (poderCons==0){
+        saudenivel.width-=70;
+        if (saudenivel.width<=0){
+            player.kill();
+            resetGame();
+        }
+    queijoMau.kill();
+    }
+}
+
+function ataqueMulher (player, mulher) {
+    if (player.body.touching.down) {
+        mulher.body.enable = false;
+        player.body.velocity.y = -70;
+        mulher.animations.stop();
+        mulher.kill();
+    }
+    else{
+        if (poderCons==0){
+            saudenivel.width-=140;
+            mulher.kill();
+            if (saudenivel.width<=0){
+                player.kill();
+                resetGame();
+            }
+        }
+    }
+}
+
+function tocarArmadilha (player, armadilha) {
+    if (poderCons==0){
+    player.kill();
+    resetGame();   
+    }
+}
+
+function tocarPoderImunidade (player, poder) {
+    poder.kill();
+    poderCons=1;
+    var timeout= setTimeout(desativaPoder, 15000);
+}
+
+function tocarPoderTamanho (player, poder) {
+    poder.kill();
+    player.width=104;
+    player.height=56;
+    var timer= setTimeout(desativaPoderTam, 15000);
+}
+
+function desativaPoder(){
+    poderCons=0;
+}
+
+function desativaPoderTam(){
+    player.width=87;
+    player.height=47.25;
+}
+
+function finish(player) {
+    player.kill();
+    game.time.reset();
+    clearTimeout(timeout);
+    clearTimeout(timer);
+    poderCons=0;    
+    location.href = "../html/menuniveis.html"
+}
+
+function resetGame(){
+    game.time.reset();
+    clearTimeout(timeout);
+
+    poderCons=0;
+    game.state.restart();
+
+}
+
+
+function update() {
+    time.destroy();
+    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40); 
+    time.tint=0xfa0013;
+
+    //  Collide the player and the stars with the platforms
+    var hitPlatform = game.physics.arcade.collide(player, plataformas);
+
+    game.physics.arcade.collide(armadilhas, plataformas);
+    game.physics.arcade.collide(queijosB, plataformas);
+    game.physics.arcade.collide(queijosV, plataformas);
+    game.physics.arcade.collide(poderesImunidade, plataformas);
+    game.physics.arcade.collide(poderesTamanho, plataformas);
+
+    game.physics.arcade.collide(end, plataformas);
+
+    game.physics.arcade.collide(mulher, plataformas);  
+
+    game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
+    game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
+    game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
+    game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
+     game.physics.arcade.overlap(player, mulher3, ataqueMulher, null, this);
+
+    game.physics.arcade.overlap(player, poderesImunidade, tocarPoderImunidade, null, this);
+    game.physics.arcade.overlap(player, poderesTamanho, tocarPoderTamanho, null, this);
+    game.physics.arcade.overlap(player, arma, tocarArmadilha, null, this);
+    game.physics.arcade.overlap(player, end, finish, null, this);
+ 
+    if (mulher){
+        if (mulher.x < 850){
+            mulher.body.velocity.x = 70;
+            mulher.animations.play('right');
+        } 
+        else if(mulher.x > 1050){
+            mulher.body.velocity.x = -70;
+            mulher.animations.play('left');
+        }
+    }
+
+    if (mulher3){
+        if (mulher3.x < 850){
+            mulher3.body.velocity.x = 70;
+            mulher3.animations.play('right');
+        } 
+        else if(mulher3.x > 1050){
+            mulher3.body.velocity.x = -70;
+            mulher3.animations.play('left');
+        }
+    }
+
+    if (mulher1){
+        if (mulher1.x < 600){
+            mulher1.body.velocity.x = 70;
+            mulher1.animations.play('right');
+        } 
+        else if(mulher1.x > 750){
+            mulher1.body.velocity.x = -70;
+            mulher1.animations.play('left');
+        }
+    }
+
+    player.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        player.body.velocity.x = -300;
+        player.animations.play('left');
+        player.goesRight = false;
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 300;
+        player.animations.play('right');
+        player.goesRight = true;
+    }
+    else
+    {
+        if (player.goesRight){
+            player.frame = 6;
+        } 
+        else{
+            player.frame = 5;
+        }
+        //  Stand still
+        player.animations.stop();
+    }
+
+   
+
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+    {
+        player.body.velocity.y = -450;
+    }
+
+    if (player.body.onFloor()) {
+        player.body.collideWorldBounds = false;
+        resetGame();
+    }
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Creditos</title>
+    <meta charset="utf-8">
+		<link rel="stylesheet" href="../css/projeto.css">
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+  </head>
+
+
+  <body>
+    <audio controls autoplay loop style="display:none">
+       <source src="../resources/musica.mp3" type="audio/mpeg" >
+      Your browser does not support the audio element.
+    </audio>
+    <nav>
+      <button class="botoes" id="buttonVoltar"><img src="../resources/botoes/voltar.png" width="160" height="66"></button>
+      <button class="botoes" id="buttonSaircred"><img src="../resources/botoes/sair.png" width="160" height="66"></button>
+    </nav>
+    <script type="text/javascript" src="../code/creditos.js" defer="true"></script>
+    <script type="text/javascript">
+      var game = new Phaser.Game(1344 , 756, Phaser.AUTO, '', { preload: preload, create: create});
+
+      function preload() {
+        game.load.image('background', '../resources/background.jpg');
+        game.load.image('ratoparado', '../resources/RatoParado.png');
+        game.load.image('fundocreditos', '../resources/creditos.png');
+      }
+
+      function create() {
+
+         //  We're going to be using physics, so enable the Arcade Physics system
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.scale.pageAlignVertically = true;
+        game.scale.pageAlignHorizontally = true;
+
+        //  A simple background for our game
+        game.add.sprite(0, 0, 'background');
+        
+        rato = game.add.sprite(700, game.world.height - 170, 'ratoparado');
+        rato.height=190;
+        rato.width=190;
+
+        creditos = game.add.sprite(265, game.world.height - 650, 'fundocreditos');
+        creditos.width=800;
+        creditos.height=366;
+        
+      }
+      
+      </script>
+  </body>
+
+</html>

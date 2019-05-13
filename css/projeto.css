@@ -1,0 +1,223 @@
+header, nav, main{
+  margin: auto;
+}
+
+
+#photo{
+  margin: auto;
+  position: absolute;
+  width: 55%; 
+  height: 70%;
+  left:24%;
+  top: 5%;
+  font-size: 20px;
+  z-index: 1;
+  text-align: center;
+  overflow: hidden;
+}
+
+.definicoes{
+  position: fixed;
+  margin: auto;
+  position: absolute;
+  left:23%;
+  top: 24%;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+
+.botoes{
+  position: fixed;
+  border: none;
+  padding: 0px;
+  padding: 0px;
+  margin: 0px;
+  display: block; 
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#buttonNivel1{
+  position: absolute; 
+  top:23%; 
+  left:29%;
+}
+
+#buttonNivel2{
+  position: absolute; 
+  top:43%; 
+  left:29%;
+}
+
+#buttonNivel3{
+  position: absolute; 
+  top:33%; 
+  left:44%;
+}
+
+#buttonNivel4{
+  position: absolute; 
+  top:23%; 
+  left:59%;
+}
+
+#buttonNivel5{
+  position: absolute; 
+  top:43%; 
+  left:59%;
+}
+
+#buttonLogin{
+  position: absolute; 
+  top:55%; 
+  left:30%;  
+}
+#buttonJogar{
+  position: absolute; 
+  top:28%; 
+  left:43%; 
+}
+
+#buttonTutorial{
+  position: absolute; 
+  top:38%; 
+  left:43%; 
+}
+
+#buttonRanking{
+  position: absolute; 
+  top:48%; 
+  left:43%; 
+}
+
+#buttonDefinicoes{
+  position: absolute; 
+  top:58%; 
+  left:43%; 
+}
+
+#buttonSair{
+  position: absolute; 
+  top:68%; 
+  left:43%; 
+}
+
+#buttonCreditos{
+  position: absolute; 
+  top:87%; 
+  left:44%; 
+}
+
+#buttonVoltar{
+  position: absolute; 
+  top: 85%; 
+  left: 21%; 
+}
+
+#buttonJogo{
+  position: absolute; 
+  top: 85%; 
+  left: 67%; 
+}
+
+#buttonSaircred{
+  position: absolute; 
+  top: 85%; 
+  left: 67%; 
+}
+
+#buttonSairLogin{
+  position: absolute; 
+  top: 87%; 
+  left: 67%; 
+}
+
+#buttonFrente{
+  position: absolute; 
+  top: 77%; 
+  left: 53%; 
+}
+
+#buttonTras{
+  position: absolute; 
+  top: 77%; 
+  left: 44%; 
+}
+
+#onSons{
+  position: absolute; 
+  top: 39%; 
+  left: 38%; 
+}
+
+#offSons{
+  position: absolute; 
+  top: 39%; 
+  left: 49%; 
+}
+
+#onMusica{
+  position: absolute; 
+  top: 54%; 
+  left: 42%; 
+}
+
+#offMusica{
+  position: absolute; 
+  top: 54%; 
+  left: 53%; 
+}
+
+.rato{
+  margin: auto;
+  position: absolute;
+  top: 77%;
+  left:55%;
+  display: block; 
+}
+
+.logoJogo{
+  margin: auto;
+  position: absolute;
+  top: 15%;
+  left:24%;
+  z-index: 1;
+  display: block; 
+}
+
+.logoJogo1{
+  margin: auto;
+  position: absolute;
+  top: 10%;
+  left:24%;
+  z-index: 1;
+  display: block; 
+}
+
+.InsiraNome{
+  position: fixed;
+  top: 40%;
+  left:30%;
+  font-size: 25px;
+  color: black;
+  font-family: Arial, Helvitica, sans-serif;
+}
+
+.InsiraTexto{
+  display: block;
+  margin: auto;
+  position: fixed;
+  top: 47%;
+  font-size: 20px;
+  left:30%;
+  width: 30%;
+  height: 5%;
+  color: white;
+  background-color: black;
+}

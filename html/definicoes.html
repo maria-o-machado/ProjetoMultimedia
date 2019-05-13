@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Definicoes</title>
+    <meta charset="utf-8">
+		<link rel="stylesheet" href="../css/projeto.css">
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+  </head>
+
+
+  <body>
+    <audio controls autoplay loop style="display:none">
+       <source src="../resources/musica.mp3" type="audio/mpeg" >
+      Your browser does not support the audio element.
+    </audio>
+      
+    <nav>
+      <button class="botoes" id="onSons"><img src="../resources/botoes/on.png" width="83" height="61"></button>
+      <button class="botoes" id="offSons"><img src="../resources/botoes/off.png" width="83" height="61"></button>
+      <button class="botoes" id="onMusica"><img src="../resources/botoes/on.png" width="83" height="61"></button>
+      <button class="botoes" id="offMusica"><img src="../resources/botoes/off.png" width="83" height="61"></button>
+      <button class="botoes" id="buttonVoltar"><img src="../resources/botoes/voltar.png" width="160" height="66"></button>
+    </nav>
+
+    <script type="text/javascript" src="../code/definicoes.js" defer="true"></script>
+    <script type="text/javascript">
+      var game = new Phaser.Game(1344 , 756, Phaser.AUTO, '', { preload: preload, create: create});
+
+      function preload() {
+        game.load.image('background', '../resources/background.jpg');
+        game.load.image('ratoparado', '../resources/RatoParado.png');
+        game.load.image('fundodefinicoes', '../resources/caixaDef.png');
+      }
+
+      function create() {
+
+         //  We're going to be using physics, so enable the Arcade Physics system
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.scale.pageAlignVertically = true;
+        game.scale.pageAlignHorizontally = true;
+
+        //  A simple background for our game
+        game.add.sprite(0, 0, 'background');
+        
+        rato = game.add.sprite(700, game.world.height - 170, 'ratoparado');
+        rato.height=190;
+        rato.width=190;
+
+        definicoes = game.add.sprite(250, game.world.height - 600, 'fundodefinicoes');
+        definicoes.height=366;
+        definicoes.width=800;
+        
+      }
+      
+      </script>
+ 
+  </body>
+
+</html>
