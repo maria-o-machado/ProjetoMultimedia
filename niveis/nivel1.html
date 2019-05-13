@@ -121,7 +121,6 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
 
     mulher = game.add.sprite(450, game.world.height - 450 , 'pessoa');
-
     mulher.width=86
     mulher.height=213
     game.physics.arcade.enable(mulher);
@@ -131,12 +130,28 @@ function create() {
     mulher.body.velocity.x = 100;
     mulher.animations.play('right');
 
+		mulher1 = game.add.sprite(1880, game.world.height - 450 , 'pessoa');
+		mulher1.width=86
+    mulher1.height=213
+    game.physics.arcade.enable(mulher1);
+    mulher1.body.collideWorldBounds = true;
+    mulher1.animations.add('left', [0], 9, true);
+    mulher1.animations.add('right', [1], 9, true);
+    mulher1.body.velocity.x = 100;
+    mulher1.animations.play('right');
 
-    game.physics.arcade.enable(armadilha);
-    game.physics.arcade.enable(poder);
+
+		armadilhas = game.add.group();
+		game.physics.arcade.enable(armadilhas);
+    armadilhas.enableBody = true;
+    armadilha=armadilhas.create(2260, game.world.height-500,'armadilha');
+    armadilha.body.gravity.y = 100;
+
+
+
+		game.physics.arcade.enable(poder);
 
      //toca
-
     passa = game.add.sprite(2900, game.world.height-370, 'toca');
     game.physics.arcade.enable(passa);
     passa.height = 75;
@@ -236,13 +251,15 @@ function update() {
     game.physics.arcade.collide(queijosB, layer);
     game.physics.arcade.collide(queijosV, layer);
     game.physics.arcade.collide(queijosV, layer);
+		game.physics.arcade.collide(armadilhas, layer);
     game.physics.arcade.collide(poder, layer);
     game.physics.arcade.collide(passa, layer);
 
     game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
     game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
     game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
-    game.physics.arcade.overlap(player, armadilha, tocarArmadilha, null, this);
+		game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
+    game.physics.arcade.overlap(player, armadilhas, tocarArmadilha, null, this);
     game.physics.arcade.overlap(player, poder, tocarPoder, null, this);
     game.physics.arcade.overlap(player, passa, finish, null, this);
 
@@ -254,6 +271,17 @@ function update() {
         else if(mulher.x >560 ){
             mulher.body.velocity.x = -100;
             mulher.animations.play('left');
+        }
+    }
+
+		if (mulher1){
+        if (mulher1.x <1880){
+            mulher1.body.velocity.x = 100;
+            mulher1.animations.play('right');
+        }
+        else if(mulher1.x >1970){
+            mulher1.body.velocity.x = -100;
+            mulher1.animations.play('left');
         }
     }
 
