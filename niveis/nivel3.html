@@ -61,7 +61,7 @@ function create() {
 
     //  A simple background for our game
     game.add.tileSprite(0, 0, 3000,750,'background');
-    game.world.setBounds(0, 0, 3000, 750);
+    game.world.setBounds(0, 0, 3000, 750); 
     saudenivel= game.add.sprite(40, 15, 'saude');
     barrasaude=game.add.sprite(40, 15, 'saudenivel');
     saudenivel.width=280;
@@ -84,7 +84,7 @@ function create() {
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.body.bounce.y = 0.3;
-    player.body.gravity.y = 1000;
+    player.body.gravity.y = 850;
     player.body.collideWorldBounds = false;
     player.width=87;
     player.height=47.25;

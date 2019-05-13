@@ -25,6 +25,8 @@ var stars;
 var mulher;
 var score = 0;
 var timeout;
+var timeout2;
+
 
 function preload() {
 	game.load.image('background', '../resources/backgroundnivelnew2.jpg');
@@ -171,6 +173,7 @@ function create() {
 function resetGame(){
     game.time.reset();
     clearTimeout(timeout);
+    clearTimeout(timeout2);
     poderCons=0;
     game.state.restart();
 }
@@ -179,6 +182,7 @@ function finish(player) {
     player.kill();
     game.time.reset();
     clearTimeout(timeout);
+    clearTimeout(timeout2);
     poderCons=0;
     location.href = "nivel2.html"
 }
@@ -237,7 +241,7 @@ function tocarPoderImunidade (player, poder) {
 function tocarPoderVelocidade (player, poder) {
     poder.kill();
     poderConsVel=1;
-    timer= setTimeout(desativaPoderVelocidade, 15000);
+    timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function desativaPoder(){
