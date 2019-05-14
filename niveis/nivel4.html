@@ -293,6 +293,11 @@ function update() {
   time.fixedToCamera=true;
   time.tint=0xfa0013;
 
+  displayscore.destroy()
+  displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+
+
   //  Collide the player and the stars with the platforms
   var hitPlatform = game.physics.arcade.collide(layer, player);
 

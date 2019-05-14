@@ -181,16 +181,6 @@ function finish(player) {
 	clearTimeout(timeout);
 	clearTimeout(timeout2);
 	poderCons=0;
-	/*for (var key in localStorage) {
-	    var score2=localStorage.getItem(key);
-	    if (score2==0){
-	        var str1 = key;
-	        var str2 = "-nivel1";
-	        var nome = str1.concat(str2);
-	        localStorage.setItem(nome, score);
-	       	    }
-	}
-	*/
 }
 
 function comerQueijo (player, queijo) {
@@ -271,6 +261,11 @@ function update() {
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
 	time.fixedToCamera=true;
 	time.tint=0xfa0013;
+	
+    displayscore.destroy()
+    displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+    displayscore.fixedToCamera=true;
+
 
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
