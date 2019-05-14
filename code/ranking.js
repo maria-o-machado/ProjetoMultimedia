@@ -17,6 +17,13 @@ function main()
 	var buttonFrente = document.getElementById("buttonFrente");
 	var buttonTras = document.getElementById("buttonTras");
 	var jogar = document.getElementById("buttonJogo");
+	var music = document.getElementById("musica");
+	var ativado = localStorage.getItem("musica");
+	if (ativado=="on"){
+		music.play();
+		music.loop = true;
+	}
+
 	var nivelAtivo="nivel1";
 
 	setTexto(cliques);
@@ -119,9 +126,11 @@ function setTexto(cliques){
 		}
 	}
 
-	for (var i=0; i<vetorscore.length; i++){
-		var string = vetornome[i]+"        "+vetorscore[i];
-		document.getElementById("ranking".concat(i+1)).innerHTML = string;
+	for (var i=0; i<11; i++){
+		if (i<vetorscore.length){
+			var string = vetornome[i]+"        "+vetorscore[i];
+			document.getElementById("ranking".concat(i+1)).innerHTML = string;
+		}
 	}
 }
 

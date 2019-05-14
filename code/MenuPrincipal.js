@@ -13,6 +13,13 @@ function main()
 	var definicoes = document.getElementsByTagName("button")[3];
 	var sair = document.getElementsByTagName("button")[4];
 	var creditos= document.getElementsByTagName("button")[5];
+	var music = document.getElementById("musica");
+	
+	var ativado = localStorage.getItem("musica");
+	if (ativado=="on"){
+		music.play();
+		music.loop = true;
+	}
 	
 	jogar.addEventListener("click", jogarClickHandler, true);
 	creditos.addEventListener("click", creditosClickHandler, true);  

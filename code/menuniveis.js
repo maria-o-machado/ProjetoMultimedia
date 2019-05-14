@@ -14,6 +14,13 @@ function main()
 	var buttonNivel3 = document.getElementById("buttonNivel3");
 	var buttonNivel4 = document.getElementById("buttonNivel4");
 	var buttonNivel5 = document.getElementById("buttonNivel5");
+	var music = document.getElementById("musica");
+	
+	var ativado = localStorage.getItem("musica");
+	if (ativado=="on"){
+		music.play();
+		music.loop = true;
+	}
 
 	var buttonAtivado="null";
 
