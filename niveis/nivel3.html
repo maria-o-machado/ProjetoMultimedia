@@ -227,6 +227,7 @@ function create() {
 }
 
 function comerQueijo (player, queijo) {
+    score+=100;
     if (saudenivel.width!= 280){
         saudenivel.width+=70;
     }
@@ -247,6 +248,7 @@ function comerQueijoMau (player, queijoMau) {
 
 function ataqueMulher (player,mulher) {
     if (mulher.body.touching.up){
+        score+=50;
         mulher.body.enable = false;
         player.body.velocity.y = -70;
         mulher.animations.stop();
@@ -273,12 +275,14 @@ function tocarArmadilha (player, armadilha) {
 
 function tocarPoderImunidade (player, poder) {
   poder.kill();
+  score+=150;
   poderCons=1;
   timeout= setTimeout(desativaPoder, 15000);
 }
 
 function tocarPoderTamanho (player, poder) {
     poder.kill();
+    score+=150;
     player.width=104;
     player.height=56;
     var timer= setTimeout(desativaPoderTam, 10000);
@@ -299,6 +303,16 @@ function finish(player) {
     clearTimeout(timeout);
     clearTimeout(timer);
     poderCons=0;
+    for (var key in localStorage) {
+  	    var score2=localStorage.getItem(key);
+  	    if (score2==0){
+  	        var str1 = key;
+  	        var str2 = "-nivel3";
+  	        var nome = str1.concat(str2);
+  	        localStorage.setItem(nome, score);
+  	        location.href = "nivel4.html";
+        }
+    }
     location.href = "nivel4.html"
 }
 
@@ -307,6 +321,7 @@ function resetGame(){
     clearTimeout(timeout);
     clearTimeout(timer);
     poderCons=0;
+    score=0;
     game.state.restart();
 
 }
