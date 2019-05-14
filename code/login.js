@@ -8,10 +8,10 @@
 function main()
 {
 	//Limpar os usernames que tem scores a 0
-	for (var i=1; i <= localStorage.length; i++)  {
-   		var score=localStorage.getItem(i);
+	for (var key in localStorage)  {
+   		var score=localStorage.getItem(key);
    		if (score == 0){
-   			localStorage.removeItem(i);
+   			localStorage.removeItem(key);
    		}
 	}
 	var login = document.getElementsByTagName("button")[0];
