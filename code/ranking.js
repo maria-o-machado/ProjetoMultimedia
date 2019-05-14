@@ -126,11 +126,9 @@ function setTexto(cliques){
 		}
 	}
 
-	for (var i=0; i<11; i++){
-		if (i<vetorscore.length){
-			var string = vetornome[i]+"        "+vetorscore[i];
-			document.getElementById("ranking".concat(i+1)).innerHTML = string;
-		}
+	for (var i=0; i<vetorscore.length; i++){
+		var string = vetornome[i]+"        "+vetorscore[i];
+		document.getElementById("ranking".concat(i+1)).innerHTML = string;
 	}
 }
 
