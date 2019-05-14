@@ -7,9 +7,10 @@ header, nav, main{
   z-index: 100;
   color: white;
   font-size: 24px;
-  left: 31%;
+  left: 30%;
   top: 24%;
   line-height: 0.33;
+  font-weight: 900;
 }
 
 #photo{
