@@ -7,6 +7,13 @@
 
 function main()
 {
+	//Limpar os usernames que tem scores a 0
+	for (var i=1; i <= localStorage.length; i++)  {
+   		var score=localStorage.getItem(i);
+   		if (score == 0){
+   			localStorage.removeItem(i);
+   		}
+	}
 	var login = document.getElementsByTagName("button")[0];
 	var sair = document.getElementsByTagName("button")[1];
 	login.addEventListener("click", loginClickHandler, true);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão)
@@ -36,7 +43,7 @@ function loginClickHandler(ev)
 			localStorage.setItem(name, 0);
 			location.href = "../html/MenuPrincipal.html";
 		}
-	} 
+	}
 }
 
 function setCookie(cname, cvalue, exdays) {
