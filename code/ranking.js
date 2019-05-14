@@ -34,9 +34,31 @@ function main()
 
 	mudaImagem(cliques, photo);
 
+	var user;
+	for (var key in localStorage){
+		var bloqueado = localStorage.getItem(key);
+		if (bloqueado==0){
+			user = key;
+		}
+	}
+
 	function but(ev){
 		cliques = botao(ev, cliques);
 		nivelAtivo = "nivel"+cliques;
+		if (cliques!=1){
+			var result = localStorage.getItem(key+"-nivel"+cliques);
+			if (result==null){
+				jogar.disabled = true;
+				jogar.style.filter="grayscale(100%)";
+				jogar.style.cursor="auto";
+			}
+		}
+		else{
+			jogar.style.filter="none";
+			jogar.disabled = false;
+			jogar.style.cursor = "pointer";
+			jogar.style.opacity = 1;
+		}
 	}
 
 	function jogarNivel(ev){
