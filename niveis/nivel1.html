@@ -48,7 +48,8 @@ function preload() {
 function create() {
 
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-
+    displayscore= game.add.bitmapText( 1350/2+ 40, 20, 'myfont', String(score), 40);
+    displayscore.fixedToCamera=true;
 	//  We're going to be using physics, so enable the Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.scale.pageAlignVertically = true;
@@ -272,6 +273,11 @@ function update() {
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
 	time.fixedToCamera=true;
 	time.tint=0xfa0013;
+
+    displayscore.destroy()
+    displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+    displayscore.fixedToCamera=true;
+
 
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
