@@ -110,10 +110,10 @@ function setTexto(cliques){
 		}
 	}
 
-	for (var i=0; i<vetorscore.length; i++){
+	for (var i=0; i<vetorscore.length-1; i++){
 		var menor=i;
 		for (var j=i+1; j<vetorscore.length; j++){
-			if (vetorscore[j] > vetorscore[menor])
+			if (parseInt(vetorscore[j]) > parseInt(vetorscore[menor]))
 				menor=j
 		}
 		if (menor!=i){
@@ -126,9 +126,16 @@ function setTexto(cliques){
 		}
 	}
 
-	for (var i=0; i<vetorscore.length; i++){
+	for (var i=0; i<vetorscore.length && i<10; i++){
 		var string = vetornome[i]+"        "+vetorscore[i];
 		document.getElementById("ranking".concat(i+1)).innerHTML = string;
+	}
+
+	console.log(vetorscore);
+	if (vetorscore.length<10){
+		for (var i=vetorscore.length; i<10; i++){
+				document.getElementById("ranking".concat(i+1)).innerHTML = "";
+		}
 	}
 }
 
