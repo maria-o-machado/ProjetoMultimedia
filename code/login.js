@@ -34,7 +34,11 @@ function loginClickHandler(ev)
    			if (key == name){
    				user = name;
    			}
-   		}
+				var keys = key.split("-")
+				if (keys[0] == name){
+   				user = name;
+   			}
+   	}
 		if(user!=""){
 			alert("User already used!");
 			return;
