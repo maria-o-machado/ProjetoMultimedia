@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Nivel3</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 var game = new Phaser.Game(1344 , 756, Phaser.AUTO, '', { preload: preload, create: create, update: update });
- 
+
 var plataformas;
 var player;
 var cursors;
@@ -27,7 +27,6 @@ var mulher;
 var timeout;
 var timer;
 var poderCons=0;
-var poderConsTam=0;
 
 
 
@@ -53,7 +52,7 @@ function preload() {
 
 function create() {
 
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40); 
+    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
      //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.pageAlignVertically = true;
@@ -61,7 +60,7 @@ function create() {
 
     //  A simple background for our game
     game.add.tileSprite(0, 0, 3000,750,'background');
-    game.world.setBounds(0, 0, 3000, 750); 
+    game.world.setBounds(0, 0, 3000, 750);
     saudenivel= game.add.sprite(40, 15, 'saude');
     barrasaude=game.add.sprite(40, 15, 'saudenivel');
     saudenivel.width=280;
@@ -98,12 +97,17 @@ function create() {
     queijosB = game.add.group();
     queijosB.enableBody = true;
 
-    queijoB = queijosB.create(1150, game.world.height - 340, 'queijoBom');
+    queijoB = queijosB.create(1840, game.world.height - 800, 'queijoBom');
     queijoB.body.gravity.y = 100;
     queijoB.height=37.5;
     queijoB.width=37.5;
 
-    queijoB = queijosB.create(550, game.world.height - 500, 'queijoBom');
+    queijoB = queijosB.create(670, game.world.height - 580, 'queijoBom');
+    queijoB.body.gravity.y = 100;
+    queijoB.height=37.5;
+    queijoB.width=37.5;
+
+    queijoB = queijosB.create(1230, game.world.height - 500, 'queijoBom');
     queijoB.body.gravity.y = 100;
     queijoB.height=37.5;
     queijoB.width=37.5;
@@ -112,109 +116,122 @@ function create() {
     queijosV = game.add.group();
     queijosV.enableBody = true;
 
-    queijoV = queijosV.create(175, game.world.height - 230, 'queijoVenenoso');
+    queijoV = queijosV.create(40, game.world.height - 400, 'queijoVenenoso');
     queijoV.body.gravity.y = 100;
     queijoV.height=37.5;
     queijoV.width=37.5;
 
-    queijoV = queijosV.create(300, game.world.height - 500, 'queijoVenenoso');
+    queijoV = queijosV.create(70, game.world.height - 400, 'queijoVenenoso');
     queijoV.body.gravity.y = 100;
     queijoV.height=37.5;
     queijoV.width=37.5;
 
-    queijoV = queijosV.create(575, game.world.height - 300, 'queijoVenenoso');
+    queijoV = queijosV.create(150, game.world.height - 300, 'queijoVenenoso');
     queijoV.body.gravity.y = 100;
     queijoV.height=37.5;
     queijoV.width=37.5;
 
-    queijoV = queijosV.create(700, game.world.height - 650, 'queijoVenenoso');
+    queijoV = queijosV.create(840, game.world.height - 130, 'queijoVenenoso');
     queijoV.body.gravity.y = 100;
     queijoV.height=37.5;
     queijoV.width=37.5;
 
-    queijoV = queijosV.create(1000, game.world.height - 700, 'queijoVenenoso');
+    queijoV = queijosV.create(950, game.world.height - 700, 'queijoVenenoso');
     queijoV.body.gravity.y = 100;
     queijoV.height=37.5;
     queijoV.width=37.5;
 
+    queijoV = queijosV.create(1590, game.world.height - 700, 'queijoVenenoso');
+    queijoV.body.gravity.y = 100;
+    queijoV.height=37.5;
+    queijoV.width=37.5;
+
+    //ARMADILHAS
+    armadilhas = game.add.group();
+    game.physics.arcade.enable(armadilhas);
+    armadilhas.enableBody = true;
+
+    armadilha=armadilhas.create(880, game.world.height-670,'armadilha');
+    armadilha.body.gravity.y = 100;
+
+    armadilha=armadilhas.create(840, game.world.height-500,'armadilha');
+    armadilha.body.gravity.y = 100;
+
+    armadilha=armadilhas.create(1910, game.world.height-800,'armadilha');
+    armadilha.body.gravity.y = 100;
+
+    armadilha=armadilhas.create(2110, game.world.height-800,'armadilha');
+    armadilha.body.gravity.y = 100;
+
+    armadilha=armadilhas.create(2250, game.world.height-300,'armadilha');
+    armadilha.body.gravity.y = 100;
 
     //Poderes
     poderes = game.add.group();
     poderes.enableBody = true;
-    poderesImunidade = poderes.create(1250, game.world.height - 340, 'poder');
+    poderesImunidade = poderes.create(2630, game.world.height - 500, 'poder');
     poderesImunidade.body.gravity.y = 100;
     poderesImunidade.height=45;
     poderesImunidade.width=45;
 
-    poderesTamanho = poderes.create(5, game.world.height - 675, 'poderAumenta');
-    poderesTamanho.body.gravity.y = 100;
+    poderesTamanho = game.add.sprite(100, game.world.height - 345, 'poderAumenta');
+    game.physics.arcade.enable(poderesTamanho);
     poderesTamanho.height=45;
     poderesTamanho.width=45;
 
-
     //HUMANO
 
-    mulher = game.add.sprite( 850, game.world.height - 375, 'Pessoa');
+    mulher = game.add.sprite(1000, game.world.height - 520, 'Pessoa');
     mulher.width=64.5;
     mulher.height=159.75;
     game.physics.arcade.enable(mulher);
     mulher.body.collideWorldBounds = true;
     mulher.animations.add('left', [0], 9, true);
     mulher.animations.add('right', [1], 9, true);
-    mulher.body.velocity.x = 70;
+    mulher.body.velocity.x = 100;
     mulher.animations.play('right');
 
-    mulher3 = game.add.sprite(1050, game.world.height - 375, 'Pessoa');
-    mulher3.width=64.5;
-    mulher3.height=159.75;
-    game.physics.arcade.enable(mulher3);
-    mulher3.body.collideWorldBounds = true;
-    mulher3.animations.add('left', [0], 9, true);
-    mulher3.animations.add('right', [1], 9, true);
-    mulher3.body.velocity.x = -70;
-    mulher3.animations.play('left');
-
-    mulher1 = game.add.sprite(600, game.world.height - 585, 'Pessoa');
+    mulher1 = game.add.sprite(320, game.world.height - 220, 'Pessoa');
     mulher1.width=64.5;
     mulher1.height=159.75;
     game.physics.arcade.enable(mulher1);
     mulher1.body.collideWorldBounds = true;
     mulher1.animations.add('left', [0], 9, true);
     mulher1.animations.add('right', [1], 9, true);
-    mulher1.body.velocity.x = 70;
+    mulher1.body.velocity.x = 100;
     mulher1.animations.play('right');
 
-    //armadilhas
-    arma = game.add.group();
-    arma.enableBody = true;
-    armadilhas=arma.create(920, game.world.height-100,'armadilha');
-    armadilhas.body.gravity.y = 100;  
-    game.physics.arcade.enable(armadilhas);
+    mulher2 = game.add.sprite(1940, game.world.height - 220, 'Pessoa');
+    mulher2.width=64.5;
+    mulher2.height=159.75;
+    game.physics.arcade.enable(mulher2);
+    mulher2.body.collideWorldBounds = true;
+    mulher2.animations.add('left', [0], 9, true);
+    mulher2.animations.add('right', [1], 9, true);
+    mulher2.body.velocity.x = 100;
+    mulher2.animations.play('right');
 
     //toca
     end = game.add.group();
     end.enableBody = true;
-    passa = end.create (1250, game.world.height-650, 'toca');
-    passa.body.gravity.y = 100; 
+    passa = end.create (2700, game.world.height-800, 'toca');
+    passa.body.gravity.y = 100;
     game.physics.arcade.enable(passa);
     passa.height = 67.5;
     passa.width = 75;
 
-    cursors = game.input.keyboard.createCursorKeys(); 
+    cursors = game.input.keyboard.createCursorKeys();
     game.camera.follow(player);
 }
 
 function comerQueijo (player, queijo) {
-
-    if (saudenivel.width< 280){
+    if (saudenivel.width!= 280){
         saudenivel.width+=70;
     }
     queijo.kill();
-
 }
 
 function comerQueijoMau (player, queijoMau) {
-
     // Removes the star from the screen
     if (poderCons==0){
         saudenivel.width-=70;
@@ -222,51 +239,51 @@ function comerQueijoMau (player, queijoMau) {
             player.kill();
             resetGame();
         }
-    queijoMau.kill();
+        queijoMau.kill();
     }
 }
 
-function ataqueMulher (player, mulher) {
-    if (player.body.touching.down) {
+function ataqueMulher (player,mulher) {
+    if (mulher.body.touching.up){
         mulher.body.enable = false;
         player.body.velocity.y = -70;
         mulher.animations.stop();
         mulher.kill();
-    }
-    else{
+      }
+      else{
         if (poderCons==0){
-            saudenivel.width-=140;
-            mulher.kill();
-            if (saudenivel.width<=0){
-                player.kill();
-                resetGame();
-            }
+          saudenivel.width-=140;
+          mulher.kill();
+          if (saudenivel.width<=0){
+            player.kill();
+            resetGame();
+          }
         }
-    }
+      }
 }
 
 function tocarArmadilha (player, armadilha) {
-    if (poderCons==0){
+  if (poderCons==0){
     player.kill();
-    resetGame();   
-    }
+    resetGame();
+  }
 }
 
 function tocarPoderImunidade (player, poder) {
-    poder.kill();
-    poderCons=1;
-    var timeout= setTimeout(desativaPoder, 15000);
+  poder.kill();
+  poderCons=1;
+  timeout= setTimeout(desativaPoder, 10000);
 }
 
 function tocarPoderTamanho (player, poder) {
     poder.kill();
     player.width=104;
     player.height=56;
-    var timer= setTimeout(desativaPoderTam, 15000);
+    var timer= setTimeout(desativaPoderTam, 8000);
 }
 
 function desativaPoder(){
-    poderCons=0;
+  poderCons=0;
 }
 
 function desativaPoderTam(){
@@ -279,14 +296,14 @@ function finish(player) {
     game.time.reset();
     clearTimeout(timeout);
     clearTimeout(timer);
-    poderCons=0;    
-    location.href = "../html/menuniveis.html"
+    poderCons=0;
+    location.href = "nivel4.html"
 }
 
 function resetGame(){
     game.time.reset();
     clearTimeout(timeout);
-
+    clearTimeout(timer);
     poderCons=0;
     game.state.restart();
 
@@ -297,7 +314,7 @@ function update() {
     player.checkWorldBounds=true;
     player.events.onOutOfBounds.add(resetGame, this);
     time.destroy();
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40); 
+    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
     time.fixedToCamera=true;
     time.tint=0xfa0013;
 
@@ -305,59 +322,56 @@ function update() {
 
     var hitPlatform = game.physics.arcade.collide(layer, player);
 
-
     game.physics.arcade.collide(queijosB, layer);
     game.physics.arcade.collide(queijosV, layer);
+    game.physics.arcade.collide(queijosV, layer);
+    game.physics.arcade.collide(armadilhas, layer);
     game.physics.arcade.collide(passa, layer);
 
-    game.physics.arcade.collide(poderesImunidade, layer);
+    game.physics.arcade.collide(poderes, layer);
     game.physics.arcade.collide(poderesTamanho, layer);
-
-    game.physics.arcade.collide(end, plataformas);
-
-    game.physics.arcade.collide(mulher, layer);  
 
     game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
     game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
     game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
     game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
-     game.physics.arcade.overlap(player, mulher3, ataqueMulher, null, this);
+    game.physics.arcade.overlap(player, mulher2, ataqueMulher, null, this);
 
-    game.physics.arcade.overlap(player, poderesImunidade, tocarPoderImunidade, null, this);
+    game.physics.arcade.overlap(player, poderes, tocarPoderImunidade, null, this);
     game.physics.arcade.overlap(player, poderesTamanho, tocarPoderTamanho, null, this);
-    game.physics.arcade.overlap(player, arma, tocarArmadilha, null, this);
+    game.physics.arcade.overlap(player, armadilhas, tocarArmadilha, null, this);
     game.physics.arcade.overlap(player, end, finish, null, this);
- 
+
     if (mulher){
-        if (mulher.x < 850){
-            mulher.body.velocity.x = 70;
+        if (mulher.x < 1000){
+            mulher.body.velocity.x = 100;
             mulher.animations.play('right');
-        } 
-        else if(mulher.x > 1050){
-            mulher.body.velocity.x = -70;
+        }
+        else if(mulher.x > 1090){
+            mulher.body.velocity.x = -100;
             mulher.animations.play('left');
         }
     }
 
-    if (mulher3){
-        if (mulher3.x < 850){
-            mulher3.body.velocity.x = 70;
-            mulher3.animations.play('right');
-        } 
-        else if(mulher3.x > 1050){
-            mulher3.body.velocity.x = -70;
-            mulher3.animations.play('left');
+    if (mulher1){
+        if (mulher1.x < 320){
+            mulher1.body.velocity.x = 100;
+            mulher1.animations.play('right');
+        }
+        else if(mulher1.x > 460){
+            mulher1.body.velocity.x = -100;
+            mulher1.animations.play('left');
         }
     }
 
-    if (mulher1){
-        if (mulher1.x < 600){
-            mulher1.body.velocity.x = 70;
-            mulher1.animations.play('right');
-        } 
-        else if(mulher1.x > 750){
-            mulher1.body.velocity.x = -70;
-            mulher1.animations.play('left');
+    if (mulher2){
+        if (mulher2.x < 1940){
+            mulher2.body.velocity.x = 100;
+            mulher2.animations.play('right');
+        }
+        else if(mulher2.x > 2040){
+            mulher2.body.velocity.x = -100;
+            mulher2.animations.play('left');
         }
     }
 
@@ -381,7 +395,7 @@ function update() {
     {
         if (player.goesRight){
             player.frame = 6;
-        } 
+        }
         else{
             player.frame = 5;
         }
@@ -389,15 +403,13 @@ function update() {
         player.animations.stop();
     }
 
-   
-
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.onFloor() && hitPlatform)
     {
         player.body.velocity.y = -450;
     }
 
-   
+
 
 }
 </script>
