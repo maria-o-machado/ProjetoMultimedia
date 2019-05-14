@@ -1,7 +1,7 @@
 "use strict";
 
 const pasta= "../resources/ranking/";
-const opInativa = 0;  
+const opInativa = 0;
 
 (function()
 {
@@ -19,7 +19,7 @@ function main()
 	var jogar = document.getElementById("buttonJogo");
 	var nivelAtivo="nivel1";
 
-	console.log(getCookie("username"));
+	setTexto(cliques);
 
 	buttonTras.disabled = true;
 	buttonTras.style.cursor = "default";
@@ -35,7 +35,7 @@ function main()
 	function jogarNivel(ev){
 		jogarClickHandler(ev, nivelAtivo);
 	}
-	
+
 	buttonFrente.addEventListener("click", but);
 	buttonTras.addEventListener("click", but);
 	jogar.addEventListener("click", jogarNivel);
@@ -44,11 +44,11 @@ function main()
 
 function botao(ev, cliques){
 
-	var max = 5; 
+	var max = 5;
 	var botao = ev.currentTarget;
-	
+
 	if(botao==buttonFrente){
-		cliques+=1;	
+		cliques+=1;
 	}
 	else if (botao==buttonTras){
 		cliques-=1;
@@ -61,15 +61,15 @@ function botao(ev, cliques){
 			btn.disabled = true;
 			btn.style.cursor = "default";
 			btn.style.opacity = opInativa;
-		
-	}	
+
+	}
 
 	if(cliques==1){
 			let btn=buttonTras;
 			btn.disabled = true;
 			btn.style.cursor = "default";
 			btn.style.opacity = opInativa;
-		
+
 	}
 
 	else if (cliques!=max && cliques!=1){
@@ -85,6 +85,45 @@ function botao(ev, cliques){
 	return cliques;
 }
 
+function setTexto(cliques){
+	console.log(localStorage);
+	var vetornome = Array();
+	var vetorscore = Array();
+	for (var key in localStorage){
+		var score = localStorage.getItem(key);
+		if (score!=0){
+			var info=key.split('-');
+			var str = "nivel";
+			var str1 = str.concat(cliques);
+			if (str1==info[1]){
+				vetornome.push(info[0]);
+				vetorscore.push(score);
+			}
+		}
+	}
+
+	for (var i=0; i<vetorscore.length; i++){
+		var menor=i;
+		for (var j=i+1; j<vetorscore.length; j++){
+			if (vetorscore[j] > vetorscore[menor])
+				menor=j
+		}
+		if (menor!=i){
+			var aux_nome = vetornome[i];
+			var score = vetorscore[i];
+			vetornome[i] = vetornome[menor];
+			vetorscore[i] = vetorscore[menor];
+			vetornome[menor] = aux_nome;
+			vetorscore[menor] = score;
+		}
+	}
+
+	for (var i=0; i<vetorscore.length; i++){
+		var string = vetornome[i]+"        "+vetorscore[i];
+		document.getElementById("ranking".concat(i+1)).innerHTML = string;
+	}
+}
+
 function mudaImagem(cliques, imagem){
 		imagem.src = pasta + "nivel" + cliques + ".png";
 }
@@ -97,23 +136,6 @@ function jogarClickHandler(ev, nivelAtivo){
 		location.href = "../niveis/nivel2.html";
 	}
 
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-
-  }
-  return "";
 }
 
 function voltarClickHandler(ev){

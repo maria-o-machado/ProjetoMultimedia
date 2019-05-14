@@ -2,6 +2,15 @@ header, nav, main{
   margin: auto;
 }
 
+.text{
+  position: absolute;
+  z-index: 100;
+  color: white;
+  font-size: 24px;
+  left: 31%;
+  top: 24%;
+  line-height: 0.33;
+}
 
 #photo{
   margin: auto;
