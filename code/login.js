@@ -18,20 +18,25 @@ function main()
 function loginClickHandler(ev)
 {
 	var name =  window.document.getElementById("nome").value;
-	var user = localStorage.getItem(name);
+	var user="";
 	if (name == ""){
 		alert("Invalid username!");
 	}
 	else{
-		if(user!=null){
+		for (var key in localStorage){
+   			if (key == name){
+   				user = name;
+   			}
+   		}
+		if(user!=""){
 			alert("User already used!");
 			return;
 		}
 		else{
-			localStorage.setItem(name, name);
+			localStorage.setItem(name, 0);
 			location.href = "../html/MenuPrincipal.html";
 		}
-	}
+	} 
 }
 
 function setCookie(cname, cvalue, exdays) {
