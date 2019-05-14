@@ -256,7 +256,11 @@ function desativaPoderVelocidade(){
 
 function update() {
 	player.checkWorldBounds=true;
-	player.events.onOutOfBounds.add(resetGame, this);
+	if (player.body.y< game.world.height){
+		resetGame()
+	}
+
+	}
 
 	time.destroy();
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);

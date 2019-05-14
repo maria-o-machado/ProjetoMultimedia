@@ -80,7 +80,7 @@ function create() {
 
 	// Player physics properties. Give the little guy a slight bounce.
 	player.body.bounce.y = 0.3;
-	player.body.gravity.y = 800;
+	player.body.gravity.y = 800; //800
 	player.body.collideWorldBounds = false;
 	player.width=104;
 	player.height=56;
@@ -267,7 +267,7 @@ function desativaPoderVelocidade(){
 
 function update() {
 	player.checkWorldBounds=true;
-	player.events.onOutOfBounds.add(resetGame, this);
+
 
 	time.destroy();
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
@@ -278,6 +278,9 @@ function update() {
     displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
     displayscore.fixedToCamera=true;
 
+    if (player.body.y> game.world.height){
+            resetGame()
+        }
 
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
