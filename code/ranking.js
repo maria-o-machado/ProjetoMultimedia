@@ -55,6 +55,7 @@ function botao(ev, cliques){
 	}
 
 	mudaImagem(cliques, photo);
+	setTexto(cliques);
 
 	if(cliques==max){
 			let btn=buttonFrente;
