@@ -274,14 +274,14 @@ function tocarArmadilha (player, armadilha) {
 function tocarPoderImunidade (player, poder) {
   poder.kill();
   poderCons=1;
-  timeout= setTimeout(desativaPoder, 10000);
+  timeout= setTimeout(desativaPoder, 15000);
 }
 
 function tocarPoderTamanho (player, poder) {
     poder.kill();
     player.width=104;
     player.height=56;
-    var timer= setTimeout(desativaPoderTam, 8000);
+    var timer= setTimeout(desativaPoderTam, 10000);
 }
 
 function desativaPoder(){
