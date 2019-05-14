@@ -6,9 +6,9 @@ header, nav, main{
 #photo{
   margin: auto;
   position: absolute;
-  width: 55%; 
+  width: 55%;
   height: 70%;
-  left:24%;
+  left:22%;
   top: 5%;
   font-size: 20px;
   z-index: 1;
@@ -35,7 +35,7 @@ header, nav, main{
   padding: 0px;
   padding: 0px;
   margin: 0px;
-  display: block; 
+  display: block;
   text-align: center;
   overflow: hidden;
   border-radius: 20px;
@@ -44,134 +44,134 @@ header, nav, main{
 }
 
 #buttonNivel1{
-  position: absolute; 
-  top:23%; 
+  position: absolute;
+  top:23%;
   left:29%;
 }
 
 #buttonNivel2{
-  position: absolute; 
-  top:43%; 
+  position: absolute;
+  top:43%;
   left:29%;
 }
 
 #buttonNivel3{
-  position: absolute; 
-  top:33%; 
+  position: absolute;
+  top:33%;
   left:44%;
 }
 
 #buttonNivel4{
-  position: absolute; 
-  top:23%; 
+  position: absolute;
+  top:23%;
   left:59%;
 }
 
 #buttonNivel5{
-  position: absolute; 
-  top:43%; 
+  position: absolute;
+  top:43%;
   left:59%;
 }
 
 #buttonLogin{
-  position: absolute; 
-  top:55%; 
-  left:30%;  
+  position: absolute;
+  top:55%;
+  left:30%;
 }
 #buttonJogar{
-  position: absolute; 
-  top:28%; 
-  left:43%; 
+  position: absolute;
+  top:28%;
+  left:43%;
 }
 
 #buttonTutorial{
-  position: absolute; 
-  top:38%; 
-  left:43%; 
+  position: absolute;
+  top:38%;
+  left:43%;
 }
 
 #buttonRanking{
-  position: absolute; 
-  top:48%; 
-  left:43%; 
+  position: absolute;
+  top:48%;
+  left:43%;
 }
 
 #buttonDefinicoes{
-  position: absolute; 
-  top:58%; 
-  left:43%; 
+  position: absolute;
+  top:58%;
+  left:43%;
 }
 
 #buttonSair{
-  position: absolute; 
-  top:68%; 
-  left:43%; 
+  position: absolute;
+  top:68%;
+  left:43%;
 }
 
 #buttonCreditos{
-  position: absolute; 
-  top:87%; 
-  left:44%; 
+  position: absolute;
+  top:87%;
+  left:44%;
 }
 
 #buttonVoltar{
-  position: absolute; 
-  top: 85%; 
-  left: 21%; 
+  position: absolute;
+  top: 85%;
+  left: 21%;
 }
 
 #buttonJogo{
-  position: absolute; 
-  top: 85%; 
-  left: 67%; 
+  position: absolute;
+  top: 85%;
+  left: 67%;
 }
 
 #buttonSaircred{
-  position: absolute; 
-  top: 85%; 
-  left: 67%; 
+  position: absolute;
+  top: 85%;
+  left: 67%;
 }
 
 #buttonSairLogin{
-  position: absolute; 
-  top: 87%; 
-  left: 67%; 
+  position: absolute;
+  top: 87%;
+  left: 67%;
 }
 
 #buttonFrente{
-  position: absolute; 
-  top: 77%; 
-  left: 53%; 
+  position: absolute;
+  top: 77%;
+  left: 53%;
 }
 
 #buttonTras{
-  position: absolute; 
-  top: 77%; 
-  left: 44%; 
+  position: absolute;
+  top: 77%;
+  left: 44%;
 }
 
 #onSons{
-  position: absolute; 
-  top: 39%; 
-  left: 38%; 
+  position: absolute;
+  top: 39%;
+  left: 38%;
 }
 
 #offSons{
-  position: absolute; 
-  top: 39%; 
-  left: 49%; 
+  position: absolute;
+  top: 39%;
+  left: 49%;
 }
 
 #onMusica{
-  position: absolute; 
-  top: 54%; 
-  left: 42%; 
+  position: absolute;
+  top: 54%;
+  left: 42%;
 }
 
 #offMusica{
-  position: absolute; 
-  top: 54%; 
-  left: 53%; 
+  position: absolute;
+  top: 54%;
+  left: 53%;
 }
 
 .rato{
@@ -179,7 +179,7 @@ header, nav, main{
   position: absolute;
   top: 77%;
   left:55%;
-  display: block; 
+  display: block;
 }
 
 .logoJogo{
@@ -188,7 +188,7 @@ header, nav, main{
   top: 15%;
   left:24%;
   z-index: 1;
-  display: block; 
+  display: block;
 }
 
 .logoJogo1{
@@ -197,7 +197,7 @@ header, nav, main{
   top: 10%;
   left:24%;
   z-index: 1;
-  display: block; 
+  display: block;
 }
 
 .InsiraNome{
