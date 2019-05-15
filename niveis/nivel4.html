@@ -65,7 +65,7 @@ function create() {
   time.fixedToCamera=true;
   time.tint=0xfa0013;
 
-  displayscore.destroy()
+
   displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
   nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
@@ -358,6 +358,7 @@ if (player.body.y> game.world.height){
             resetGame()
         }
 
+  time.destroy();
   time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
   time.fixedToCamera=true;
   time.tint=0xfa0013;
