@@ -31,8 +31,6 @@ var contadorImunidade=0;
 
 function preload() {
   game.load.image('background', '../resources/backgroundnivelnew2.jpg');
-  game.load.image('saude', '../resources/saude.png');
-  game.load.image('saudenivel', '../resources/saudenivel.png');
   game.load.image('novochao', '../resources/novochao.png');
   game.load.tilemap('mapa', '../resources/mapaNivel2.json', null, Phaser.Tilemap.TILED_JSON);
   game.load.image('queijoBom', '../resources/QueijoBom.png');
@@ -44,6 +42,8 @@ function preload() {
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.spritesheet('buttonSair', '../resources/botoes/sair.png');
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
+  game.load.image('saude', '../resources/saude.png');
+  game.load.image('saudenivel', '../resources/saudenivel.png');
 }
 
 

@@ -30,8 +30,6 @@ var timeout2;
 
 function preload() {
 	game.load.image('background', '../resources/backgroundinterior2.jpg');
-	game.load.image('saude', '../resources/saude.png');
-	game.load.image('saudenivel', '../resources/saudenivel.png');
 	game.load.image('chaointerior', '../resources/chaointerior.png');
 	game.load.tilemap('mapa', '../resources/nivel5.json', null, Phaser.Tilemap.TILED_JSON);
 	game.load.image('queijoBom', '../resources/QueijoBom.png');
@@ -42,7 +40,8 @@ function preload() {
 	game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
 	game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
 	game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
-
+ 	game.load.image('saude', '../resources/saude.png');
+  	game.load.image('saudenivel', '../resources/saudenivel.png');
 }
 
 
@@ -72,10 +71,6 @@ function create() {
 	barrasaude= game.add.sprite(40, 15, 'saudenivel');
 	barrasaude.fixedToCamera=true;
 	saudenivel.fixedToCamera=true;
-	nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-    nomescore.fixedToCamera=true;
-    nometime.fixedToCamera=true;
 	saudenivel.width=280;
 	barrasaude.width=280;
 
