@@ -42,6 +42,7 @@ function preload() {
 	game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
 	game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
 	game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
+
 }
 
 
@@ -62,7 +63,10 @@ function create() {
 	barrasaude= game.add.sprite(40, 15, 'saudenivel');
 	barrasaude.fixedToCamera=true;
 	saudenivel.fixedToCamera=true;
-
+	nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+    nomescore.fixedToCamera=true;
+    nometime.fixedToCamera=true;
 	saudenivel.width=280;
 	barrasaude.width=280;
 
@@ -114,11 +118,10 @@ function create() {
 	queijoV.width=50;
 
 	//HUMANOS
-	mulher = game.add.sprite(450, game.world.height - 450 , 'pessoa');
+	mulher = game.add.sprite(630, game.world.height - 240 , 'pessoa');
 	mulher.width=86
 	mulher.height=213
 	game.physics.arcade.enable(mulher);
-	mulher.body.collideWorldBounds = true;
 	mulher.animations.add('left', [0], 9, true);
 	mulher.animations.add('right', [1], 9, true);
 	mulher.body.velocity.x = 100;
@@ -269,8 +272,11 @@ function update() {
     displayscore.destroy()
     displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
     displayscore.fixedToCamera=true;
-
-
+    displayscore.tint=0xfa0013;
+	nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+    nomescore.fixedToCamera=true;
+    nometime.fixedToCamera=true;
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
 
@@ -291,11 +297,11 @@ function update() {
 	game.physics.arcade.overlap(player, passa, finish, null, this);
 
 		if (mulher){
-	    if (mulher.x <425){
+	    if (mulher.x <630){
 	        mulher.body.velocity.x = 100;
 	        mulher.animations.play('right');
 	    }
-	    else if(mulher.x >560 ){
+	    else if(mulher.x >720 ){
 	        mulher.body.velocity.x = -100;
 	        mulher.animations.play('left');
 	    }
