@@ -49,11 +49,20 @@ function preload() {
 
 function create() {
 
-  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
 
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
-  displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
+
+  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
 
    //  We're going to be using physics, so enable the Arcade Physics system
   game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -325,10 +334,6 @@ function update() {
             resetGame()
   }
 
-  time.destroy();
-  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-  time.fixedToCamera=true;
-  time.tint=0xfa0013;
 
   if (contadorImunidade==1){
     timeImunidade.destroy();
@@ -341,10 +346,19 @@ function update() {
   else{
     timeImunidade.destroy();
   }
+  time.destroy();
+  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
 
   displayscore.destroy()
-  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
+  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
 
   //  Collide the player and the stars with the platforms
   var hitPlatform = game.physics.arcade.collide(layer, player);
