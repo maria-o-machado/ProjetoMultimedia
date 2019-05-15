@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Nivel1</title>
+	<title>Nivel5</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
 		<style type="text/css">
         body {
@@ -48,7 +48,7 @@ function preload() {
 function create() {
 
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-	displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+    displayscore= game.add.bitmapText( 1350/2+ 40, 20, 'myfont', String(score), 40);
 
 	//  We're going to be using physics, so enable the Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -103,12 +103,12 @@ function create() {
 	queijosV.enableBody = true;
 	game.physics.arcade.enable(queijosV);
 
-	queijoV=queijosV.create(200, game.world.height-250,'queijoVenenoso');
+	queijoV=queijosV.create(350, game.world.height-250,'queijoVenenoso');
 	queijoV.body.gravity.y = 100;
 	queijoV.height=50;
 	queijoV.width=50;
 
-	queijoV=queijosV.create(500, game.world.height-400,'queijoVenenoso');
+	queijoV=queijosV.create(350, game.world.height-545,'queijoVenenoso');
 	queijoV.body.gravity.y = 100;
 	queijoV.height=50;
 	queijoV.width=50;
@@ -138,15 +138,15 @@ function create() {
 	armadilhas = game.add.group();
 	game.physics.arcade.enable(armadilhas);
 	armadilhas.enableBody = true;
-	armadilha=armadilhas.create(2260, game.world.height-500,'armadilha');
+	armadilha=armadilhas.create(2900, game.world.height-30,'armadilha');
 	armadilha.body.gravity.y = 100;
-	armadilha=armadilhas.create(250, game.world.height-637,'armadilha');
+	armadilha=armadilhas.create(840, game.world.height-545,'armadilha');
 
 	//PODER
 	poderes = game.add.group();
 	game.physics.arcade.enable(poderes);
 	poderes.enableBody = true;
-	poderesImunidade=poderes.create(340, game.world.height-730,'poder');
+	poderesImunidade=poderes.create(20, game.world.height-730,'poder');
 	poderesImunidade.width=60;
 	poderesImunidade.height=60;
 	poderesImunidade.body.gravity.y = 100;
@@ -256,11 +256,10 @@ function desativaPoderVelocidade(){
 
 function update() {
 	player.checkWorldBounds=true;
-	if (player.body.y< game.world.height){
+	if (player.body.y> game.world.height){
 		resetGame()
 	}
 
-	}
 
 	time.destroy();
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
@@ -359,8 +358,8 @@ function update() {
 		else{
 			player.body.velocity.y = -500;
 		}
-	}
-}
+	}}
+
 </script>
 </body>
 </html>
