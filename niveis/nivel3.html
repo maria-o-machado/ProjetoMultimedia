@@ -28,7 +28,13 @@ var timeout;
 var timer;
 var poderCons=0;
 
+var tfinalImunidade = 0;
+var tempoImunidade = 0;
+var contadorImunidade=0;
 
+var tfinalTamanho = 0;
+var tempoTamanho = 0;
+var contadorTamanho = 0;
 
 function preload() {
     game.load.image('background', '../resources/backgroundnivelnew2.jpg');
@@ -54,6 +60,11 @@ function preload() {
 function create() {
 
     time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+
+    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+
+    timeTamanho = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoTamanho)), 40);
+
     displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
      //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -295,13 +306,17 @@ function tocarArmadilha (player, armadilha) {
 }
 
 function tocarPoderImunidade (player, poder) {
+  tfinalImunidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
-  score+=150;
+  contadorImunidade=1;
   poderCons=1;
+  score+=150;
   timeout= setTimeout(desativaPoder, 15000);
 }
 
 function tocarPoderTamanho (player, poder) {
+    tfinalTamanho = game.time.totalElapsedSeconds() + 10;
+    contadorTamanho = 1;
     poder.kill();
     score+=150;
     player.width=104;
@@ -310,10 +325,12 @@ function tocarPoderTamanho (player, poder) {
 }
 
 function desativaPoder(){
+  contadorImunidade=0;
   poderCons=0;
 }
 
 function desativaPoderTam(){
+    contadorTamanho  = 0;
     player.width=87;
     player.height=47.25;
 }
@@ -344,14 +361,14 @@ function finish(player) {
 
 function resetGame(){
     game.time.reset();
+    contadorImunidade=0;
+    contadorTamanho=0;
     clearTimeout(timeout);
     clearTimeout(timer);
     poderCons=0;
     score=0;
     game.state.restart();
-
 }
-
 
 function update() {
     player.checkWorldBounds=true;
@@ -362,6 +379,30 @@ function update() {
     time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
     time.fixedToCamera=true;
     time.tint=0xfa0013;
+
+    if (contadorImunidade==1){
+        timeImunidade.destroy();
+        timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+        timeImunidade.fixedToCamera=true;
+        timeImunidade.tint=0xfa0013;
+        tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
+    }
+
+    else{
+        timeImunidade.destroy();
+    }
+
+    if (contadorTamanho==1){
+        timeTamanho.destroy();
+        timeTamanho = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoTamanho)), 40);
+        timeTamanho.fixedToCamera=true;
+        timeTamanho.tint=0xfa0013;
+        tempoTamanho = tfinalTamanho-game.time.totalElapsedSeconds()+1;
+    }
+
+    else{
+        timeTamanho.destroy();
+    }
 
     displayscore.destroy()
     displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);

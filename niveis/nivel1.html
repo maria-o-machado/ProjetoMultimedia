@@ -27,6 +27,14 @@ var score = 0;
 var timeout;
 var timeout2;
 
+var tfinalImunidade = 0;
+var tempoImunidade = 0;
+var contadorImunidade=0;
+
+var tfinalVelocidade = 0;
+var tempoVelocidade = 0;
+var contadorVelocidade = 0;
+
 
 function preload() {
 	game.load.image('background', '../resources/backgroundnivelnew2.jpg');
@@ -49,6 +57,11 @@ function preload() {
 function create() {
 
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+
+	timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+
+  	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+
     displayscore= game.add.bitmapText( 1350/2+ 40, 20, 'myfont', String(score), 40);
     displayscore.fixedToCamera=true;
 	//  We're going to be using physics, so enable the Arcade Physics system
@@ -189,12 +202,14 @@ function actionOnClick () {
 }
 
 function resetGame(){
-	game.time.reset();
-	clearTimeout(timeout);
-	clearTimeout(timeout2);
-	poderCons=0;
-	score=0;
-	game.state.restart();
+  game.time.reset();
+  contadorImunidade=0;
+  contadorVelocidade=0;
+  clearTimeout(timeout);
+  clearTimeout(timeout2);
+  poderCons=0;
+  score=0;
+  game.state.restart();
 }
 
 function finish(player) {
@@ -269,44 +284,71 @@ function tocarArmadilha (player, armadilha) {
 }
 
 function tocarPoderImunidade (player, poder) {
-	poder.kill();
-	poderCons=1;
-	score+=150;
-	timeout= setTimeout(desativaPoder, 15000);
+  tfinalImunidade = game.time.totalElapsedSeconds() + 15;
+  poder.kill();
+  contadorImunidade=1;
+  poderCons=1;
+  score+=150;
+  timeout= setTimeout(desativaPoder, 15000);
 }
 
 function tocarPoderVelocidade (player, poder) {
-	poder.kill();
-	poderConsVel=1;
-	score+=150;
-	timeout2= setTimeout(desativaPoderVelocidade, 15000);
+  tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
+  poder.kill();
+  contadorVelocidade = 1;
+  poderConsVel=1;
+  score+=150;
+  timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function desativaPoder(){
-	poderCons=0;
+  contadorImunidade=0;
+  poderCons=0;
 }
 
 function desativaPoderVelocidade(){
-	poderConsVel=0;
+  contadorVelocidade = 0;
+  poderConsVel=0;
 }
-
 
 function update() {
 	player.checkWorldBounds=true;
-
+	if (player.body.y> game.world.height){
+            resetGame()
+    }
 
 	time.destroy();
 	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
 	time.fixedToCamera=true;
 	time.tint=0xfa0013;
 
+	if (contadorImunidade==1){
+	    timeImunidade.destroy();
+	    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+	    timeImunidade.fixedToCamera=true;
+	    timeImunidade.tint=0xfa0013;
+	    tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
+  	}
+
+  	else{
+    	timeImunidade.destroy();
+  	}
+
+  	if (contadorVelocidade==1){
+	    timeVelocidade.destroy();
+	    timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+	    timeVelocidade.fixedToCamera=true;
+	    timeVelocidade.tint=0xfa0013;
+	    tempoVelocidade = tfinalVelocidade-game.time.totalElapsedSeconds()+1;
+  	}
+
+  	else{
+    	timeVelocidade.destroy();
+  	}
+
     displayscore.destroy()
     displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
     displayscore.fixedToCamera=true;
-
-    if (player.body.y> game.world.height){
-            resetGame()
-        }
 
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
