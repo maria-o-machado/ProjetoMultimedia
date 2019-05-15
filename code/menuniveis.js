@@ -15,7 +15,7 @@ function main()
 	var buttonNivel4 = document.getElementById("buttonNivel4");
 	var buttonNivel5 = document.getElementById("buttonNivel5");
 	var music = document.getElementById("musica");
-	
+
 	var ativado = localStorage.getItem("musica");
 	if (ativado=="on"){
 		music.play();
@@ -41,7 +41,7 @@ function main()
 					but[i].style.cursor="auto";
 				}
 			}
-			
+
 		}
 	}
 	for(let i=0; i<botoes.length; i++){
@@ -66,6 +66,10 @@ function main()
 			buttonAtivado=buttonNivel4ClickHandler(ev, buttonAtivado);
 	}
 
+	var but5=function(ev){
+			buttonAtivado=buttonNivel5ClickHandler(ev, buttonAtivado);
+	}
+
 	var jogarNivel=function(ev){
 			buttonJogarClickHandler(ev, buttonAtivado);
 	}
@@ -74,6 +78,7 @@ function main()
 	buttonNivel2.addEventListener("click", but2);
 	buttonNivel3.addEventListener("click", but3);
 	buttonNivel4.addEventListener("click", but4);
+	buttonNivel5.addEventListener("click", but5);
 	jogar.addEventListener("click", jogarNivel)
 }
 
@@ -165,6 +170,28 @@ function buttonNivel4ClickHandler(ev, buttonAtivado)
 
 }
 
+function buttonNivel5ClickHandler(ev, buttonAtivado)
+{
+	if(buttonAtivado=="null"){
+		buttonNivel5.style.border="double";
+		buttonJogo.disabled = false;
+		buttonJogo.style.filter="none";
+		buttonJogo.style.cursor="pointer";
+		buttonAtivado="buttonNivel5";
+	}
+
+	else if(buttonAtivado=="buttonNivel5"){
+		buttonNivel5.style.border="none";
+		buttonJogo.disabled = true;
+		buttonJogo.style.filter="grayscale(100%)";
+		buttonJogo.style.cursor="auto";
+		buttonAtivado="null";
+	}
+
+	return buttonAtivado;
+
+}
+
 function buttonJogarClickHandler(ev, buttonAtivado){
 	if(buttonAtivado=="buttonNivel1"){
 		location.href = "../niveis/nivel1.html"
@@ -180,6 +207,10 @@ function buttonJogarClickHandler(ev, buttonAtivado){
 
 	if (buttonAtivado == "buttonNivel4"){
 		location.href = "../niveis/nivel4.html";
+	}
+
+	if (buttonAtivado == "buttonNivel5"){
+		location.href = "../niveis/nivel5.html";
 	}
 }
 
