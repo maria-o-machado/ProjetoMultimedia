@@ -45,6 +45,7 @@ function preload() {
     game.load.image('saudenivel', '../resources/saudenivel.png');
     game.load.spritesheet('Pessoa', '../resources/pessoas.png',1010,2430);
     game.load.spritesheet('rato', '../resources/ratos.png', 166.67, 90);
+    game.load.spritesheet('buttonSair', '../resources/botoes/sair.png');
     game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
 
 }
@@ -221,9 +222,29 @@ function create() {
     game.physics.arcade.enable(passa);
     passa.height = 67.5;
     passa.width = 75;
-
-    cursors = game.input.keyboard.createCursorKeys();
     game.camera.follow(player);
+
+    button = game.add.button(1200, 10, 'buttonSair', actionOnClick, this);
+  	button.height=49.35;
+  	button.width=120.3;
+    button.onInputOver.add(over, this);
+    button.onInputOut.add(out, this);
+  	button.fixedToCamera=true;
+
+  	cursors = game.input.keyboard.createCursorKeys();
+
+}
+
+function over() {
+    this.game.canvas.style.cursor = "pointer";
+}
+
+function out() {
+    this.game.canvas.style.cursor = "default";
+}
+
+function actionOnClick () {
+	location.href = "../html/menuniveis.html"
 }
 
 function comerQueijo (player, queijo) {
@@ -343,7 +364,7 @@ function update() {
     time.tint=0xfa0013;
 
     displayscore.destroy()
-    displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
+    displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
     displayscore.fixedToCamera=true;
 
 
