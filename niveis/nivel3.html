@@ -386,7 +386,7 @@ function update() {
     if (player.body.y> game.world.height){
             resetGame()
         }
-    
+
 
     if (contadorImunidade==1){
         timeImunidade.destroy();
@@ -411,7 +411,7 @@ function update() {
     else{
         timeTamanho.destroy();
     }
-
+    time.destroy();
     time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
     time.fixedToCamera=true;
     time.tint=0xfa0013;
@@ -424,7 +424,7 @@ function update() {
     nomescore.fixedToCamera=true;
     nometime.fixedToCamera=true;
     displayscore.tint=0xfa0013;
-    
+
 
 
     //  Collide the player and the stars with the platforms
