@@ -255,6 +255,8 @@ function resetGame(){
 
 function finish(player) {
   player.kill();
+  contadorImunidade=0;
+  contadorVelocidade=0;
   var tempoTotal=parseInt(game.time.totalElapsedSeconds());
 	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
 	if (tempoTotal<90000){

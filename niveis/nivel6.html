@@ -283,6 +283,8 @@ function resetGame(){
 
 function finish(player) {
   player.kill();
+  contadorImunidade=0;
+  contadorVelocidade=0;
   game.time.reset();
   clearTimeout(timeout);
   clearTimeout(timeout2);
