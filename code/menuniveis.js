@@ -38,7 +38,7 @@ function main()
 	for (var key in localStorage){
 		var bloqueado = localStorage.getItem(key);
 		if (bloqueado==0){
-			for (var i=1; i<4; i++){
+			for (var i=1; i<5; i++){
 				var result = localStorage.getItem(key+"-nivel"+i);
 				if (result==null){
 					but[i].disabled = true;
