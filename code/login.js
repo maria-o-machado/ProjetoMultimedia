@@ -47,13 +47,12 @@ function loginClickHandler(ev)
    				user = name;
    			}
    	}
-		if(user!=""){
-			alert("User already used!");
-			return;
-		}
-		else{
+		if(user!="" && user!="musica"){
 			localStorage.setItem(name, 0);
 			location.href = "../html/MenuPrincipal.html";
+		}
+		else{
+			alert("Invalid username!");
 		}
 	}
 }

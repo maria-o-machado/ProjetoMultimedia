@@ -297,13 +297,20 @@ function finish(player) {
   for (var key in localStorage) {
 	    var score2=localStorage.getItem(key);
 	    if (score2==0){
-	        var str1 = key;
-	        var str2 = "-nivel6";
-	        var nome = str1.concat(str2);
-	        localStorage.setItem(nome, score);
-	        location.href = "../code/html/menuniveis.html";
+				var str1 = key;
+				var str2 = "-nivel6";
+				var nome = str1.concat(str2);
+				var registado=localStorage.getItem(nome);
+				if (registado=="null"){
+					localStorage.setItem(nome, score);
+	        location.href = "../code/menuniveis.html";
+				}
+				else if (registado<score) {
+					localStorage.setItem(nome, score);
+	        location.href = "../code/menuniveis.html";
+				}
 	    }
-  }
+	}
   location.href = "../code/html/menuniveis.html";
 }
 
