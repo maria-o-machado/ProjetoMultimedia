@@ -56,31 +56,61 @@ header, nav, main{
 #buttonNivel1{
   position: absolute;
   top:23%;
-  left:29%;
+  left:33%;
 }
 
 #buttonNivel2{
   position: absolute;
-  top:43%;
-  left:29%;
+  top:33%;
+  left:33%;
 }
 
 #buttonNivel3{
   position: absolute;
-  top:33%;
-  left:44%;
+  top:43%;
+  left:33%;
 }
 
 #buttonNivel4{
   position: absolute;
-  top:23%;
-  left:59%;
+  top:53%;
+  left:33%;
 }
 
 #buttonNivel5{
   position: absolute;
+  top:63%;
+  left:33%;
+}
+
+#buttonNivel6{
+  position: absolute;
+  top:23%;
+  left:55%;
+}
+
+#buttonNivel7{
+  position: absolute;
+  top:33%;
+  left:55%;
+}
+
+#buttonNivel8{
+  position: absolute;
   top:43%;
-  left:59%;
+  left:55%;
+}
+
+#buttonNivel9{
+  position: absolute;
+  top:53%;
+  left:55%;
+}
+
+#buttonNivel10{
+  position: absolute;
+  top:63%;
+  left:55%;
 }
 
 #buttonLogin{
