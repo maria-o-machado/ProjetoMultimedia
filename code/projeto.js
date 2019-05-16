@@ -12,5 +12,4 @@ function main()
 	var wHeight = 756;
 	var wLeft = (sWidth - wWidth)/2;	//center window on the screen
 	var myWindow = window.open("html/login.html", "mainWindow", "width = " + wWidth + ", height = " + wHeight + ", left = " + wLeft);
-	localStorage.setItem("musica", "on");
 }

@@ -269,13 +269,20 @@ function finish(player) {
   for (var key in localStorage) {
 	    var score2=localStorage.getItem(key);
 	    if (score2==0){
-	        var str1 = key;
-	        var str2 = "-nivel4";
-	        var nome = str1.concat(str2);
-	        localStorage.setItem(nome, score);
+				var str1 = key;
+				var str2 = "-nivel4";
+				var nome = str1.concat(str2);
+				var registado=localStorage.getItem(nome);
+				if (registado=="null"){
+					localStorage.setItem(nome, score);
 	        location.href = "nivel5.html";
+				}
+				else if (registado<score) {
+					localStorage.setItem(nome, score);
+	        location.href = "nivel5.html";
+				}
 	    }
-  }
+	}
   location.href = "nivel5.html";
 }
 
@@ -398,9 +405,6 @@ if (player.body.y> game.world.height){
     timeVelocidade.destroy();
   }
 
-  displayscore.destroy()
-  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
 
 
   //  Collide the player and the stars with the platforms
