@@ -73,7 +73,7 @@ function main()
 
 function botao(ev, cliques){
 
-	var max = 5;
+	var max = 10;
 	var botao = ev.currentTarget;
 
 	if(botao==buttonFrente){
