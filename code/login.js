@@ -7,6 +7,7 @@
 
 function main()
 {
+	localStorage.clear();
 	//Limpar os usernames que tem scores a 0
 	for (var key in localStorage)  {
    		var score=localStorage.getItem(key);
@@ -18,7 +19,7 @@ function main()
 	var login = document.getElementsByTagName("button")[0];
 	var sair = document.getElementsByTagName("button")[1];
 	var music = document.getElementById("musica");
-	
+
 	var ativado = localStorage.getItem("musica");
 	if (ativado=="on"){
 		music.play();

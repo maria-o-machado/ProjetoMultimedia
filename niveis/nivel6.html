@@ -285,11 +285,26 @@ function finish(player) {
   player.kill();
   contadorImunidade=0;
   contadorVelocidade=0;
+  var tempoTotal=parseInt(game.time.totalElapsedSeconds());
+	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
+  if (tempoTotal<90){
+		score+=(90-tempoTotal)*50;
+	}
   game.time.reset();
   clearTimeout(timeout);
   clearTimeout(timeout2);
   poderCons=0;
-  location.href = "nivel6.html";
+  for (var key in localStorage) {
+	    var score2=localStorage.getItem(key);
+	    if (score2==0){
+	        var str1 = key;
+	        var str2 = "-nivel6";
+	        var nome = str1.concat(str2);
+	        localStorage.setItem(nome, score);
+	        location.href = "../code/html/menuniveis.html";
+	    }
+  }
+  location.href = "../code/html/menuniveis.html";
 }
 
 function comerQueijo (player, queijo) {

@@ -352,8 +352,8 @@ function finish(player) {
     contadorVelocidade=0;
     var tempoTotal=parseInt(game.time.totalElapsedSeconds());
   	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
-  	if (tempoTotal<90000){
-  		score+=(60 - tempoTotal)*50;
+    if (tempoTotal<90){
+  		score+=(90-tempoTotal)*50;
   	}
     game.time.reset();
     clearTimeout(timeout);
