@@ -303,15 +303,15 @@ function finish(player) {
 				var registado=localStorage.getItem(nome);
 				if (registado=="null"){
 					localStorage.setItem(nome, score);
-	        location.href = "../code/menuniveis.html";
+	        location.href = "../html/menuniveis.html";
 				}
 				else if (registado<score) {
 					localStorage.setItem(nome, score);
-	        location.href = "../code/menuniveis.html";
+	        location.href = "../html/menuniveis.html";
 				}
 	    }
 	}
-  location.href = "../code/html/menuniveis.html";
+  location.href = "../html/menuniveis.html";
 }
 
 function comerQueijo (player, queijo) {
