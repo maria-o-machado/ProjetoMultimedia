@@ -7,7 +7,6 @@
 
 function main()
 {
-	localStorage.clear();
 	//Limpar os usernames que tem scores a 0
 	for (var key in localStorage)  {
    		var score=localStorage.getItem(key);
