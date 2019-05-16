@@ -42,22 +42,24 @@ function main()
 		}
 	}
 
+	console.log(user);
+
 	function but(ev){
 		cliques = botao(ev, cliques);
 		nivelAtivo = "nivel"+cliques;
 		if (cliques!=1){
-			var result = localStorage.getItem(key+"-nivel"+cliques);
+			var result = localStorage.getItem(user+"-nivel"+cliques);
 			if (result==null){
 				jogar.disabled = true;
 				jogar.style.filter="grayscale(100%)";
 				jogar.style.cursor="auto";
 			}
-		}
-		else{
-			jogar.style.filter="none";
-			jogar.disabled = false;
-			jogar.style.cursor = "pointer";
-			jogar.style.opacity = 1;
+			else{
+				jogar.style.filter="none";
+				jogar.disabled = false;
+				jogar.style.cursor = "pointer";
+				jogar.style.opacity = 1;
+			}
 		}
 	}
 
@@ -67,7 +69,7 @@ function main()
 
 	buttonFrente.addEventListener("click", but);
 	buttonTras.addEventListener("click", but);
-	jogar.addEventListener("click", jogarNivel);
+	jogar.addEventListener("click", but);
 	buttonVoltar.addEventListener("click", voltarClickHandler, true);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão
 }
 
@@ -81,6 +83,9 @@ function botao(ev, cliques){
 	}
 	else if (botao==buttonTras){
 		cliques-=1;
+	}
+	else if(botao==jogar) {
+
 	}
 
 	mudaImagem(cliques, photo);
@@ -171,6 +176,30 @@ function jogarClickHandler(ev, nivelAtivo){
 	}
 	if (nivelAtivo == "nivel2"){
 		location.href = "../niveis/nivel2.html";
+	}
+	if (nivelAtivo == "nivel3"){
+		location.href = "../niveis/nivel3.html";
+	}
+	if (nivelAtivo == "nivel4"){
+		location.href = "../niveis/nivel4.html";
+	}
+	if (nivelAtivo == "nivel5"){
+		location.href = "../niveis/nivel5.html";
+	}
+	if (nivelAtivo == "nivel6"){
+		location.href = "../niveis/nivel6.html";
+	}
+	if (nivelAtivo == "nivel7"){
+		location.href = "../niveis/nivel7.html";
+	}
+	if (nivelAtivo == "nivel8"){
+		location.href = "../niveis/nivel8.html";
+	}
+	if (nivelAtivo == "nivel9"){
+		location.href = "../niveis/nivel9.html";
+	}
+	if (nivelAtivo == "nivel10"){
+		location.href = "../niveis/nivel10.html";
 	}
 
 }

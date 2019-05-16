@@ -14,6 +14,11 @@ function main()
 	var buttonNivel3 = document.getElementById("buttonNivel3");
 	var buttonNivel4 = document.getElementById("buttonNivel4");
 	var buttonNivel5 = document.getElementById("buttonNivel5");
+	var buttonNivel6 = document.getElementById("buttonNivel6");
+	var buttonNivel7 = document.getElementById("buttonNivel7");
+	var buttonNivel8 = document.getElementById("buttonNivel8");
+	var buttonNivel9 = document.getElementById("buttonNivel9");
+	var buttonNivel10 = document.getElementById("buttonNivel10");
 	var music = document.getElementById("musica");
 
 	var ativado = localStorage.getItem("musica");
@@ -33,7 +38,7 @@ function main()
 	for (var key in localStorage){
 		var bloqueado = localStorage.getItem(key);
 		if (bloqueado==0){
-			for (var i=1; i<4; i++){
+			for (var i=1; i<5; i++){
 				var result = localStorage.getItem(key+"-nivel"+i);
 				if (result==null){
 					but[i].disabled = true;
@@ -70,6 +75,10 @@ function main()
 			buttonAtivado=buttonNivel5ClickHandler(ev, buttonAtivado);
 	}
 
+	var but6=function(ev){
+			buttonAtivado=buttonNivel6ClickHandler(ev, buttonAtivado);
+	}
+
 	var jogarNivel=function(ev){
 			buttonJogarClickHandler(ev, buttonAtivado);
 	}
@@ -79,6 +88,7 @@ function main()
 	buttonNivel3.addEventListener("click", but3);
 	buttonNivel4.addEventListener("click", but4);
 	buttonNivel5.addEventListener("click", but5);
+	buttonNivel6.addEventListener("click", but6);
 	jogar.addEventListener("click", jogarNivel)
 }
 
@@ -192,6 +202,28 @@ function buttonNivel5ClickHandler(ev, buttonAtivado)
 
 }
 
+function buttonNivel6ClickHandler(ev, buttonAtivado)
+{
+	if(buttonAtivado=="null"){
+		buttonNivel6.style.border="double";
+		buttonJogo.disabled = false;
+		buttonJogo.style.filter="none";
+		buttonJogo.style.cursor="pointer";
+		buttonAtivado="buttonNivel6";
+	}
+
+	else if(buttonAtivado=="buttonNivel6"){
+		buttonNivel6.style.border="none";
+		buttonJogo.disabled = true;
+		buttonJogo.style.filter="grayscale(100%)";
+		buttonJogo.style.cursor="auto";
+		buttonAtivado="null";
+	}
+
+	return buttonAtivado;
+
+}
+
 function buttonJogarClickHandler(ev, buttonAtivado){
 	if(buttonAtivado=="buttonNivel1"){
 		location.href = "../niveis/nivel1.html"
@@ -211,6 +243,10 @@ function buttonJogarClickHandler(ev, buttonAtivado){
 
 	if (buttonAtivado == "buttonNivel5"){
 		location.href = "../niveis/nivel5.html";
+	}
+
+	if (buttonAtivado == "buttonNivel6"){
+		location.href = "../niveis/nivel6.html";
 	}
 }
 
