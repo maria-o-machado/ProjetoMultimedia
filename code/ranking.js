@@ -48,17 +48,17 @@ function main()
 		cliques = botao(ev, cliques);
 		nivelAtivo = "nivel"+cliques;
 		if (cliques!=1){
-			var result = localStorage.getItem(user+"-nivel"+cliques);
-			if (result==null){
-				jogar.disabled = true;
-				jogar.style.filter="grayscale(100%)";
-				jogar.style.cursor="auto";
-			}
-			else{
+			var result = localStorage.getItem(user+"-nivel"+(cliques-1));
+			if (result!=null){
 				jogar.style.filter="none";
 				jogar.disabled = false;
 				jogar.style.cursor = "pointer";
 				jogar.style.opacity = 1;
+			}
+			else{
+				jogar.disabled = true;
+				jogar.style.filter="grayscale(100%)";
+				jogar.style.cursor="auto";
 			}
 		}
 	}
