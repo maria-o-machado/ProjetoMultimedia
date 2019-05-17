@@ -326,7 +326,13 @@ function tocarPoderImunidade (player, poder) {
 	contadorImunidade=1;
 	poderCons=1;
 	score+=150;
-	timeout= setTimeout(desativaPoder, 15000);
+	player.anchor.setTo(0, -0.5);  
+  	poder = player.addChild(game.make.sprite(0, 0, 'poder'));
+    poder.height=200;
+    poder.width=200;
+    poder.alpha=0.5;
+
+	timeout= setTimeout(desativaPoder, 15000,poder);
 }
 
 function tocarPoderVelocidade (player, poder) {
@@ -335,15 +341,24 @@ function tocarPoderVelocidade (player, poder) {
 	contadorVelocidade = 1;
 	poderConsVel=1;
 	score+=150;
-	timeout2= setTimeout(desativaPoderVelocidade, 15000);
+	player.anchor.setTo(0, -0.5);  
+    poder = player.addChild(game.make.sprite(0, 0, 'poder'));
+    poder.height=200;
+    poder.width=200;
+    poder.alpha=0.5;
+    poder.tint=0xFFFF00;
+
+	timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
 }
 
 function desativaPoder(){
+  poder.kill();
   contadorImunidade=0;
   poderCons=0;
 }
 
 function desativaPoderVelocidade(){
+  poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }

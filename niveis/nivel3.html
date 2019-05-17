@@ -328,7 +328,13 @@ function tocarPoderImunidade (player, poder) {
   contadorImunidade=1;
   poderCons=1;
   score+=150;
-  timeout= setTimeout(desativaPoder, 15000);
+  player.anchor.setTo(0, -0.5);  
+  poder = player.addChild(game.make.sprite(0, 0, 'poder'));
+  poder.height=200;
+  poder.width=200;
+  poder.alpha=0.5;
+
+  timeout= setTimeout(desativaPoder, 15000,poder);
 }
 
 function tocarPoderTamanho (player, poder) {
@@ -338,15 +344,23 @@ function tocarPoderTamanho (player, poder) {
     score+=150;
     player.width=104;
     player.height=56;
-    var timer= setTimeout(desativaPoderTam, 10000);
+    player.anchor.setTo(0, -0.5);  
+    poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
+    poder.height=200;
+    poder.width=200;
+    poder.alpha=0.5;
+
+    var timer= setTimeout(desativaPoderTam, 10000,poder);
 }
 
-function desativaPoder(){
+function desativaPoder(poder){
+  poder.kill();
   contadorImunidade=0;
   poderCons=0;
 }
 
-function desativaPoderTam(){
+function desativaPoderTam(poder){
+    poder.kill();
     contadorTamanho  = 0;
     player.width=87;
     player.height=47.25;
