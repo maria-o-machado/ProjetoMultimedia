@@ -275,40 +275,8 @@ function create() {
 
 }
 
-function actionOnClick() {
-	game.paused = true;
-	console.log("helloo");
-}
-
 function over() {
     this.game.canvas.style.cursor = "pointer";
-}
-
-
-function actionOnClickbuttonContinuar () {
-	console.log("entrei");
-	game.paused = false;
-}
-
-function actionOnClickbuttonMenu () {
-	audio.stop();
-
-}
-
-function actionOnClickbuttonNiveis () {
-	audio.stop();
-	player.kill();
-	contadorImunidade=0;
-	contadorVelocidade=0;
-	game.time.reset();
-	clearTimeout(timeout);
-	clearTimeout(timeout2);
-	poderCons=0;
-	location.href = "../html/menuniveis.html";
-}
-
-function actionOnClickbuttonSair () {
-	//window.close();
 }
 
 function resetGame(){
@@ -410,7 +378,7 @@ function tocarPoderImunidade (player, poder) {
   contadorImunidade=1;
   poderCons=1;
   score+=150;
-  player.anchor.setTo(0, -0.5);  
+  player.anchor.setTo(0, -0.5);
   poder = player.addChild(game.make.sprite(0, 0, 'poder'));
   poder.height=200;
   poder.width=200;
@@ -425,7 +393,7 @@ function tocarPoderVelocidade (player, poder) {
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
-  player.anchor.setTo(0, -0.5);  
+  player.anchor.setTo(0, -0.5);
   poder = player.addChild(game.make.sprite(0, 0, 'poder'));
   poder.height=200;
   poder.width=200;
