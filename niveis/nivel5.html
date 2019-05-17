@@ -60,7 +60,7 @@ function create() {
   if(localStorage.getItem("musica")=="on"){
     audio.play();
   }
-	
+
 	timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
@@ -227,6 +227,7 @@ function actionOnClick () {
 }
 
 function resetGame(){
+	audio.stop();
 	game.time.reset();
 	contadorImunidade=0;
   	contadorVelocidade=0;
@@ -238,6 +239,7 @@ function resetGame(){
 }
 
 function finish(player) {
+	audio.stop();
 	player.kill();
 	contadorImunidade=0;
 	contadorVelocidade=0;

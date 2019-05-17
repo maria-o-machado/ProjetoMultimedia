@@ -352,6 +352,7 @@ function desativaPoderTam(){
 }
 
 function finish(player) {
+  audio.stop();
     player.kill();
     contadorImunidade=0;
     contadorVelocidade=0;
@@ -385,6 +386,7 @@ function finish(player) {
 }
 
 function resetGame(){
+    audio.stop();
     game.time.reset();
     contadorImunidade=0;
     contadorTamanho=0;
