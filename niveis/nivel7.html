@@ -271,6 +271,7 @@ function resetGame(){
 }
 
 function finish(player) {
+  audio.stop();
   player.kill();
   contadorImunidade=0;
   contadorVelocidade=0;
