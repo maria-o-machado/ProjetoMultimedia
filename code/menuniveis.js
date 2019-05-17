@@ -87,6 +87,10 @@ function main()
 			buttonAtivado=buttonNivel8ClickHandler(ev, buttonAtivado);
 	}
 
+	var but9=function(ev){
+			buttonAtivado=buttonNivel9ClickHandler(ev, buttonAtivado);
+	}
+
 	var jogarNivel=function(ev){
 			buttonJogarClickHandler(ev, buttonAtivado);
 	}
@@ -99,6 +103,7 @@ function main()
 	buttonNivel6.addEventListener("click", but6);
 	buttonNivel7.addEventListener("click", but7);
 	buttonNivel8.addEventListener("click", but8);
+	buttonNivel9.addEventListener("click", but9);
 	jogar.addEventListener("click", jogarNivel)
 }
 
@@ -278,6 +283,28 @@ function buttonNivel8ClickHandler(ev, buttonAtivado)
 
 }
 
+function buttonNivel9ClickHandler(ev, buttonAtivado)
+{
+	if(buttonAtivado=="null"){
+		buttonNivel9.style.border="double";
+		buttonJogo.disabled = false;
+		buttonJogo.style.filter="none";
+		buttonJogo.style.cursor="pointer";
+		buttonAtivado="buttonNivel9";
+	}
+
+	else if(buttonAtivado=="buttonNivel9"){
+		buttonNivel9.style.border="none";
+		buttonJogo.disabled = true;
+		buttonJogo.style.filter="grayscale(100%)";
+		buttonJogo.style.cursor="auto";
+		buttonAtivado="null";
+	}
+
+	return buttonAtivado;
+
+}
+
 function buttonJogarClickHandler(ev, buttonAtivado){
 	if(buttonAtivado=="buttonNivel1"){
 		location.href = "../niveis/nivel1.html"
@@ -309,6 +336,10 @@ function buttonJogarClickHandler(ev, buttonAtivado){
 
 	if (buttonAtivado == "buttonNivel8"){
 		location.href = "../niveis/nivel8.html";
+	}
+
+	if (buttonAtivado == "buttonNivel9"){
+		location.href = "../niveis/nivel9.html";
 	}
 }
 
