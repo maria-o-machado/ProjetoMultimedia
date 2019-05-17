@@ -60,7 +60,6 @@ function create() {
   if(localStorage.getItem("musica")=="on"){
     audio.play();
   }
-
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
@@ -122,7 +121,7 @@ function create() {
   queijosB = game.add.group();
   queijosB.enableBody = true;
 
-  queijoB = queijosB.create(1300, game.world.height-580, 'queijoBom');
+  queijoB = queijosB.create(320, game.world.height-450, 'queijoBom');
   queijoB.body.gravity.y = 100;
   queijoB.height=50;
   queijoB.width=50;
@@ -133,6 +132,16 @@ function create() {
   game.physics.arcade.enable(queijosV);
 
   queijoV=queijosV.create(640, game.world.height-600,'queijoVenenoso');
+  queijoV.body.gravity.y = 100;
+  queijoV.height=50;
+  queijoV.width=50;
+
+  queijoV=queijosV.create(3650, game.world.height-300,'queijoVenenoso');
+  queijoV.body.gravity.y = 100;
+  queijoV.height=50;
+  queijoV.width=50;
+
+  queijoV=queijosV.create(3700, game.world.height-300,'queijoVenenoso');
   queijoV.body.gravity.y = 100;
   queijoV.height=50;
   queijoV.width=50;
@@ -149,7 +158,17 @@ function create() {
   mulher.body.velocity.x = 200;
   mulher.animations.play('right');
 
-  mulher1 = game.add.sprite(4950, game.world.height - 730 , 'pessoa');
+  mulher2 = game.add.sprite(145, game.world.height - 590 , 'pessoa');
+  mulher2.width=86
+  mulher2.height=200
+  game.physics.arcade.enable(mulher2);
+  mulher2.body.collideWorldBounds = true;
+  mulher2.animations.add('left', [0], 9, true);
+  mulher2.animations.add('right', [1], 9, true);
+  mulher2.body.velocity.x = 200;
+  mulher2.animations.play('right');
+
+  mulher1 = game.add.sprite(4950, game.world.height - 740 , 'pessoa');
   mulher1.width=86
   mulher1.height=200
   game.physics.arcade.enable(mulher1);
@@ -159,10 +178,26 @@ function create() {
   mulher1.body.velocity.x = 350;
   mulher1.animations.play('right');
 
+  mulher3 = game.add.sprite(1390, game.world.height - 320 , 'pessoa');
+  mulher3.width=86
+  mulher3.height=200
+  game.physics.arcade.enable(mulher3);
+  mulher3.body.collideWorldBounds = true;
+  mulher3.animations.add('left', [0], 9, true);
+  mulher3.animations.add('right', [1], 9, true);
+  mulher3.body.velocity.x = 200;
+  mulher3.animations.play('right');
+
   //ARMADILHAS
   armadilhas = game.add.group();
   game.physics.arcade.enable(armadilhas);
   armadilhas.enableBody = true;
+
+  armadilha=armadilhas.create(1325, game.world.height-200,'armadilha');
+  armadilha.body.gravity.y = 100;
+
+  armadilha=armadilhas.create(1590, game.world.height-200,'armadilha');
+  armadilha.body.gravity.y = 100;
 
   armadilha=armadilhas.create(3375, game.world.height-750,'armadilha');
   armadilha.body.gravity.y = 100;
@@ -376,6 +411,8 @@ function update() {
   game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
   game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
   game.physics.arcade.overlap(player, mulher1, ataqueMulher, null, this);
+  game.physics.arcade.overlap(player, mulher2, ataqueMulher, null, this);
+  game.physics.arcade.overlap(player, mulher3, ataqueMulher, null, this);
   game.physics.arcade.overlap(player, armadilhas, tocarArmadilha, null, this);
   game.physics.arcade.overlap(player, poderesImunidade, tocarPoderImunidade, null, this);
   game.physics.arcade.overlap(player, poderesVelocidade, tocarPoderVelocidade, null, this);
@@ -392,6 +429,17 @@ function update() {
     }
   }
 
+  if (mulher2){
+    if (mulher2.x < 145){
+      mulher2.body.velocity.x = 200;
+      mulher2.animations.play('right');
+    }
+    else if(mulher2.x > 300){
+      mulher2.body.velocity.x = -200;
+      mulher2.animations.play('left');
+    }
+  }
+
   if (mulher1){
     if (mulher1.x < 4950){
       mulher1.body.velocity.x = 350;
@@ -400,6 +448,18 @@ function update() {
     else if(mulher1.x > 5255){
       mulher1.body.velocity.x = -350;
       mulher1.animations.play('left');
+    }
+  }
+
+
+  if (mulher3){
+    if (mulher3.x < 1390){
+      mulher3.body.velocity.x = 200;
+      mulher3.animations.play('right');
+    }
+    else if(mulher3.x > 1510){
+      mulher3.body.velocity.x = -200;
+      mulher3.animations.play('left');
     }
   }
 
