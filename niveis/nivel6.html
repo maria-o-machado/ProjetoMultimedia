@@ -58,7 +58,7 @@ function preload() {
 function create() {
   audio = game.add.audio('musica');
 	audio.play();
-  
+
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
@@ -226,7 +226,7 @@ function create() {
   armadilha=armadilhas.create(2500, game.world.height-400,'armadilha');
   armadilha.body.gravity.y = 100;
 
-  armadilha=armadilhas.create(5680, game.world.height-700,'armadilha');
+  armadilha=armadilhas.create(5670, game.world.height-700,'armadilha');
   armadilha.body.gravity.y = 100;
 
   //PODER
@@ -375,12 +375,12 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderVelocidade (player, poder) {
-  tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
+  tfinalVelocidade = game.time.totalElapsedSeconds() + 20;
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000);
+  timeout2= setTimeout(desativaPoderVelocidade, 20000);
 }
 
 function desativaPoder(){
