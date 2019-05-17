@@ -27,6 +27,14 @@ var score = 0;
 var timeout;
 var timeout2;
 
+var tfinalImunidade = 0;
+var tempoImunidade = 0;
+var contadorImunidade=0;
+
+var tfinalVelocidade = 0;
+var tempoVelocidade = 0;
+var contadorVelocidade = 0;
+
 
 function preload() {
 	game.load.image('background', '../resources/backgroundinterior2.jpg');
@@ -48,17 +56,21 @@ function preload() {
 
 function create() {
 
-	 time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-	  time.fixedToCamera=true;
-	  time.tint=0xfa0013;
+	timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
-	  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
-	  displayscore.fixedToCamera=true;
-	  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-	  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-	  nomescore.fixedToCamera=true;
-	  nometime.fixedToCamera=true;
-	  displayscore.tint=0xfa0013;
+  	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+
+	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+	time.fixedToCamera=true;
+	time.tint=0xfa0013;
+
+	displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
+	displayscore.fixedToCamera=true;
+	nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+	nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+	nomescore.fixedToCamera=true;
+	nometime.fixedToCamera=true;
+	displayscore.tint=0xfa0013;
 
 	//  We're going to be using physics, so enable the Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -102,7 +114,18 @@ function create() {
 	//QUEIJOS BONS
 	queijosB = game.add.group();
 	queijosB.enableBody = true;
+
 	queijoB = queijosB.create(1080, game.world.height-600, 'queijoBom');
+	queijoB.body.gravity.y = 100;
+	queijoB.height=50;
+	queijoB.width=50;
+
+	queijoB = queijosB.create(2700, game.world.height-750, 'queijoBom');
+	queijoB.body.gravity.y = 100;
+	queijoB.height=50;
+	queijoB.width=50;
+
+	queijoB = queijosB.create(2740, game.world.height-750, 'queijoBom');
 	queijoB.body.gravity.y = 100;
 	queijoB.height=50;
 	queijoB.width=50;
@@ -112,12 +135,12 @@ function create() {
 	queijosV.enableBody = true;
 	game.physics.arcade.enable(queijosV);
 
-	queijoV=queijosV.create(350, game.world.height-250,'queijoVenenoso');
+	queijoV=queijosV.create(350, game.world.height-100,'queijoVenenoso');
 	queijoV.body.gravity.y = 100;
 	queijoV.height=50;
 	queijoV.width=50;
 
-	queijoV=queijosV.create(350, game.world.height-545,'queijoVenenoso');
+	queijoV=queijosV.create(370, game.world.height-545,'queijoVenenoso');
 	queijoV.body.gravity.y = 100;
 	queijoV.height=50;
 	queijoV.width=50;
@@ -132,7 +155,7 @@ function create() {
 	mulher.body.velocity.x = 100;
 	mulher.animations.play('right');
 
-	mulher1 = game.add.sprite(1880, game.world.height - 450 , 'pessoa');
+	mulher1 = game.add.sprite(2040, game.world.height - 420 , 'pessoa');
 	mulher1.width=86
 	mulher1.height=213
 	game.physics.arcade.enable(mulher1);
@@ -146,27 +169,31 @@ function create() {
 	armadilhas = game.add.group();
 	game.physics.arcade.enable(armadilhas);
 	armadilhas.enableBody = true;
-	armadilha=armadilhas.create(2900, game.world.height-30,'armadilha');
-	armadilha.body.gravity.y = 100;
+
 	armadilha=armadilhas.create(840, game.world.height-545,'armadilha');
+	armadilha.body.gravity.y = 100;
+
+	armadilha=armadilhas.create(2630, game.world.height-150,'armadilha');
+	armadilha.body.gravity.y = 100;
+
 
 	//PODER
 	poderes = game.add.group();
 	game.physics.arcade.enable(poderes);
 	poderes.enableBody = true;
-	poderesImunidade=poderes.create(20, game.world.height-730,'poder');
+	poderesImunidade=poderes.create(10, game.world.height-730,'poder');
 	poderesImunidade.width=60;
 	poderesImunidade.height=60;
 	poderesImunidade.body.gravity.y = 100;
 
-	poderesVelocidade=poderes.create(2185, game.world.height-730,'poder');
+	poderesVelocidade=poderes.create(1900, game.world.height-730,'poder');
 	poderesVelocidade.width=60;
 	poderesVelocidade.height=60;
 	poderesVelocidade.body.gravity.y = 100;
 	poderesVelocidade.tint=0xFFFF00;
 
 	 //TOCA
-	passa = game.add.sprite(2900, game.world.height-370, 'toca');
+	passa = game.add.sprite(2900, game.world.height-100, 'toca');
 	game.physics.arcade.enable(passa);
 	passa.height = 75;
 	passa.width = 94;
@@ -175,8 +202,8 @@ function create() {
 	button = game.add.button(1200, 10, 'buttonSair', actionOnClick, this);
 	button.height=49.35;
 	button.width=120.3;
-  button.onInputOver.add(over, this);
-  button.onInputOut.add(out, this);
+  	button.onInputOver.add(over, this);
+  	button.onInputOut.add(out, this);
 	button.fixedToCamera=true;
 
 	cursors = game.input.keyboard.createCursorKeys();
@@ -196,6 +223,8 @@ function actionOnClick () {
 
 function resetGame(){
 	game.time.reset();
+	contadorImunidade=0;
+  	contadorVelocidade=0;
 	clearTimeout(timeout);
 	clearTimeout(timeout2);
 	poderCons=0;
@@ -205,18 +234,18 @@ function resetGame(){
 
 function finish(player) {
 	player.kill();
-  contadorImunidade=0;
-  contadorVelocidade=0;
-  var tempoTotal=parseInt(game.time.totalElapsedSeconds());
+	contadorImunidade=0;
+	contadorVelocidade=0;
+	var tempoTotal=parseInt(game.time.totalElapsedSeconds());
 	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
-  if (tempoTotal<90){
+	if (tempoTotal<90){
 		score+=(90-tempoTotal)*50;
 	}
-  game.time.reset();
-  clearTimeout(timeout);
-  clearTimeout(timeout2);
-  poderCons=0;
-  for (var key in localStorage) {
+	game.time.reset();
+	clearTimeout(timeout);
+	clearTimeout(timeout2);
+	poderCons=0;
+	for (var key in localStorage) {
 	    var score2=localStorage.getItem(key);
 	    if (score2==0){
 				var str1 = key;
@@ -225,7 +254,7 @@ function finish(player) {
 				var registado=localStorage.getItem(nome);
 				if (registado=="null"){
 					localStorage.setItem(nome, score);
-	        location.href = "nivel6.html";
+	        		location.href = "nivel6.html";
 				}
 				else if (registado<score) {
 					localStorage.setItem(nome, score);
@@ -233,7 +262,7 @@ function finish(player) {
 				}
 	    }
 	}
-  location.href = "nivel6.html";
+	location.href = "nivel6.html";
 }
 
 function comerQueijo (player, queijo) {
@@ -278,31 +307,37 @@ function ataqueMulher (player,mulher) {
 
 function tocarArmadilha (player, armadilha) {
 	if (poderCons==0){
-	player.kill();
-	resetGame();
+		player.kill();
+		resetGame();
 	}
 }
 
 function tocarPoderImunidade (player, poder) {
+	tfinalImunidade = game.time.totalElapsedSeconds() + 15;
 	poder.kill();
+	contadorImunidade=1;
 	poderCons=1;
 	score+=150;
 	timeout= setTimeout(desativaPoder, 15000);
 }
 
 function tocarPoderVelocidade (player, poder) {
+	tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
 	poder.kill();
+	contadorVelocidade = 1;
 	poderConsVel=1;
 	score+=150;
 	timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function desativaPoder(){
-	poderCons=0;
+  contadorImunidade=0;
+  poderCons=0;
 }
 
 function desativaPoderVelocidade(){
-	poderConsVel=0;
+  contadorVelocidade = 0;
+  poderConsVel=0;
 }
 
 
@@ -326,6 +361,31 @@ function update() {
     nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
     nomescore.fixedToCamera=true;
     nometime.fixedToCamera=true;
+
+    if (contadorImunidade==1){
+	    timeImunidade.destroy();
+	    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+	    timeImunidade.fixedToCamera=true;
+	    timeImunidade.tint=0xfa0013;
+	    tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
+	 }
+
+	else{
+		timeImunidade.destroy();
+	}
+
+	if (contadorVelocidade==1){
+		timeVelocidade.destroy();
+		timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+		timeVelocidade.fixedToCamera=true;
+		timeVelocidade.tint=0xfa0013;
+		tempoVelocidade = tfinalVelocidade-game.time.totalElapsedSeconds()+1;
+	}
+
+	else{
+		timeVelocidade.destroy();
+	}
+
 	//  Collide the player and the stars with the platforms
 	var hitPlatform = game.physics.arcade.collide(layer, player);
 
@@ -345,23 +405,23 @@ function update() {
 	game.physics.arcade.overlap(player, poderesVelocidade, tocarPoderVelocidade, null, this);
 	game.physics.arcade.overlap(player, passa, finish, null, this);
 
-		if (mulher){
-	    if (mulher.x <630){
-	        mulher.body.velocity.x = 100;
-	        mulher.animations.play('right');
-	    }
-	    else if(mulher.x >720 ){
-	        mulher.body.velocity.x = -100;
-	        mulher.animations.play('left');
-	    }
+	if (mulher){
+		if (mulher.x <630){
+			mulher.body.velocity.x = 100;
+			mulher.animations.play('right');
+		}
+		else if(mulher.x >720 ){
+			mulher.body.velocity.x = -100;
+			mulher.animations.play('left');
+		}
 	}
 
 	if (mulher1){
-		if (mulher1.x <1880){
+		if (mulher1.x <2040){
 		    mulher1.body.velocity.x = 100;
 		    mulher1.animations.play('right');
 		}
-		else if(mulher1.x >1970){
+		else if(mulher1.x >2120){
 		    mulher1.body.velocity.x = -100;
 		    mulher1.animations.play('left');
 		}
