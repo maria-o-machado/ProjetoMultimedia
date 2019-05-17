@@ -24,6 +24,7 @@ var stars;
 var mulher;
 var score = 0;
 var timeout;
+var audio;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -44,12 +45,16 @@ function preload() {
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
   game.load.image('saude', '../resources/saude.png');
   game.load.image('saudenivel', '../resources/saudenivel.png');
+  game.load.audio('musica', '../resources/musica1.mp3');
 }
 
 
 function create() {
-
-
+  audio = game.add.audio('musica');
+  if(localStorage.getItem("musica")=="on"){
+    audio.play();
+  }
+  
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);

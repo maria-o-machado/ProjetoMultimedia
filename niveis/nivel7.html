@@ -26,6 +26,7 @@ var mulher;
 var score = 0;
 var timeout;
 var timeout2;
+var audio;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -50,10 +51,15 @@ function preload() {
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.spritesheet('buttonSair', '../resources/botoes/sair.png');
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
+  game.load.audio('musica', '../resources/musica1.mp3');
 }
 
 
 function create() {
+  audio = game.add.audio('musica');
+  if(localStorage.getItem("musica")=="on"){
+    audio.play();
+  }
 
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
