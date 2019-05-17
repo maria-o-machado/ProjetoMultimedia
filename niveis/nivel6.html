@@ -49,7 +49,7 @@ function preload() {
   game.load.image('armadilha', '../resources/Armadilha3.png');
   game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
-  game.load.spritesheet('buttonSair', '../resources/botoes/sair.png');
+  game.load.spritesheet('buttonPausa', '../resources/botoes/pausa.png');
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
   game.load.audio('musica', '../resources/musica1.mp3');
 }
@@ -251,7 +251,7 @@ function create() {
   passa.width = 94;
   game.camera.follow(player);
 
-  button = game.add.button(1200, 10, 'buttonSair', actionOnClick, this);
+  button = game.add.button(1200, 10, 'buttonPausa', actionOnClick, this);
 	button.height=49.35;
 	button.width=120.3;
   button.onInputOver.add(over, this);
