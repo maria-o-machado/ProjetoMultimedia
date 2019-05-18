@@ -81,48 +81,47 @@ function create() {
 	if(musica=="on"){
     audio.play();
   }
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.pageAlignVertically = true;
+    game.scale.pageAlignHorizontally = true;
+
+    //  A simple background for our game
+    game.add.tileSprite(0, 0, 6000,750,'background');
+    game.world.setBounds(0, 0, 6000, 750);
+    map = game.add.tilemap('mapa');
+    map.addTilesetImage( 'chaointerior');
+    map.setCollision([1,2]);
+    layer = map.createLayer('Camada de Tiles 1');
+    //layer.debug = true;
+
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
 
-  time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-  time.fixedToCamera=true;
-  time.tint=0xfa0013;
 
+    time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+    time.fixedToCamera=true;
+    time.tint=0xfa0013;
 
-  displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
-  nometime=game.add.bitmapText( 1350/2-60, 20, 'myfont', "TIME:", 40);
-  nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
-  nomescore.fixedToCamera=true;
-  nometime.fixedToCamera=true;
-  displayscore.tint=0xfa0013;
-
-   //  We're going to be using physics, so enable the Arcade Physics system
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.scale.pageAlignVertically = true;
-  game.scale.pageAlignHorizontally = true;
-
-  //  A simple background for our game
-  game.add.tileSprite(0, 0, 6000,750,'background');
-  game.world.setBounds(0, 0, 6000, 750);
-
+    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+    displayscore.fixedToCamera=true;
+    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+    nomescore.fixedToCamera=true;
+    nometime.fixedToCamera=true;
+    displayscore.tint=0xfa0013;
+  //  We're going to be using physics, so enable the Arcade 
   nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
-  saudenivel= game.add.sprite(220, 15, 'saude');
-  barrasaude= game.add.sprite(220, 15, 'saudenivel');
+    saudenivel= game.add.sprite(220, 15, 'saude');
+    barrasaude= game.add.sprite(220, 15, 'saudenivel');
+
   barrasaude.fixedToCamera=true;
   saudenivel.fixedToCamera=true;
-  nomesaude.fixedToCamera=true;
+    nomesaude.fixedToCamera=true;
 
   saudenivel.width=280;
   barrasaude.width=280;
 
-
-  map = game.add.tilemap('mapa');
-  map.addTilesetImage( 'chaointerior');
-  map.setCollision([1,2]);
-  layer = map.createLayer('Camada de Tiles 1');
-  //layer.debug = true;
 
   //layer.resizeWorld();
   player = game.add.sprite(10, game.world.height - 200 , 'rato');
@@ -533,13 +532,10 @@ function update() {
   displayscore.destroy()
   displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
-  nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
-  nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+  
   //nomesaude=game.add.bitmapText( 20, 20, 'myfont', "SAUDE:", 40);
  // nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
   //nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-  nomescore.fixedToCamera=true;
-  nometime.fixedToCamera=true;
   displayscore.tint=0xfa0013;
 
   if (contadorImunidade==1){
