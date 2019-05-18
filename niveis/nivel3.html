@@ -91,14 +91,15 @@ function create() {
     timeTamanho = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoTamanho)), 40);
 
     displayscore= game.add.bitmapText( 1200, 20, 'myfont',String( score), 40);
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+   time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
     time.fixedToCamera=true;
     time.tint=0xfa0013;
 
-    displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+
     displayscore.fixedToCamera=true;
-    nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+    nometime=game.add.bitmapText( 1350/2-60, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
     nomescore.fixedToCamera=true;
     nometime.fixedToCamera=true;
     displayscore.tint=0xfa0013;
@@ -112,12 +113,15 @@ function create() {
     //  A simple background for our game
     game.add.tileSprite(0, 0, 3000,750,'background');
     game.world.setBounds(0, 0, 3000, 750);
-    saudenivel= game.add.sprite(40, 15, 'saude');
-    barrasaude=game.add.sprite(40, 15, 'saudenivel');
+    nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
+    saudenivel= game.add.sprite(220, 15, 'saude');
+    barrasaude= game.add.sprite(220, 15, 'saudenivel');
     saudenivel.width=280;
     barrasaude.width=280;
     barrasaude.fixedToCamera=true;
     saudenivel.fixedToCamera=true;
+        nomesaude.fixedToCamera=true;
+
 
     //CHAO
      map = game.add.tilemap('mapa');
@@ -563,13 +567,15 @@ function update() {
         timeTamanho.destroy();
     }
     time.destroy();
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+    time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
     time.fixedToCamera=true;
     time.tint=0xfa0013;
 
     displayscore.destroy()
-    displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+    displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
     displayscore.fixedToCamera=true;
+    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
     nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
     nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
     nomescore.fixedToCamera=true;
