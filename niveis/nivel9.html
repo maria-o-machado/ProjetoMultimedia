@@ -52,9 +52,14 @@ function preload() {
   game.load.image('poder', '../resources/Poderes.png');
   game.load.image('poderAumenta', '../resources/poderAumenta.png');
   game.load.image('armadilha', '../resources/Armadilha3.png');
+  game.load.image('buttonPausa', '../resources/botoes/pausa.png');
+  game.load.image('buttonMenu', '../resources/botoes/menu.png');
+	game.load.image('buttonNiveis', '../resources/botoes/niveis.png');
+	game.load.image('buttonSair', '../resources/botoes/sair.png');
+	game.load.image('buttonContinuar', '../resources/botoes/continuar.png');
+  game.load.image('caixaPausa', '../resources/caixa2.png');
   game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
-  game.load.spritesheet('buttonSair', '../resources/botoes/sair.png');
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
   game.load.audio('musica', '../resources/musica1.mp3');
 }
@@ -215,12 +220,79 @@ function create() {
   passa.width = 94;
   game.camera.follow(player);
 
-  button = game.add.button(1200, 10, 'buttonSair', actionOnClick, this);
+  button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
   button.onInputOver.add(over, this);
-  button.onInputOut.add(out, this);
-	button.fixedToCamera=true;
+  button.onInputUp.add(function () {
+		this.game.canvas.style.cursor = "default";
+	  // When the paus button is pressed, we pause the game
+	  game.paused = true;
+		caixa = game.add.sprite(527, game.world.height - 570 , 'caixaPausa');
+		caixa.width=310.4;
+		caixa.height=417.2;
+		buttonMenu = game.add.button(625, 250, 'buttonMenu');
+		buttonMenu.height=49.35;
+		buttonMenu.width=120.3;
+		buttonNiveis = game.add.button(625, 325, 'buttonNiveis');
+		buttonNiveis.height=49.35;
+		buttonNiveis.width=120.3;
+		buttonSair = game.add.button(625, 400, 'buttonSair');
+		buttonSair.height=49.35;
+		buttonSair.width=120.3;
+		buttonContinuar = game.add.button(625, 475, 'buttonContinuar');
+		buttonContinuar.height=49.35;
+		buttonContinuar.width=120.3;
+		game.input.onDown.add(unpause, self);
+	    });
+			// And finally the method that handels the pause menu
+	    function unpause(event){
+	        // Only act if paused
+	        if(game.paused){
+						if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
+							this.game.canvas.style.cursor = "pointer";
+							player.kill();
+							contadorImunidade=0;
+						  contadorVelocidade=0;
+							game.time.reset();
+              clearTimeout(timeout);
+              clearTimeout(timeout2);
+							poderCons=0;
+							location.href = "../html/MenuPrincipal.html";
+						}
+						else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
+							this.game.canvas.style.cursor = "pointer";
+							player.kill();
+							contadorImunidade=0;
+						  contadorVelocidade=0;
+							game.time.reset();
+              clearTimeout(timeout);
+              clearTimeout(timeout2);
+							poderCons=0;
+							location.href = "../html/menuniveis.html";
+						}
+						else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
+							this.game.canvas.style.cursor = "pointer";
+							player.kill();
+							contadorImunidade=0;
+						  contadorVelocidade=0;
+							game.time.reset();
+              clearTimeout(timeout);
+              clearTimeout(timeout2);
+							poderCons=0;
+							window.close();
+						}
+
+						else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
+							caixa.destroy();
+							buttonMenu.destroy();
+							buttonNiveis.destroy();
+							buttonSair.destroy();
+							buttonContinuar.destroy();
+							game.paused = false;
+						}
+        }
+    };
 
 	cursors = game.input.keyboard.createCursorKeys();
 }
@@ -228,15 +300,6 @@ function create() {
 function over() {
     this.game.canvas.style.cursor = "pointer";
 }
-
-function out() {
-    this.game.canvas.style.cursor = "default";
-}
-
-function actionOnClick () {
-	location.href = "../html/menuniveis.html"
-}
-
 
 function resetGame(){
   audio.stop();
