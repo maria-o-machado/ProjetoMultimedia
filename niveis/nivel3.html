@@ -139,6 +139,8 @@ function create() {
     player.width=87;
     player.height=47.25;
     player.goesRight=true;
+    player.anchor.setTo(0, -0.5);
+    player.body.setSize(126, 69, 14,16 );
 
     //  Our two animations, walking left and right.
     player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
