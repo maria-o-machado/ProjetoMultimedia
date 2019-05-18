@@ -25,6 +25,10 @@ var mulher;
 var score = 0;
 var timeout;
 var audio;
+var musicaPoder;
+var matarMulher;
+var apanharMas;
+var apanharBoas;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -51,11 +55,19 @@ function preload() {
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
   game.load.audio('musica', '../resources/musica1.mp3');
+  game.load.audio('musicaPoderes', '../resources/musicaPoderes.mp3');
+  game.load.audio('musicaMatarmulher', '../resources/matarMulher.mp3');
+	game.load.audio('musicaBoas', '../resources/apanharQueijosBom.mp3');
+	game.load.audio('musicaMas', '../resources/apanharCoisasMas.mp3');
 }
 
 
 function create() {
   audio = game.add.audio('musica');
+  musicaPoder = game.add.audio('musicaPoderes');
+  matarMulher = game.add.audio('musicaMatarmulher');
+	apanharBoas = game.add.audio('musicaBoas');
+	apanharMas = game.add.audio('musicaMas');
   if(localStorage.getItem("musica")=="on"){
     audio.play();
   }
@@ -301,16 +313,9 @@ function over() {
     this.game.canvas.style.cursor = "pointer";
 }
 
-function out() {
-    this.game.canvas.style.cursor = "default";
-}
-
-function actionOnClick () {
-	location.href = "../html/menuniveis.html"
-}
-
 function resetGame(){
   audio.stop();
+  musicaPoder.stop();
   game.time.reset();
   contadorImunidade=0;
   clearTimeout(timeout);
@@ -321,6 +326,7 @@ function resetGame(){
 
 function finish(player) {
   audio.stop();
+  musicaPoder.stop();
   player.kill();
   contadorImunidade=0;
   contadorVelocidade=0;
@@ -353,6 +359,9 @@ function finish(player) {
 }
 
 function comerQueijo (player, queijo) {
+  if(localStorage.getItem("sons")=="on"){
+		apanharBoas.play();
+	}
   score+=100;
   if (saudenivel.width!= 280){
       saudenivel.width+=70;
@@ -363,6 +372,9 @@ function comerQueijo (player, queijo) {
 function comerQueijoMau (player, queijoMau) {
   // Removes the star from the screen
   if (poderCons==0){
+      if(localStorage.getItem("sons")=="on"){
+        apanharMas.play();
+      }
       saudenivel.width-=70;
       if (saudenivel.width<=0){
           player.kill();
@@ -374,6 +386,9 @@ function comerQueijoMau (player, queijoMau) {
 
 function ataqueMulher (player,mulher) {
   if (mulher.body.touching.up){
+    if(localStorage.getItem("sons")=="on"){
+			matarMulher.play();
+		}
     score+=50;
     mulher.body.enable = false;
     player.body.velocity.y = -70;
@@ -382,6 +397,9 @@ function ataqueMulher (player,mulher) {
   }
   else{
   if (poderCons==0){
+    if(localStorage.getItem("sons")=="on"){
+      apanharMas.play();
+    }
     saudenivel.width-=140;
     mulher.kill();
     if (saudenivel.width<=0){
@@ -394,12 +412,19 @@ function ataqueMulher (player,mulher) {
 
 function tocarArmadilha (player, armadilha) {
   if (poderCons==0){
+    if(localStorage.getItem("sons")=="on"){
+			apanharMas.play();
+		}
     player.kill();
     resetGame();
   }
 }
 
 function tocarPoderImunidade (player, poder) {
+	if(localStorage.getItem("sons")=="on"){
+    audio.pause();
+    musicaPoder.play();
+	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorImunidade=1;
@@ -414,6 +439,10 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function desativaPoder(){
+  if(localStorage.getItem("sons")=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
   poder.kill();
   contadorImunidade=0;
   poderCons=0;

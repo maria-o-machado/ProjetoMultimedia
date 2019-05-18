@@ -399,15 +399,15 @@ function tocarArmadilha (player, armadilha) {
 	if (poderCons==0){
 		if(localStorage.getItem("sons")=="on"){
 			apanharMas.play();
-		}	
+		}
 	player.kill();
 	resetGame();
 	}
 }
 
 function tocarPoderImunidade (player, poder) {
-	audio.pause();
 	if(localStorage.getItem("sons")=="on"){
+		audio.pause();
 		musicaPoder.play();
 	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 15;
@@ -425,8 +425,8 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderVelocidade (player, poder) {
-	audio.pause();
 	if(localStorage.getItem("sons")=="on"){
+		audio.pause();
 		musicaPoder.play();
 	}
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
@@ -444,16 +444,20 @@ function tocarPoderVelocidade (player, poder) {
 }
 
 function desativaPoder(poder){
-	musicaPoder.stop();
-	audio.resume();
+	if(localStorage.getItem("sons")=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
   poder.kill();
   contadorImunidade=0;
   poderCons=0;
 }
 
 function desativaPoderVelocidade(poder){
-	musicaPoder.stop();
-	audio.resume();
+	if(localStorage.getItem("sons")=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
   poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
