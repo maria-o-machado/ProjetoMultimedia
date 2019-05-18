@@ -297,6 +297,9 @@ function over() {
 }
 
 function resetGame(){
+	if(sons=="on"){
+		apanharMas.play();
+	}
 	audio.stop();
 	musicaPoder.stop();
   game.time.reset();
@@ -312,6 +315,7 @@ function resetGame(){
 function finish(player) {
 	audio.stop();
 	musicaPoder.stop();
+	apanharMas.stop();
 	player.kill();
 	contadorImunidade=0;
   contadorVelocidade=0;

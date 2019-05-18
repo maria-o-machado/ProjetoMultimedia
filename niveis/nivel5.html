@@ -312,6 +312,9 @@ function over() {
 }
 
 function resetGame(){
+	if(sons=="on"){
+		apanharMas.play();
+	}
 	audio.stop();
 	game.time.reset();
 	musicaPoder.stop();
@@ -325,6 +328,7 @@ function resetGame(){
 }
 
 function finish(player) {
+	apanharMas.stop();
 	audio.stop();
 	musicaPoder.stop();
 	player.kill();

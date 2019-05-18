@@ -479,6 +479,7 @@ function desativaPoderTam(poder){
 }
 
 function finish(player) {
+  apanharMas.stop();
   audio.stop();
   musicaPoder.stop();
   player.kill();
@@ -514,6 +515,9 @@ function finish(player) {
 }
 
 function resetGame(){
+  if(sons=="on"){
+		apanharMas.play();
+	}
     audio.stop();
     musicaPoder.stop();
     game.time.reset();
