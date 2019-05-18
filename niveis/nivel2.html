@@ -438,7 +438,7 @@ function tocarPoderImunidade (player, poder) {
   timeout= setTimeout(desativaPoder, 15000,poder);
 }
 
-function desativaPoder(){
+function desativaPoder(poder){
   if(localStorage.getItem("sons")=="on"){
 		musicaPoder.stop();
 		audio.resume();
