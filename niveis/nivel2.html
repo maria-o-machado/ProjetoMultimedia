@@ -125,6 +125,8 @@ function create() {
   player.width=104;
   player.height=56;
   player.goesRight=true;
+  player.anchor.setTo(0, -0.5);
+  player.body.setSize(129, 69, 12,19 );
 
   //  Our two animations, walking left and right.
   player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
@@ -459,6 +461,7 @@ function desativaPoder(poder){
 
 function update() {
   player.checkWorldBounds=true;
+  //game.debug.body(player);
   if (player.body.y> game.world.height){
             resetGame()
   }
