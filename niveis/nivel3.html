@@ -32,6 +32,8 @@ var musicaPoder;
 var matarMulher;
 var apanharMas;
 var apanharBoas;
+var sons;
+var musica;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -78,7 +80,9 @@ function create() {
     matarMulher = game.add.audio('musicaMatarmulher');
   	apanharBoas = game.add.audio('musicaBoas');
   	apanharMas = game.add.audio('musicaMas');
-    if(localStorage.getItem("musica")=="on"){
+    musica=localStorage.getItem("musica");
+  	sons=localStorage.getItem("sons");
+  	if(musica=="on"){
       audio.play();
     }
 
@@ -353,7 +357,7 @@ function over() {
 
 
 function comerQueijo (player, queijo) {
-    if(localStorage.getItem("sons")=="on"){
+    if(sons=="on"){
   		apanharBoas.play();
   	}
     score+=100;
@@ -366,7 +370,7 @@ function comerQueijo (player, queijo) {
 function comerQueijoMau (player, queijoMau) {
     // Removes the star from the screen
     if (poderCons==0){
-        if(localStorage.getItem("sons")=="on"){
+        if(sons=="on"){
           apanharMas.play();
         }
         saudenivel.width-=70;
@@ -380,7 +384,7 @@ function comerQueijoMau (player, queijoMau) {
 
 function ataqueMulher (player,mulher) {
     if (mulher.body.touching.up){
-      if(localStorage.getItem("sons")=="on"){
+      if(sons=="on"){
   			matarMulher.play();
   		}
       score+=50;
@@ -391,7 +395,7 @@ function ataqueMulher (player,mulher) {
     }
     else{
       if (poderCons==0){
-        if(localStorage.getItem("sons")=="on"){
+        if(sons=="on"){
           apanharMas.play();
         }
         saudenivel.width-=140;
@@ -406,7 +410,7 @@ function ataqueMulher (player,mulher) {
 
 function tocarArmadilha (player, armadilha) {
   if (poderCons==0){
-    if(localStorage.getItem("sons")=="on"){
+    if(sons=="on"){
 			apanharMas.play();
 		}
     player.kill();
@@ -415,7 +419,7 @@ function tocarArmadilha (player, armadilha) {
 }
 
 function tocarPoderImunidade (player, poder) {
-  if(localStorage.getItem("sons")=="on"){
+  if(sons=="on"){
     audio.pause();
     musicaPoder.play();
 	}
@@ -434,7 +438,7 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderTamanho (player, poder) {
-  if(localStorage.getItem("sons")=="on"){
+  if(sons=="on"){
     audio.pause();
     musicaPoder.play();
 	}
@@ -454,7 +458,7 @@ function tocarPoderTamanho (player, poder) {
 }
 
 function desativaPoder(poder){
-  if(localStorage.getItem("sons")=="on"){
+  if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
@@ -464,7 +468,7 @@ function desativaPoder(poder){
 }
 
 function desativaPoderTam(poder){
-  if(localStorage.getItem("sons")=="on"){
+  if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}

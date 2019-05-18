@@ -31,6 +31,8 @@ var musicaPoder;
 var matarMulher;
 var apanharMas;
 var apanharBoas;
+var sons;
+var musica;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -77,25 +79,27 @@ function create() {
 	matarMulher = game.add.audio('musicaMatarmulher');
 	apanharBoas = game.add.audio('musicaBoas');
 	apanharMas = game.add.audio('musicaMas');
-	if(localStorage.getItem("musica")=="on"){
+	musica=localStorage.getItem("musica");
+	sons=localStorage.getItem("sons");
+	if(musica=="on"){
 		audio.play();
 	}
 
 	timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
-  	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
 
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-    time.fixedToCamera=true;
-    time.tint=0xfa0013;
+  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
 
-    displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
-    displayscore.fixedToCamera=true;
-    nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-    nomescore.fixedToCamera=true;
-    nometime.fixedToCamera=true;
-    displayscore.tint=0xfa0013;
+  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
 	//  We're going to be using physics, so enable the Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.scale.pageAlignVertically = true;
@@ -218,75 +222,74 @@ function create() {
 	button.fixedToCamera=true;
   button.onInputOver.add(over, this);
 	button.onInputUp.add(function () {
-		this.game.canvas.style.cursor = "default";
-	  // When the paus button is pressed, we pause the game
-	  game.paused = true;
-		caixa = game.add.sprite(527, game.world.height - 570 , 'caixaPausa');
-		caixa.width=310.4;
-		caixa.height=417.2;
-		buttonMenu = game.add.button(625, 250, 'buttonMenu');
-		buttonMenu.height=49.35;
-		buttonMenu.width=120.3;
-		buttonNiveis = game.add.button(625, 325, 'buttonNiveis');
-		buttonNiveis.height=49.35;
-		buttonNiveis.width=120.3;
-		buttonSair = game.add.button(625, 400, 'buttonSair');
-		buttonSair.height=49.35;
-		buttonSair.width=120.3;
-		buttonContinuar = game.add.button(625, 475, 'buttonContinuar');
-		buttonContinuar.height=49.35;
-		buttonContinuar.width=120.3;
-		game.input.onDown.add(unpause, self);
-	    });
-			// And finally the method that handels the pause menu
-	    function unpause(event){
-	        // Only act if paused
-	        if(game.paused){
-						if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
-							this.game.canvas.style.cursor = "pointer";
-							player.kill();
-							contadorImunidade=0;
-						  contadorVelocidade=0;
-							game.time.reset();
-							clearTimeout(timeout);
-							clearTimeout(timeout2);
-							poderCons=0;
-							location.href = "../html/MenuPrincipal.html";
-						}
-						else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
-							this.game.canvas.style.cursor = "pointer";
-							player.kill();
-							contadorImunidade=0;
-						  contadorVelocidade=0;
-							game.time.reset();
-							clearTimeout(timeout);
-							clearTimeout(timeout2);
-							poderCons=0;
-							location.href = "../html/menuniveis.html";
-						}
-						else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
-							this.game.canvas.style.cursor = "pointer";
-							player.kill();
-							contadorImunidade=0;
-						  contadorVelocidade=0;
-							game.time.reset();
-							clearTimeout(timeout);
-							clearTimeout(timeout2);
-							poderCons=0;
-							window.close();
-						}
+	this.game.canvas.style.cursor = "default";
+  // When the paus button is pressed, we pause the game
+  game.paused = true;
+	caixa = game.add.sprite(527, game.world.height - 570 , 'caixaPausa');
+	caixa.width=310.4;
+	caixa.height=417.2;
+	buttonMenu = game.add.button(625, 250, 'buttonMenu');
+	buttonMenu.height=49.35;
+	buttonMenu.width=120.3;
+	buttonNiveis = game.add.button(625, 325, 'buttonNiveis');
+	buttonNiveis.height=49.35;
+	buttonNiveis.width=120.3;
+	buttonSair = game.add.button(625, 400, 'buttonSair');
+	buttonSair.height=49.35;
+	buttonSair.width=120.3;
+	buttonContinuar = game.add.button(625, 475, 'buttonContinuar');
+	buttonContinuar.height=49.35;
+	buttonContinuar.width=120.3;
+	game.input.onDown.add(unpause, self);
+    });
+		// And finally the method that handels the pause menu
+    function unpause(event){
+        // Only act if paused
+        if(game.paused){
+					if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+					  contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						location.href = "../html/MenuPrincipal.html";
+					}
+					else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+					  contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						location.href = "../html/menuniveis.html";
+					}
+					else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+					  contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						window.close();
+					}
 
-						else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
-							caixa.destroy();
-							buttonMenu.destroy();
-							buttonNiveis.destroy();
-							buttonSair.destroy();
-							buttonContinuar.destroy();
-							game.paused = false;
-						}
-        }
-    };
-
+					else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
+						caixa.destroy();
+						buttonMenu.destroy();
+						buttonNiveis.destroy();
+						buttonSair.destroy();
+						buttonContinuar.destroy();
+						game.paused = false;
+					}
+      }
+  };
 }
 
 function over() {
@@ -342,7 +345,7 @@ function finish(player) {
 }
 
 function comerQueijo (player, queijo) {
-	if(localStorage.getItem("sons")=="on"){
+	if(sons=="on"){
 		apanharBoas.play();
 	}
 	score+=100;
@@ -355,7 +358,7 @@ function comerQueijo (player, queijo) {
 function comerQueijoMau (player, queijoMau) {
 	// Removes the star from the screen
 	if (poderCons==0){
-		if(localStorage.getItem("sons")=="on"){
+		if(sons=="on"){
 			apanharMas.play();
 		}
 
@@ -370,7 +373,7 @@ function comerQueijoMau (player, queijoMau) {
 
 function ataqueMulher (player,mulher) {
 	if (mulher.body.touching.up) {
-		if(localStorage.getItem("sons")=="on"){
+		if(sons=="on"){
 			matarMulher.play();
 		}
 
@@ -381,23 +384,23 @@ function ataqueMulher (player,mulher) {
 	    mulher.kill();
 	}
 	else{
-	    if (poderCons==0){
-				if(localStorage.getItem("sons")=="on"){
-					apanharMas.play();
-				}
-	        saudenivel.width-=140;
-	        mulher.kill();
-	        if (saudenivel.width<=0){
-	            player.kill();
-	            resetGame();
-	        }
-	    }
+    if (poderCons==0){
+			if(sons=="on"){
+				apanharMas.play();
+			}
+      saudenivel.width-=140;
+      mulher.kill();
+      if (saudenivel.width<=0){
+          player.kill();
+          resetGame();
+      }
+    }
 	}
 }
 
 function tocarArmadilha (player, armadilha) {
 	if (poderCons==0){
-		if(localStorage.getItem("sons")=="on"){
+		if(sons=="on"){
 			apanharMas.play();
 		}
 	player.kill();
@@ -406,7 +409,7 @@ function tocarArmadilha (player, armadilha) {
 }
 
 function tocarPoderImunidade (player, poder) {
-	if(localStorage.getItem("sons")=="on"){
+	if(sons=="on"){
 		audio.pause();
 		musicaPoder.play();
 	}
@@ -425,7 +428,7 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderVelocidade (player, poder) {
-	if(localStorage.getItem("sons")=="on"){
+	if(sons=="on"){
 		audio.pause();
 		musicaPoder.play();
 	}
@@ -444,7 +447,7 @@ function tocarPoderVelocidade (player, poder) {
 }
 
 function desativaPoder(poder){
-	if(localStorage.getItem("sons")=="on"){
+	if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
@@ -454,7 +457,7 @@ function desativaPoder(poder){
 }
 
 function desativaPoderVelocidade(poder){
-	if(localStorage.getItem("sons")=="on"){
+	if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
@@ -465,26 +468,25 @@ function desativaPoderVelocidade(poder){
 
 function update() {
 
-
 	player.checkWorldBounds=true;
 	if (player.body.y> game.world.height){
             resetGame()
     }
 
 	time.destroy();
-    time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-    time.fixedToCamera=true;
-    time.tint=0xfa0013;
+  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
 
 
-    displayscore.destroy()
-    displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
-    displayscore.fixedToCamera=true;
-    nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-    nomescore.fixedToCamera=true;
-    nometime.fixedToCamera=true;
-    displayscore.tint=0xfa0013;
+  displayscore.destroy()
+  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
 
 	if (contadorImunidade==1){
 	    timeImunidade.destroy();
