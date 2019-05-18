@@ -28,6 +28,10 @@ var timeout;
 var timer;
 var poderCons=0;
 var audio;
+var musicaPoder;
+var matarMulher;
+var apanharMas;
+var apanharBoas;
 
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
@@ -60,12 +64,20 @@ function preload() {
     game.load.spritesheet('rato', '../resources/ratos.png', 166.67, 90);
     game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
     game.load.audio('musica', '../resources/musica1.mp3');
+    game.load.audio('musicaPoderes', '../resources/musicaPoderes.mp3');
+    game.load.audio('musicaMatarmulher', '../resources/matarMulher.mp3');
+  	game.load.audio('musicaBoas', '../resources/apanharQueijosBom.mp3');
+  	game.load.audio('musicaMas', '../resources/apanharCoisasMas.mp3');
 
 }
 
 
 function create() {
     audio = game.add.audio('musica');
+    musicaPoder = game.add.audio('musicaPoderes');
+    matarMulher = game.add.audio('musicaMatarmulher');
+  	apanharBoas = game.add.audio('musicaBoas');
+  	apanharMas = game.add.audio('musicaMas');
     if(localStorage.getItem("musica")=="on"){
       audio.play();
     }
@@ -341,6 +353,9 @@ function over() {
 
 
 function comerQueijo (player, queijo) {
+    if(localStorage.getItem("sons")=="on"){
+  		apanharBoas.play();
+  	}
     score+=100;
     if (saudenivel.width!= 280){
         saudenivel.width+=70;
@@ -351,6 +366,9 @@ function comerQueijo (player, queijo) {
 function comerQueijoMau (player, queijoMau) {
     // Removes the star from the screen
     if (poderCons==0){
+        if(localStorage.getItem("sons")=="on"){
+          apanharMas.play();
+        }
         saudenivel.width-=70;
         if (saudenivel.width<=0){
             player.kill();
@@ -362,32 +380,45 @@ function comerQueijoMau (player, queijoMau) {
 
 function ataqueMulher (player,mulher) {
     if (mulher.body.touching.up){
-        score+=50;
-        mulher.body.enable = false;
-        player.body.velocity.y = -70;
-        mulher.animations.stop();
+      if(localStorage.getItem("sons")=="on"){
+  			matarMulher.play();
+  		}
+      score+=50;
+      mulher.body.enable = false;
+      player.body.velocity.y = -70;
+      mulher.animations.stop();
+      mulher.kill();
+    }
+    else{
+      if (poderCons==0){
+        if(localStorage.getItem("sons")=="on"){
+          apanharMas.play();
+        }
+        saudenivel.width-=140;
         mulher.kill();
-      }
-      else{
-        if (poderCons==0){
-          saudenivel.width-=140;
-          mulher.kill();
-          if (saudenivel.width<=0){
-            player.kill();
-            resetGame();
-          }
+        if (saudenivel.width<=0){
+          player.kill();
+          resetGame();
         }
       }
+    }
 }
 
 function tocarArmadilha (player, armadilha) {
   if (poderCons==0){
+    if(localStorage.getItem("sons")=="on"){
+			apanharMas.play();
+		}
     player.kill();
     resetGame();
   }
 }
 
 function tocarPoderImunidade (player, poder) {
+  if(localStorage.getItem("sons")=="on"){
+    audio.pause();
+    musicaPoder.play();
+	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorImunidade=1;
@@ -403,70 +434,84 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderTamanho (player, poder) {
-    tfinalTamanho = game.time.totalElapsedSeconds() + 10;
-    contadorTamanho = 1;
-    poder.kill();
-    score+=150;
-    player.width=104;
-    player.height=56;
-    player.anchor.setTo(0, -0.5);
-    poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
-    poder.height=200;
-    poder.width=200;
-    poder.alpha=0.5;
+  if(localStorage.getItem("sons")=="on"){
+    audio.pause();
+    musicaPoder.play();
+	}
+  tfinalTamanho = game.time.totalElapsedSeconds() + 10;
+  contadorTamanho = 1;
+  poder.kill();
+  score+=150;
+  player.width=104;
+  player.height=56;
+  player.anchor.setTo(0, -0.5);
+  poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
+  poder.height=200;
+  poder.width=200;
+  poder.alpha=0.5;
 
-    var timer= setTimeout(desativaPoderTam, 10000,poder);
+  var timer= setTimeout(desativaPoderTam, 10000,poder);
 }
 
 function desativaPoder(poder){
+  if(localStorage.getItem("sons")=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
   poder.kill();
   contadorImunidade=0;
   poderCons=0;
 }
 
 function desativaPoderTam(poder){
-    poder.kill();
-    contadorTamanho  = 0;
-    player.width=87;
-    player.height=47.25;
+  if(localStorage.getItem("sons")=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
+  poder.kill();
+  contadorTamanho  = 0;
+  player.width=87;
+  player.height=47.25;
 }
 
 function finish(player) {
   audio.stop();
-    player.kill();
-    contadorImunidade=0;
-    contadorVelocidade=0;
-    var tempoTotal=parseInt(game.time.totalElapsedSeconds());
-  	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
-    if (tempoTotal<90){
-  		score+=(90-tempoTotal)*50;
-  	}
-    game.time.reset();
-    clearTimeout(timeout);
-    clearTimeout(timer);
-    poderCons=0;
-    for (var key in localStorage) {
-  	    var score2=localStorage.getItem(key);
-  	    if (score2==0){
-  				var str1 = key;
-  				var str2 = "-nivel3";
-  				var nome = str1.concat(str2);
-  				var registado=localStorage.getItem(nome);
-  				if (registado=="null"){
-  					localStorage.setItem(nome, score);
-  	        location.href = "nivel4.html";
-  				}
-  				else if (registado<score) {
-  					localStorage.setItem(nome, score);
-  	        location.href = "nivel4.html";
-  				}
-  	    }
-  	}
-    location.href = "nivel4.html"
+  musicaPoder.stop();
+  player.kill();
+  contadorImunidade=0;
+  contadorVelocidade=0;
+  var tempoTotal=parseInt(game.time.totalElapsedSeconds());
+	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
+  if (tempoTotal<90){
+		score+=(90-tempoTotal)*50;
+	}
+  game.time.reset();
+  clearTimeout(timeout);
+  clearTimeout(timer);
+  poderCons=0;
+  for (var key in localStorage) {
+	    var score2=localStorage.getItem(key);
+	    if (score2==0){
+				var str1 = key;
+				var str2 = "-nivel3";
+				var nome = str1.concat(str2);
+				var registado=localStorage.getItem(nome);
+				if (registado=="null"){
+					localStorage.setItem(nome, score);
+	        location.href = "nivel4.html";
+				}
+				else if (registado<score) {
+					localStorage.setItem(nome, score);
+	        location.href = "nivel4.html";
+				}
+	    }
+	}
+  location.href = "nivel4.html"
 }
 
 function resetGame(){
     audio.stop();
+    musicaPoder.stop();
     game.time.reset();
     contadorImunidade=0;
     contadorTamanho=0;
