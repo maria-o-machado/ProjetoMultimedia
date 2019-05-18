@@ -243,6 +243,7 @@ function create() {
   button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
+  button.fixedToCamera=true;
   button.onInputOver.add(over, this);
   button.onInputUp.add(function () {
 		this.game.canvas.style.cursor = "default";

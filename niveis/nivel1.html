@@ -202,6 +202,7 @@ function create() {
 	button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
+	button.fixedToCamera=true;
   button.onInputOver.add(over, this);
 	button.onInputUp.add(function () {
 		this.game.canvas.style.cursor = "default";
@@ -388,6 +389,7 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderVelocidade (player, poder) {
+	audio.pause();
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorVelocidade = 1;
@@ -403,6 +405,7 @@ function tocarPoderVelocidade (player, poder) {
 }
 
 function desativaPoder(poder){
+	audio.resume();
   poder.kill();
   contadorImunidade=0;
   poderCons=0;

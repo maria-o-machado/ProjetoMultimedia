@@ -260,9 +260,7 @@ function create() {
   	button.height=49.35;
   	button.width=120.3;
     button.onInputOver.add(over, this);
-    button.onInputOut.add(out, this);
   	button.fixedToCamera=true;
-
     button.onInputUp.add(function () {
   		this.game.canvas.style.cursor = "default";
   	  // When the paus button is pressed, we pause the game
@@ -341,9 +339,6 @@ function over() {
     this.game.canvas.style.cursor = "pointer";
 }
 
-function out() {
-    this.game.canvas.style.cursor = "default";
-}
 
 function comerQueijo (player, queijo) {
     score+=100;
