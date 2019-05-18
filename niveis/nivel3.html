@@ -286,66 +286,66 @@ function create() {
   		caixa = game.add.sprite(527, game.world.height - 570 , 'caixaPausa');
   		caixa.width=310.4;
   		caixa.height=417.2;
-  		buttonMenu = game.add.button(625, 250, 'buttonMenu');
-  		buttonMenu.height=49.35;
-  		buttonMenu.width=120.3;
-  		buttonNiveis = game.add.button(625, 325, 'buttonNiveis');
-  		buttonNiveis.height=49.35;
-  		buttonNiveis.width=120.3;
-  		buttonSair = game.add.button(625, 400, 'buttonSair');
-  		buttonSair.height=49.35;
-  		buttonSair.width=120.3;
-  		buttonContinuar = game.add.button(625, 475, 'buttonContinuar');
-  		buttonContinuar.height=49.35;
-  		buttonContinuar.width=120.3;
-  		game.input.onDown.add(unpause, self);
-  	    });
-  			// And finally the method that handels the pause menu
-  	    function unpause(event){
-  	        // Only act if paused
-  	        if(game.paused){
-  						if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
-  							this.game.canvas.style.cursor = "pointer";
-  							player.kill();
-  							contadorImunidade=0;
-  						  contadorVelocidade=0;
-  							game.time.reset();
-                clearTimeout(timeout);
-                clearTimeout(timer);
-  							poderCons=0;
-  							location.href = "../html/MenuPrincipal.html";
-  						}
-  						else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
-  							this.game.canvas.style.cursor = "pointer";
-  							player.kill();
-  							contadorImunidade=0;
-  						  contadorVelocidade=0;
-  							game.time.reset();
-                clearTimeout(timeout);
-                clearTimeout(timer);
-  							poderCons=0;
-  							location.href = "../html/menuniveis.html";
-  						}
-  						else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
-  							this.game.canvas.style.cursor = "pointer";
-  							player.kill();
-  							contadorImunidade=0;
-  						  contadorVelocidade=0;
-  							game.time.reset();
-                clearTimeout(timeout);
-                clearTimeout(timer);
-  							poderCons=0;
-  							window.close();
-  						}
+      buttonMenu = game.add.button(625, 250, 'buttonContinuar');
+    	buttonMenu.height=49.35;
+    	buttonMenu.width=120.3;
+    	buttonNiveis = game.add.button(625, 325, 'buttonMenu');
+    	buttonNiveis.height=49.35;
+    	buttonNiveis.width=120.3;
+    	buttonSair = game.add.button(625, 400, 'buttonNiveis');
+    	buttonSair.height=49.35;
+    	buttonSair.width=120.3;
+    	buttonContinuar = game.add.button(625, 475, 'buttonSair');
+    	buttonContinuar.height=49.35;
+    	buttonContinuar.width=120.3;
+    	game.input.onDown.add(unpause, self);
+        });
+    		// And finally the method that handels the pause menu
+        function unpause(event){
+            // Only act if paused
+            if(game.paused){
+    					if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
+    						caixa.destroy();
+    						buttonMenu.destroy();
+    						buttonNiveis.destroy();
+    						buttonSair.destroy();
+    						buttonContinuar.destroy();
+    						game.paused = false;
+    					}
+    					else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
+    						this.game.canvas.style.cursor = "pointer";
+    						player.kill();
+    						contadorImunidade=0;
+    						contadorVelocidade=0;
+    						game.time.reset();
+    						clearTimeout(timeout);
+    						clearTimeout(timeout2);
+    						poderCons=0;
+    						location.href = "../html/MenuPrincipal.html";
+    					}
+    					else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
+    						this.game.canvas.style.cursor = "pointer";
+    						player.kill();
+    						contadorImunidade=0;
+    					  contadorVelocidade=0;
+    						game.time.reset();
+    						clearTimeout(timeout);
+    						clearTimeout(timeout2);
+    						poderCons=0;
+    						location.href = "../html/menuniveis.html";
+    					}
 
-  						else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
-  							caixa.destroy();
-  							buttonMenu.destroy();
-  							buttonNiveis.destroy();
-  							buttonSair.destroy();
-  							buttonContinuar.destroy();
-  							game.paused = false;
-  						}
+    					else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
+    						this.game.canvas.style.cursor = "pointer";
+    						player.kill();
+    						contadorImunidade=0;
+    					  contadorVelocidade=0;
+    						game.time.reset();
+    						clearTimeout(timeout);
+    						clearTimeout(timeout2);
+    						poderCons=0;
+    						window.close();
+    					}
           }
       };
 
