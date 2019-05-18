@@ -342,6 +342,7 @@ function resetGame(){
   clearTimeout(timeout);
   clearTimeout(timeout2);
   poderCons=0;
+  poderConsVel=0;
   score=0;
   game.state.restart();
 }
@@ -362,6 +363,7 @@ function finish(player) {
   clearTimeout(timeout);
   clearTimeout(timeout2);
   poderCons=0;
+  poderConsVel=0;
   for (var key in localStorage) {
 	    var score2=localStorage.getItem(key);
 	    if (score2==0){
