@@ -502,11 +502,6 @@ function update() {
     timeVelocidade.destroy();
   }
 
-  displayscore.destroy()
-  displayscore= game.add.bitmapText( 1050, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
-
-
   //  Collide the player and the stars with the platforms
   var hitPlatform = game.physics.arcade.collide(layer, player);
 
