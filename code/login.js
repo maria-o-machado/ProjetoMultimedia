@@ -47,12 +47,12 @@ function loginClickHandler(ev)
    				user = name;
    			}
    	}
-		if(user!="" && user!="musica"){
+		if(user!="" && user!="musica" && user!="sons"){
 			localStorage.setItem(name, 0);
 			location.href = "../html/MenuPrincipal.html";
 			alert("Hello again!");
 		}
-		else if(user=="" && user!="musica"){
+		else if(user=="" && user!="musica" && user!="sons"){
 			localStorage.setItem(name, 0);
 			location.href = "../html/MenuPrincipal.html";
 		}

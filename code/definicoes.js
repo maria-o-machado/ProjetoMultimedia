@@ -13,9 +13,9 @@ function main()
 	var offMusica = document.getElementById("offMusica");
 	var voltar = document.getElementById("buttonVoltar");
 	var music = document.getElementById("musica");
-	
-	var ativado = localStorage.getItem("musica");
-	if (ativado=="on"){
+
+	var ativadoMusica = localStorage.getItem("musica");
+	if (ativadoMusica=="on"){
 		music.play();
 		music.loop = true;
 		offMusica.style.filter = "grayscale(100%)";
@@ -28,15 +28,20 @@ function main()
 		musicaClickHandler(ev, music);
 	}
 
-	offSons.style.filter = "grayscale(100%)";
+	var ativadoSons = localStorage.getItem("sons");
+	if (ativadoSons=="on"){
+		offSons.style.filter = "grayscale(100%)";
+	}
+	else{
+		onSons.style.filter = "grayscale(100%)";
+	}
 
-	
 
 	onSons.addEventListener("click", somClickHandler);
 	offSons.addEventListener("click", somClickHandler);
 	onMusica.addEventListener("click",butmusica);
 	offMusica.addEventListener("click", butmusica);
-	voltar.addEventListener("click", voltarClickHandler, true);  
+	voltar.addEventListener("click", voltarClickHandler, true);
 }
 
 
@@ -45,12 +50,14 @@ function somClickHandler(ev){
 	if (botao==offSons){
 		onSons.style.filter = "grayscale(100%)";
 		offSons.style.filter = "none";
+		localStorage.setItem("sons", "off");
 	}
 	else if(botao==onSons){
 		onSons.style.filter = "none";
 		offSons.style.filter = "grayscale(100%)";
+		localStorage.setItem("sons", "on");
 	}
-
+	return;
 }
 
 function musicaClickHandler(ev, music){

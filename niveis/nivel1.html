@@ -27,7 +27,7 @@ var score = 0;
 var timeout;
 var timeout2;
 var audio;
-
+var musicaPoder;
 var tfinalImunidade = 0;
 var tempoImunidade = 0;
 var contadorImunidade=0;
@@ -59,11 +59,13 @@ function preload() {
 	game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
 
 	game.load.audio('musica', '../resources/musica1.mp3');
+	game.load.audio('musicaPoderes', '../resources/musicaPoderes.mp3');
 }
 
 
 function create() {
 	audio = game.add.audio('musica');
+	musicaPoder = game.add.audio('musicaPoderes');
 	if(localStorage.getItem("musica")=="on"){
 		audio.play();
 	}
@@ -374,6 +376,10 @@ function tocarArmadilha (player, armadilha) {
 }
 
 function tocarPoderImunidade (player, poder) {
+	audio.pause();
+	if(localStorage.getItem("musica")=="on"){
+		musicaPoder.play();
+	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorImunidade=1;
@@ -390,6 +396,9 @@ function tocarPoderImunidade (player, poder) {
 
 function tocarPoderVelocidade (player, poder) {
 	audio.pause();
+	if(localStorage.getItem("musica")=="on"){
+		musicaPoder.play();
+	}
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorVelocidade = 1;
@@ -405,6 +414,7 @@ function tocarPoderVelocidade (player, poder) {
 }
 
 function desativaPoder(poder){
+	musicaPoder.stop();
 	audio.resume();
   poder.kill();
   contadorImunidade=0;
@@ -412,6 +422,8 @@ function desativaPoder(poder){
 }
 
 function desativaPoderVelocidade(poder){
+	musicaPoder.stop();
+	audio.resume();
   poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
