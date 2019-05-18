@@ -377,7 +377,7 @@ function tocarArmadilha (player, armadilha) {
 
 function tocarPoderImunidade (player, poder) {
 	audio.pause();
-	if(localStorage.getItem("musica")=="on"){
+	if(localStorage.getItem("sons")=="on"){
 		musicaPoder.play();
 	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 15;
@@ -396,7 +396,7 @@ function tocarPoderImunidade (player, poder) {
 
 function tocarPoderVelocidade (player, poder) {
 	audio.pause();
-	if(localStorage.getItem("musica")=="on"){
+	if(localStorage.getItem("sons")=="on"){
 		musicaPoder.play();
 	}
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
