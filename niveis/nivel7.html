@@ -21,7 +21,6 @@ var player;
 var cursors;
 var poderCons=0;
 var poderConsVel=0;
-var stars;
 var mulher;
 var score = 0;
 var timeout;
@@ -55,21 +54,21 @@ function preload() {
   game.load.image('armadilha', '../resources/Armadilha3.png');
   game.load.image('buttonPausa', '../resources/botoes/pausa.png');
   game.load.image('buttonMenu', '../resources/botoes/menu.png');
-	game.load.image('buttonNiveis', '../resources/botoes/niveis.png');
-	game.load.image('buttonSair', '../resources/botoes/sair.png');
-	game.load.image('buttonContinuar', '../resources/botoes/continuar.png');
+  game.load.image('buttonNiveis', '../resources/botoes/niveis.png');
+  game.load.image('buttonSair', '../resources/botoes/sair.png');
+  game.load.image('buttonContinuar', '../resources/botoes/continuar.png');
   game.load.image('caixaPausa', '../resources/caixa.png');
   game.load.image('textMusica', '../resources/musica.png');
   game.load.image('quick', '../resources/nuvemquick.png');
-	game.load.image('textSons', '../resources/sons.png');
-	game.load.image('buttonSonsOn', '../resources/botoes/on.png');
-	game.load.image('buttonSonsOff', '../resources/botoes/off.png');
-	game.load.image('buttonMusicaOn', '../resources/botoes/on.png');
-	game.load.image('buttonMusicaOff', '../resources/botoes/off.png');
-	game.load.image('buttonSonsOnDesativado', '../resources/botoes/onBlack.png');
-	game.load.image('buttonSonsOffDesativado', '../resources/botoes/offBlack.png');
-	game.load.image('buttonMusicaOnDesativado', '../resources/botoes/onBlack.png');
-	game.load.image('buttonMusicaOffDesativado', '../resources/botoes/offBlack.png');
+  game.load.image('textSons', '../resources/sons.png');
+  game.load.image('buttonSonsOn', '../resources/botoes/on.png');
+  game.load.image('buttonSonsOff', '../resources/botoes/off.png');
+  game.load.image('buttonMusicaOn', '../resources/botoes/on.png');
+  game.load.image('buttonMusicaOff', '../resources/botoes/off.png');
+  game.load.image('buttonSonsOnDesativado', '../resources/botoes/onBlack.png');
+  game.load.image('buttonSonsOffDesativado', '../resources/botoes/offBlack.png');
+  game.load.image('buttonMusicaOnDesativado', '../resources/botoes/onBlack.png');
+  game.load.image('buttonMusicaOffDesativado', '../resources/botoes/offBlack.png');
   game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
@@ -88,65 +87,71 @@ function create() {
   apanharBoas = game.add.audio('musicaBoas');
   apanharMas = game.add.audio('musicaMas');
   musica=localStorage.getItem("musica");
-	sons=localStorage.getItem("sons");
+  sons=localStorage.getItem("sons");
 
+  //SONS AO APANHAR OU TOCAR PODERES/INIMIGOS
   musicaPoder.volume=0.15;
-	matarMulher.volume=0.15;
-	apanharBoas.volume=0.15;
-	apanharMas.volume=0.15;
+  matarMulher.volume=0.15;
+  apanharBoas.volume=0.15;
+  apanharMas.volume=0.15;
 
-	if(musica=="on"){
+  if(musica=="on"){
     audio.play();
   }
+
   game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.scale.pageAlignVertically = true;
-    game.scale.pageAlignHorizontally = true;
+  game.scale.pageAlignVertically = true;
+  game.scale.pageAlignHorizontally = true;
 
-    //  A simple background for our game
-    game.add.tileSprite(0, 0, 6000,750,'background');
-    game.world.setBounds(0, 0, 6000, 750);
-    map = game.add.tilemap('mapa');
-    map.addTilesetImage( 'chaointerior');
-    map.setCollision([1,2]);
-    layer = map.createLayer('Camada de Tiles 1');
-    //layer.debug = true;
+  // imagem de background
+  game.add.tileSprite(0, 0, 6000,750,'background');
+  game.world.setBounds(0, 0, 6000, 750);
 
+  //mapa do nivel desenhado
+  map = game.add.tilemap('mapa');
+  map.addTilesetImage( 'chaointerior');
+  map.setCollision([1,2]);
+  layer = map.createLayer('Camada de Tiles 1');
+
+  //tempo do poder imunidade
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
+  //tempo do poder velocidade
   timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
 
+  //tempo do nivel
+  time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
 
-    time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-    time.fixedToCamera=true;
-    time.tint=0xfa0013;
-
-    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
-    displayscore.fixedToCamera=true;
-    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
-    nomescore.fixedToCamera=true;
-    nometime.fixedToCamera=true;
-    displayscore.tint=0xfa0013;
-  //  We're going to be using physics, so enable the Arcade
+  //score do nivel que vai atualizando
+  displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
   nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
-    saudenivel= game.add.sprite(220, 15, 'saude');
-    barrasaude= game.add.sprite(220, 15, 'saudenivel');
+
+  //Saude do rato
+  saudenivel= game.add.sprite(220, 15, 'saude');
+  barrasaude= game.add.sprite(220, 15, 'saudenivel');
 
   barrasaude.fixedToCamera=true;
   saudenivel.fixedToCamera=true;
-    nomesaude.fixedToCamera=true;
+  nomesaude.fixedToCamera=true;
 
   saudenivel.width=280;
   barrasaude.width=280;
 
-
-  //layer.resizeWorld();
+  //rato adicionado
   player = game.add.sprite(10, game.world.height - 200 , 'rato');
 
-  // We need to enable physics on the player
+  // fisica ativa no rato
   game.physics.arcade.enable(player);
 
-  // Player physics properties. Give the little guy a slight bounce.
+  //propriedades do rato
   player.body.bounce.y = 0.3;
   player.body.gravity.y = 800;
   player.body.collideWorldBounds = false;
@@ -156,7 +161,7 @@ function create() {
   player.anchor.setTo(0, -0.5);
   player.body.setSize(129, 69, 12,19 );
 
-  //  Our two animations, walking left and right.
+  //  rato, andar esquerda e direita
   player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
   player.animations.add('right', [6, 7, 8, 9, 10, 11], 20, true);
 
@@ -278,210 +283,212 @@ function create() {
   passa.width = 94;
   game.camera.follow(player);
 
+  //menu intermedio para ativar a pausa e escolher se quer sair, ou para outro nivel
   button = game.add.button(1200, 10, 'buttonPausa');
-	button.height=49.35;
-	button.width=120.3;
-	button.fixedToCamera=true;
+  button.height=49.35;
+  button.width=120.3;
+  button.fixedToCamera=true;
   button.onInputOver.add(over, this);
-	button.onInputUp.add(function () {
-	this.game.canvas.style.cursor = "default";
+  button.onInputUp.add(function () {
+  this.game.canvas.style.cursor = "default";
   // When the paus button is pressed, we pause the game
   game.paused = true;
-	caixa = game.add.sprite(392, game.world.height - 570 , 'caixaPausa');
-	caixa.width=571.2;
-	caixa.height=417.2;
-	buttonContinuar = game.add.button(1200, 10, 'buttonContinuar');
-	buttonContinuar.height=49.35;
-	buttonContinuar.width=120.3;
-	buttonMenu = game.add.button(445, game.world.height - 510, 'buttonMenu');
-	buttonMenu.height=49.35;
-	buttonMenu.width=120.3;
-	buttonNiveis = game.add.button(625, game.world.height - 510, 'buttonNiveis');
-	buttonNiveis.height=49.35;
-	buttonNiveis.width=120.3;
-	buttonSair = game.add.button(800, game.world.height - 510, 'buttonSair');
-	buttonSair.height=49.35;
-	buttonSair.width=120.3;
-	textoMusica = game.add.button(445, game.world.height - 300, 'textMusica');
-	textoMusica.height=28.2;
-	textoMusica.width=119.4;
-	textoSons = game.add.button(445, game.world.height - 400, 'textSons');
-	textoSons.height=28.2;
-	textoSons.width=83.4;
-	if (musica=="on"){
-		buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
-		buttonMusicaOn.height=51;
-		buttonMusicaOn.width=69.5;
-		buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
-		buttonMusicaOffDesativado.height=51;
-		buttonMusicaOffDesativado.width=69.5;
-	}
-	else{
-		buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
-		buttonMusicaOnDesativado.height=51;
-		buttonMusicaOnDesativado.width=69.5;
-		buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
-		buttonMusicaOff.height=51;
-		buttonMusicaOff.width=69.5;
-	}
-	if (sons=="on"){
-		buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
-		buttonSonsOn.height=51;
-		buttonSonsOn.width=69.5;
-		buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
-		buttonSonsOffDesativado.height=51;
-		buttonSonsOffDesativado.width=69.5;
-	}
-	else{
-		buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
-		buttonSonsOnDesativado.height=51;
-		buttonSonsOnDesativado.width=69.5;
-		buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
-		buttonSonsOff.height=51;
-		buttonSonsOff.width=69.5;
-	}
-	game.input.onDown.add(unpause, self);
+  caixa = game.add.sprite(392, game.world.height - 570 , 'caixaPausa');
+  caixa.width=571.2;
+  caixa.height=417.2;
+  buttonContinuar = game.add.button(1200, 10, 'buttonContinuar');
+  buttonContinuar.height=49.35;
+  buttonContinuar.width=120.3;
+  buttonMenu = game.add.button(445, game.world.height - 510, 'buttonMenu');
+  buttonMenu.height=49.35;
+  buttonMenu.width=120.3;
+  buttonNiveis = game.add.button(625, game.world.height - 510, 'buttonNiveis');
+  buttonNiveis.height=49.35;
+  buttonNiveis.width=120.3;
+  buttonSair = game.add.button(800, game.world.height - 510, 'buttonSair');
+  buttonSair.height=49.35;
+  buttonSair.width=120.3;
+  textoMusica = game.add.button(445, game.world.height - 300, 'textMusica');
+  textoMusica.height=28.2;
+  textoMusica.width=119.4;
+  textoSons = game.add.button(445, game.world.height - 400, 'textSons');
+  textoSons.height=28.2;
+  textoSons.width=83.4;
+  if (musica=="on"){
+    buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
+    buttonMusicaOn.height=51;
+    buttonMusicaOn.width=69.5;
+    buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
+    buttonMusicaOffDesativado.height=51;
+    buttonMusicaOffDesativado.width=69.5;
+  }
+  else{
+    buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
+    buttonMusicaOnDesativado.height=51;
+    buttonMusicaOnDesativado.width=69.5;
+    buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
+    buttonMusicaOff.height=51;
+    buttonMusicaOff.width=69.5;
+  }
+  if (sons=="on"){
+    buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
+    buttonSonsOn.height=51;
+    buttonSonsOn.width=69.5;
+    buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
+    buttonSonsOffDesativado.height=51;
+    buttonSonsOffDesativado.width=69.5;
+  }
+  else{
+    buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
+    buttonSonsOnDesativado.height=51;
+    buttonSonsOnDesativado.width=69.5;
+    buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
+    buttonSonsOff.height=51;
+    buttonSonsOff.width=69.5;
+  }
+  game.input.onDown.add(unpause, self);
   });
-		// And finally the method that handels the pause menu
+    // And finally the method that handels the pause menu
     function unpause(event){
         // Only act if paused
         if(game.paused){
-					sons=localStorage.getItem("sons");
-					musica=localStorage.getItem("musica");
-					if(event.x > 1200 && event.x < 1320 && event.y > 10 && event.y < 59.35 ){
-						caixa.destroy();
-						buttonMenu.destroy();
-						buttonNiveis.destroy();
-						buttonSair.destroy();
-						buttonContinuar.destroy();
-						textoSons.destroy();
-						textoMusica.destroy();
-						if (musica=="on"){
-							buttonMusicaOn.destroy();
-							buttonMusicaOffDesativado.destroy();
-						}
-						else{
-							buttonMusicaOnDesativado.destroy();
-							buttonMusicaOff.destroy();
-						}
-						if (sons=="on"){
-							buttonSonsOn.destroy();
-							buttonSonsOffDesativado.destroy();
+          sons=localStorage.getItem("sons");
+          musica=localStorage.getItem("musica");
+          if(event.x > 1200 && event.x < 1320 && event.y > 10 && event.y < 59.35 ){
+            caixa.destroy();
+            buttonMenu.destroy();
+            buttonNiveis.destroy();
+            buttonSair.destroy();
+            buttonContinuar.destroy();
+            textoSons.destroy();
+            textoMusica.destroy();
+            if (musica=="on"){
+              buttonMusicaOn.destroy();
+              buttonMusicaOffDesativado.destroy();
+            }
+            else{
+              buttonMusicaOnDesativado.destroy();
+              buttonMusicaOff.destroy();
+            }
+            if (sons=="on"){
+              buttonSonsOn.destroy();
+              buttonSonsOffDesativado.destroy();
 
-						}
-						else{
-							buttonSonsOnDesativado.destroy();
-							buttonSonsOff.destroy();
-						}
-						game.paused = false;
-					}
-					else if(event.x > 445 && event.x < 565 && event.y > 240 && event.y < 289.35 ){
-						this.game.canvas.style.cursor = "pointer";
-						player.kill();
-						contadorImunidade=0;
-						contadorVelocidade=0;
-						game.time.reset();
-						clearTimeout(timeout);
-						clearTimeout(timeout2);
-						poderCons=0;
-						location.href = "../html/MenuPrincipal.html";
-					}
-					else if(event.x > 625 && event.x < 745 && event.y > 240 && event.y < 289.35){
-						this.game.canvas.style.cursor = "pointer";
-						player.kill();
-						contadorImunidade=0;
-					  contadorVelocidade=0;
-						game.time.reset();
-						clearTimeout(timeout);
-						clearTimeout(timeout2);
-						poderCons=0;
-						location.href = "../html/menuniveis.html";
-					}
+            }
+            else{
+              buttonSonsOnDesativado.destroy();
+              buttonSonsOff.destroy();
+            }
+            game.paused = false;
+          }
+          else if(event.x > 445 && event.x < 565 && event.y > 240 && event.y < 289.35 ){
+            this.game.canvas.style.cursor = "pointer";
+            player.kill();
+            contadorImunidade=0;
+            contadorVelocidade=0;
+            game.time.reset();
+            clearTimeout(timeout);
+            clearTimeout(timeout2);
+            poderCons=0;
+            location.href = "../html/MenuPrincipal.html";
+          }
+          else if(event.x > 625 && event.x < 745 && event.y > 240 && event.y < 289.35){
+            this.game.canvas.style.cursor = "pointer";
+            player.kill();
+            contadorImunidade=0;
+            contadorVelocidade=0;
+            game.time.reset();
+            clearTimeout(timeout);
+            clearTimeout(timeout2);
+            poderCons=0;
+            location.href = "../html/menuniveis.html";
+          }
 
-					else if(event.x > 800 && event.x < 920 && event.y > 240 && event.y < 289.35){
-						this.game.canvas.style.cursor = "pointer";
-						player.kill();
-						contadorImunidade=0;
-					  contadorVelocidade=0;
-						game.time.reset();
-						clearTimeout(timeout);
-						clearTimeout(timeout2);
-						poderCons=0;
-						window.parent.close();
-					}
-					//Sons
-					else if(event.x > 575 && event.x < 644.5 && event.y > 340 && event.y < 391){
-						if (sons=="off"){
-							buttonSonsOnDesativado.destroy();
-							buttonSonsOff.destroy();
-							buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
-							buttonSonsOn.height=51;
-							buttonSonsOn.width=69.5;
-							buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
-							buttonSonsOffDesativado.height=51;
-							buttonSonsOffDesativado.width=69.5;
-							localStorage.setItem("sons", "on");
-							return;
-						}
-					}
-					else if(event.x > 700 && event.x < 769.5 && event.y > 340 && event.y < 391){
-						if (sons=="on"){
-							buttonSonsOn.destroy();
-							buttonSonsOffDesativado.destroy();
-							buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
-							buttonSonsOnDesativado.height=51;
-							buttonSonsOnDesativado.width=69.5;
-							buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
-							buttonSonsOff.height=51;
-							buttonSonsOff.width=69.5;
-							localStorage.setItem("sons", "off");
-							return;
-						}
-					}
-					else if(event.x > 600 && event.x < 669.5 && event.y > 440 && event.y < 491){
-						if (musica=="off"){
-							buttonMusicaOnDesativado.destroy();
-							buttonMusicaOff.destroy();
-							buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
-							buttonMusicaOn.height=51;
-							buttonMusicaOn.width=69.5;
-							buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
-							buttonMusicaOffDesativado.height=51;
-							buttonMusicaOffDesativado.width=69.5;
-							localStorage.setItem("musica", "on");
-							audio.restart();
-							return;
-						}
-					}
-					else if(event.x > 725 && event.x < 794.5 && event.y > 440 && event.y < 491){
-						if (musica=="on"){
-							buttonMusicaOn.destroy();
-							buttonMusicaOffDesativado.destroy();
-							buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
-							buttonMusicaOnDesativado.height=51;
-							buttonMusicaOnDesativado.width=69.5;
-							buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
-							buttonMusicaOff.height=51;
-							buttonMusicaOff.width=69.5;
-							localStorage.setItem("musica", "off");
-							audio.stop();
-							return;
-						}
-					}
+          else if(event.x > 800 && event.x < 920 && event.y > 240 && event.y < 289.35){
+            this.game.canvas.style.cursor = "pointer";
+            player.kill();
+            contadorImunidade=0;
+            contadorVelocidade=0;
+            game.time.reset();
+            clearTimeout(timeout);
+            clearTimeout(timeout2);
+            poderCons=0;
+            window.parent.close();
+          }
+          //Sons
+          else if(event.x > 575 && event.x < 644.5 && event.y > 340 && event.y < 391){
+            if (sons=="off"){
+              buttonSonsOnDesativado.destroy();
+              buttonSonsOff.destroy();
+              buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
+              buttonSonsOn.height=51;
+              buttonSonsOn.width=69.5;
+              buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
+              buttonSonsOffDesativado.height=51;
+              buttonSonsOffDesativado.width=69.5;
+              localStorage.setItem("sons", "on");
+              return;
+            }
+          }
+          else if(event.x > 700 && event.x < 769.5 && event.y > 340 && event.y < 391){
+            if (sons=="on"){
+              buttonSonsOn.destroy();
+              buttonSonsOffDesativado.destroy();
+              buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
+              buttonSonsOnDesativado.height=51;
+              buttonSonsOnDesativado.width=69.5;
+              buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
+              buttonSonsOff.height=51;
+              buttonSonsOff.width=69.5;
+              localStorage.setItem("sons", "off");
+              return;
+            }
+          }
+          else if(event.x > 600 && event.x < 669.5 && event.y > 440 && event.y < 491){
+            if (musica=="off"){
+              buttonMusicaOnDesativado.destroy();
+              buttonMusicaOff.destroy();
+              buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
+              buttonMusicaOn.height=51;
+              buttonMusicaOn.width=69.5;
+              buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
+              buttonMusicaOffDesativado.height=51;
+              buttonMusicaOffDesativado.width=69.5;
+              localStorage.setItem("musica", "on");
+              audio.restart();
+              return;
+            }
+          }
+          else if(event.x > 725 && event.x < 794.5 && event.y > 440 && event.y < 491){
+            if (musica=="on"){
+              buttonMusicaOn.destroy();
+              buttonMusicaOffDesativado.destroy();
+              buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
+              buttonMusicaOnDesativado.height=51;
+              buttonMusicaOnDesativado.width=69.5;
+              buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
+              buttonMusicaOff.height=51;
+              buttonMusicaOff.width=69.5;
+              localStorage.setItem("musica", "off");
+              audio.stop();
+              return;
+            }
+          }
       }
   };
-
-	cursors = game.input.keyboard.createCursorKeys();
+  //o rato e movido atraves das teclas de setas
+  cursors = game.input.keyboard.createCursorKeys();
 }
 
 function over() {
     this.game.canvas.style.cursor = "pointer";
 }
 
+//esta funcao e ativa quando a saude do rato acaba, reinicia o nivel
 function resetGame(){
   if(sons=="on"){
-		apanharMas.play();
-	}
+    apanharMas.play();
+  }
   audio.stop();
   musicaPoder.stop();
   game.time.reset();
@@ -495,6 +502,7 @@ function resetGame(){
   game.state.restart();
 }
 
+//funcao ativa quando o rato chega a toca e passa para outro nivel
 function finish(player) {
   apanharMas.stop();
   audio.stop();
@@ -503,108 +511,123 @@ function finish(player) {
   contadorImunidade=0;
   contadorVelocidade=0;
   var tempoTotal=parseInt(game.time.totalElapsedSeconds());
-	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
+  //O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
   if (tempoTotal<90){
-		score+=(90-tempoTotal)*50;
-	}
+    score+=(90-tempoTotal)*50;
+  }
   game.time.reset();
   clearTimeout(timeout);
   clearTimeout(timeout2);
   poderCons=0;
   poderConsVel=0;
+  //guardar o score do jogador para ranking
   for (var key in localStorage) {
-	    var score2=localStorage.getItem(key);
-	    if (score2==0){
-				var str1 = key;
-				var str2 = "-nivel7";
-				var nome = str1.concat(str2);
-				var registado=localStorage.getItem(nome);
-				if (registado=="null"){
-					localStorage.setItem(nome, score);
-	        location.href = "nivel8.html";
-				}
-				else if (registado<score) {
-					localStorage.setItem(nome, score);
-	        location.href = "nivel8.html";
-				}
-	    }
-	}
+      var score2=localStorage.getItem(key);
+      if (score2==0){
+        var str1 = key;
+        var str2 = "-nivel7";
+        var nome = str1.concat(str2);
+        var registado=localStorage.getItem(nome);
+        if (registado=="null"){
+          localStorage.setItem(nome, score);
+          location.href = "nivel8.html";
+        }
+        else if (registado<score) {
+          localStorage.setItem(nome, score);
+          location.href = "nivel8.html";
+        }
+      }
+  }
   location.href = "nivel8.html";
 }
 
+//comer queijo bom
 function comerQueijo (player, queijo) {
   if(sons=="on"){
     apanharBoas.play();
   }
+  //incrementa o score do jogador
   score+=100;
+  //incrementa a saude do rato
   if (saudenivel.width!= 280){
-      saudenivel.width+=70;
+    saudenivel.width+=70;
   }
   queijo.kill();
 }
 
+//comer queijo mau
 function comerQueijoMau (player, queijoMau) {
-    // Removes the star from the screen
-    if (poderCons==0){
-      if(sons=="on"){
-        apanharMas.play();
-      }
-      saudenivel.width-=70;
-      if (saudenivel.width<=0){
-          player.kill();
-          resetGame();
-      }
-      queijoMau.kill();
+  if (poderCons==0){
+    if(sons=="on"){
+      apanharMas.play();
     }
+    //decrementa a saude do rato
+    saudenivel.width-=70;
+    //se verificar que o rato ja nao tem mais saude reinicia o nivel
+    if (saudenivel.width<=0){
+      player.kill();
+      resetGame();
+    }
+    queijoMau.kill();
+  }
 }
 
+//funcao ativa quando toca na mulher
 function ataqueMulher (player,mulher) {
-  if (mulher.body.touching.up){
+  //o rato toca na cabeça da mulher e mata a
+  if (mulher.body.touching.up) {
     if(sons=="on"){
       matarMulher.play();
-    }
-    score+=50;
-    mulher.body.enable = false;
-    player.body.velocity.y = -70;
-    mulher.animations.stop();
-    mulher.kill();
+      }
+      //incrementa o score do jogador
+      score+=50;
+      mulher.body.enable = false;
+      player.body.velocity.y = -70;
+      mulher.animations.stop();
+      mulher.kill();
   }
   else{
+    //se tocar na mulher, perde saude
     if (poderCons==0){
       if(sons=="on"){
         apanharMas.play();
       }
       saudenivel.width-=140;
       mulher.kill();
+      //se verificar que o rato ja nao tem mais saude reinicia o nivel
       if (saudenivel.width<=0){
-        player.kill();
-        resetGame();
+          player.kill();
+          resetGame();
       }
     }
   }
 }
 
+//a armadilha "mata" o rato instantaneamente
 function tocarArmadilha (player, armadilha) {
   if (poderCons==0){
     if(sons=="on"){
-			apanharMas.play();
-		}
-    player.kill();
-    resetGame();
+      apanharMas.play();
+    }
+  player.kill();
+  resetGame();
   }
 }
 
+//funcao que ativa o poder de imunidade durante um certo periodo de tempo
 function tocarPoderImunidade (player, poder) {
   if(sons=="on"){
     audio.pause();
     musicaPoder.play();
-	}
+  }
   tfinalImunidade = game.time.totalElapsedSeconds() + 10;
   poder.kill();
   contadorImunidade=1;
   poderCons=1;
+  //incrementa o score por "apanhar" o poder
   score+=150;
   player.anchor.setTo(0, -0.5);
+  //"bola" de protecao a volta do rato
   poder = player.addChild(game.make.sprite(0, 0, 'poder'));
   poder.height=200;
   poder.width=200;
@@ -613,6 +636,7 @@ function tocarPoderImunidade (player, poder) {
   timeout= setTimeout(desativaPoder, 10000,poder);
 }
 
+//funcao que ativa o poder de velocidade durante um certo periodo de tempo
 function tocarPoderVelocidade (player, poder) {
   if(sons=="on"){
     audio.pause();
@@ -622,8 +646,10 @@ function tocarPoderVelocidade (player, poder) {
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
+  //incrementa o score por "apanhar" o poder
   score+=150;
   player.anchor.setTo(0, -0.5);
+  //"nuvem" de velocidade
   player.poder = player.addChild(game.make.sprite(-125,50, 'quick'));
   player.poder.height=100;
   player.poder.width=150;
@@ -631,60 +657,47 @@ function tocarPoderVelocidade (player, poder) {
   timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
+//desativa poder de imunidade quando acaba o tempo definido na funcao tocarPoderImunidade()
 function desativaPoder(poder){
   if(sons=="on"){
-		musicaPoder.stop();
-		audio.resume();
-	}
+    musicaPoder.stop();
+    audio.resume();
+  }
   poder.kill();
   contadorImunidade=0;
   poderCons=0;
 }
 
+//desativa poder de velocidade quando acaba o tempo definido na funcao tocarPoderVelocidade()
 function desativaPoderVelocidade(){
   if(sons=="on"){
-		musicaPoder.stop();
-		audio.resume();
-	}
-
+    musicaPoder.stop();
+    audio.resume();
+  }
   player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }
 
 function update() {
-
   player.checkWorldBounds=true;
   if (player.body.y> game.world.height){
         resetGame()
   }
 
-  time.destroy();
-  time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-  time.fixedToCamera=true;
-  time.tint=0xfa0013;
-
-  displayscore.destroy()
-  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
-
-  //nomesaude=game.add.bitmapText( 20, 20, 'myfont', "SAUDE:", 40);
- // nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-  //nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-  displayscore.tint=0xfa0013;
-
+  //variavel que verifica se o rato apanhou o poder, se estiver a 1 aparece no ecra a contagem decrescente
   if (contadorImunidade==1){
-    timeImunidade.destroy();
-    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
-    timeImunidade.fixedToCamera=true;
-    timeImunidade.tint=0xfa0013;
-    tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
-  }
+      timeImunidade.destroy();
+      timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+      timeImunidade.fixedToCamera=true;
+      timeImunidade.tint=0xfa0013;
+      tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
+    }
 
   else{
     timeImunidade.destroy();
   }
-
+  //variavel que verifica se o rato apanhou o poder, se estiver a 1 aparece no ecra a contagem decrescente
   if (contadorVelocidade==1){
     timeVelocidade.destroy();
     timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
@@ -697,10 +710,22 @@ function update() {
     timeVelocidade.destroy();
   }
 
-  //  Collide the player and the stars with the platforms
+  //tempo do nivel
+  time.destroy();
+  time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
+
+  //atualizaçao do score
+  displayscore.destroy()
+  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
+
+  //  colisao do rato com as plataformas
   var hitPlatform = game.physics.arcade.collide(layer, player);
 
-
+  //COLISOES DO CHAO COM AS DIFERENTES COMPONENTES
   game.physics.arcade.collide(queijosB, layer);
   game.physics.arcade.collide(queijosV, layer);
   game.physics.arcade.collide(queijosV, layer);
@@ -708,6 +733,7 @@ function update() {
   game.physics.arcade.collide(poderes, layer);
   game.physics.arcade.collide(passa, layer);
 
+  //COLISOES DO RATO COM AS DIFERENTES COMPONENTES
   game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
   game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
   game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
@@ -719,6 +745,7 @@ function update() {
   game.physics.arcade.overlap(player, poderesVelocidade, tocarPoderVelocidade, null, this);
   game.physics.arcade.overlap(player, passa, finish, null, this);
 
+  //controla a velocidade e a distancia que as mulheres percorrem
   if (mulher){
     if (mulher.x < 145){
       mulher.body.velocity.x = 230;
@@ -763,57 +790,54 @@ function update() {
     }
   }
 
-  //  Reset the players velocity (movement)
+  //reset da velocidade do rato
   player.body.velocity.x = 0;
 
-  if (cursors.left.isDown)
-  {
-    //  Move to the left
-    if (poderConsVel==0){
+  //CONTROLO DAS TECLAS QUE MOVEM O RATO
+
+  // move se para a esquerda
+  if (cursors.left.isDown){
+    if (poderConsVel==0){ //poder de velocidade desativo
       player.body.velocity.x = -300;
     }
-    else{
+    else{ //poder de velocidade ativo
       player.body.velocity.x = -400;
       if (player.poder.scale.x>0){
-                player.poder.scale.x*=-1;
-                player.poder.x=295;
-
-            }
+          player.poder.scale.x*=-1;
+          player.poder.x=295;
+      }
     }
     player.animations.play('left');
     player.goesRight = false;
   }
+  // move se para a direita
   else if (cursors.right.isDown){
     //  Move to the right
-    if (poderConsVel==0){
+    if (poderConsVel==0){ //poder de velocidade desativo
       player.body.velocity.x = 300;
     }
-
-    else{
+    else{ //poder de velocidade ativo
       player.body.velocity.x = 400;
       if (player.poder.scale.x<0){
-                player.poder.scale.x*=-1;
-                player.poder.x= -125
-
-            }
+          player.poder.scale.x*=-1;
+          player.poder.x= -125
+      }
     }
-
     player.animations.play('right');
     player.goesRight = true;
   }
-
   else{
-    //  Stand still
+    //quando o rato esta quieto
     player.animations.stop();
     if (player.goesRight){
-      player.frame = 6;
+        player.frame = 6;
     }
     else{
-      player.frame = 5;
+        player.frame = 5;
     }
   }
 
-  //  Allow the player to jump if they are touching the ground.
+  // Permite ao rato saltar se estiver na plataforma
   if (cursors.up.isDown && player.body.onFloor() && hitPlatform){
     if (poderConsVel==0){
       player.body.velocity.y = -450;
@@ -821,12 +845,6 @@ function update() {
     else{
       player.body.velocity.y = -500;
     }
-  }
-
-  //  Allow the player to jump if they are touching the ground.
-  if (cursors.up.isDown && player.body.onFloor() && hitPlatform)
-  {
-    player.body.velocity.y = -450;
   }
 }
 
