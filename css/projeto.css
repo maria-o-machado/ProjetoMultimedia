@@ -2,6 +2,19 @@ header, nav, main{
   margin: auto;
 }
 
+iframe
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    border-style: solid;
+    border-width: 3.5px;
+    width: 1344px;
+    height: 756px;
+}
+
 .text{
   position: absolute;
   z-index: 100;

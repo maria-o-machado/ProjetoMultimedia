@@ -10,6 +10,7 @@ const opInativa = 0;
 
 function main()
 {
+	var mainWindow = window.parent;
 	var cliques = 1;
 	var photo = document.getElementById("photo");
 	var buttonVoltar = document.getElementById("buttonVoltar");
@@ -63,14 +64,18 @@ function main()
 		}
 	}
 
-	function jogarNivel(ev){
-		jogarClickHandler(ev, nivelAtivo);
+	var jogarNivel = function(ev){
+		jogarClickHandler(ev, mainWindow, nivelAtivo);
+	}
+
+	var voltarClick = function(ev){
+		voltarClickHandler(ev, mainWindow);
 	}
 
 	buttonFrente.addEventListener("click", but);
 	buttonTras.addEventListener("click", but);
-	jogar.addEventListener("click", but);
-	buttonVoltar.addEventListener("click", voltarClickHandler, true);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão
+	jogar.addEventListener("click", jogarNivel);
+	buttonVoltar.addEventListener("click", voltarClick);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão
 }
 
 function botao(ev, cliques){
@@ -170,42 +175,12 @@ function mudaImagem(cliques, imagem){
 		imagem.src = pasta + "nivel" + cliques + ".png";
 }
 
-function jogarClickHandler(ev, nivelAtivo){
-	if (nivelAtivo == "nivel1"){
-		location.href = "../niveis/nivel1.html";
-	}
-	if (nivelAtivo == "nivel2"){
-		location.href = "../niveis/nivel2.html";
-	}
-	if (nivelAtivo == "nivel3"){
-		location.href = "../niveis/nivel3.html";
-	}
-	if (nivelAtivo == "nivel4"){
-		location.href = "../niveis/nivel4.html";
-	}
-	if (nivelAtivo == "nivel5"){
-		location.href = "../niveis/nivel5.html";
-	}
-	if (nivelAtivo == "nivel6"){
-		location.href = "../niveis/nivel6.html";
-	}
-	if (nivelAtivo == "nivel7"){
-		location.href = "../niveis/nivel7.html";
-	}
-	if (nivelAtivo == "nivel8"){
-		location.href = "../niveis/nivel8.html";
-	}
-	if (nivelAtivo == "nivel9"){
-		location.href = "../niveis/nivel9.html";
-	}
-	if (nivelAtivo == "nivel10"){
-		location.href = "../niveis/nivel10.html";
-	}
-
+function jogarClickHandler(ev, mainWindow, nivelAtivo){
+	mainWindow.postMessage(nivelAtivo, "*");
 }
 
-function voltarClickHandler(ev){
+function voltarClickHandler(ev, mainWindow){
 	ev.stopPropagation();
-    location.href = "../html/MenuPrincipal.html";
+  mainWindow.postMessage("botaovoltar", "*");
 
 }

@@ -7,6 +7,7 @@
 
 function main()
 {
+	var mainWindow = window.parent;
 	var onSons = document.getElementById("onSons");
 	var offSons = document.getElementById("offSons");
 	var onMusica = document.getElementById("onMusica");
@@ -14,10 +15,14 @@ function main()
 	var voltar = document.getElementById("buttonVoltar");
 	var music = document.getElementById("musica");
 
-	var ativadoMusica = localStorage.getItem("musica");
-	if (ativadoMusica=="on"){
+	var ativado = localStorage.getItem("musica");
+	if (ativado=="on"){
 		music.play();
 		music.loop = true;
+	}
+
+	var ativadoMusica = localStorage.getItem("musica");
+	if (ativadoMusica=="on"){
 		offMusica.style.filter = "grayscale(100%)";
 	}
 	else{
@@ -25,7 +30,7 @@ function main()
 	}
 
 	var butmusica=function(ev){
-		musicaClickHandler(ev, music);
+		musicaClickHandler(ev, music, mainWindow);
 	}
 
 	var ativadoSons = localStorage.getItem("sons");
@@ -36,12 +41,15 @@ function main()
 		onSons.style.filter = "grayscale(100%)";
 	}
 
+	var voltarClick = function(ev){
+		voltarClickHandler(ev, mainWindow);
+	}
 
 	onSons.addEventListener("click", somClickHandler);
 	offSons.addEventListener("click", somClickHandler);
 	onMusica.addEventListener("click",butmusica);
 	offMusica.addEventListener("click", butmusica);
-	voltar.addEventListener("click", voltarClickHandler, true);
+	voltar.addEventListener("click", voltarClick);
 }
 
 
@@ -60,13 +68,14 @@ function somClickHandler(ev){
 	return;
 }
 
-function musicaClickHandler(ev, music){
+function musicaClickHandler(ev, music, mainWindow){
 	var botao = ev.currentTarget;
 	if (botao==offMusica){
 		onMusica.style.filter = "grayscale(100%)";
 		offMusica.style.filter = "none";
 		localStorage.setItem("musica", "off");
 		music.pause();
+
 	}
 	else if (botao==onMusica){
 		onMusica.style.filter = "none";
@@ -77,9 +86,10 @@ function musicaClickHandler(ev, music){
 	return;
 }
 
-function voltarClickHandler(ev)
+function voltarClickHandler(ev, mainWindow)
 {
 	ev.stopPropagation();
-    location.href = "../html/MenuPrincipal.html";
+	mainWindow.postMessage("botaovoltar", "*");
+
 
 }
