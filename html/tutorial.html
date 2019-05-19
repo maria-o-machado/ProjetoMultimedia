@@ -21,6 +21,7 @@
     </audio>
     <button class="botoes" id="buttonVoltar"><img src="../resources/botoes/voltar.png" width="160" height="66"></button>
     <button class="botoes" id="buttonJogo"><img src="../resources/botoes/jogar.png" width="160" height="66"></button>
+
     <script type="text/javascript" src="../code/tutorial.js" defer="true"></script>
     <script type="text/javascript">
       var game = new Phaser.Game(1344 , 756, Phaser.AUTO, '', { preload: preload, create: create});
@@ -28,6 +29,9 @@
       function preload() {
         game.load.image('background', '../resources/background.jpg');
         game.load.image('ratoparado', '../resources/RatoParado.png');
+        game.load.image('caixa', '../resources/caixa.png');
+        game.load.image('buttonFrente', '../resources/botoes/frente.png');
+        game.load.image('buttonTras', '../resources/botoes/atras.png');
       }
 
       function create() {
@@ -39,10 +43,21 @@
 
         //  A simple background for our game
         game.add.sprite(0, 0, 'background');
+        caixa = game.add.sprite(280, 10, 'caixa');
+        caixa.height = 573.65;
+        caixa.width = 785.4;
 
         rato = game.add.sprite(700, game.world.height - 170, 'ratoparado');
         rato.height=190;
         rato.width=190;
+
+        buttonFrente = game.add.sprite(700, game.world.height - 150, 'buttonFrente');
+        buttonFrente.height=66;
+        buttonFrente.width=98.5;
+
+        buttonTras = game.add.sprite(550, game.world.height - 150, 'buttonTras');
+        buttonTras.height=66;
+        buttonTras.width=98.5;
 
       }
 
