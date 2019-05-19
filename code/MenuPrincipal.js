@@ -7,6 +7,7 @@
 
 function main()
 {
+	var mainWindow = window.parent;
 	var jogar = document.getElementsByTagName("button")[0];
 	var tutorial = document.getElementsByTagName("button")[1];
 	var ranking = document.getElementsByTagName("button")[2];
@@ -14,45 +15,64 @@ function main()
 	var sair = document.getElementsByTagName("button")[4];
 	var creditos= document.getElementsByTagName("button")[5];
 	var music = document.getElementById("musica");
-	
+
 	var ativado = localStorage.getItem("musica");
 	if (ativado=="on"){
 		music.play();
 		music.loop = true;
 	}
-	
-	jogar.addEventListener("click", jogarClickHandler, true);
-	creditos.addEventListener("click", creditosClickHandler, true);  
-	definicoes.addEventListener("click", definicoesClickHandler, true);
-	ranking.addEventListener("click", rankingClickHandler, true);
-	sair.addEventListener("click", sairClickHandler, true);
+
+	var jogarClick = function(ev){
+		jogarClickHandler(ev, mainWindow);
+	}
+
+	var creditosClick = function(ev){
+		creditosClickHandler(ev, mainWindow);
+	}
+
+	var definicoesClick = function(ev) {
+		definicoesClickHandler(ev, mainWindow);
+	}
+
+	var rankingClick = function(ev) {
+		rankingClickHandler(ev, mainWindow);
+	}
+
+	var sairClick = function(ev) {
+		sairClickHandler(ev, mainWindow);
+	}
+
+	jogar.addEventListener("click", jogarClick);
+	creditos.addEventListener("click", creditosClick);
+	definicoes.addEventListener("click", definicoesClick);
+	ranking.addEventListener("click", rankingClick);
+	sair.addEventListener("click", sairClick);
 }
 
-function jogarClickHandler(ev){
+function jogarClickHandler(ev, mainWindow){
 	ev.stopPropagation();
-    location.href = "../html/menuniveis.html";
+  mainWindow.postMessage("botaojogar", "*");
 }
 
-function definicoesClickHandler(ev){
+function definicoesClickHandler(ev, mainWindow){
 	ev.stopPropagation();
-    location.href = "../html/definicoes.html";
+  mainWindow.postMessage("botaodefenicoes", "*");
 }
 
-function creditosClickHandler(ev)
+function creditosClickHandler(ev, mainWindow)
 {
 	ev.stopPropagation();
-    location.href = "../html/creditos.html";
+  mainWindow.postMessage("botaocreditos", "*");
 
 }
 
-function rankingClickHandler(ev)
+function rankingClickHandler(ev, mainWindow)
 {
 	ev.stopPropagation();
-    location.href = "../html/ranking.html";
-
+  mainWindow.postMessage("botaoranking", "*");
 }
 
-function sairClickHandler(ev)
+function sairClickHandler(ev, mainWindow)
 {
-	window.close();
+	alert("Agora não sais!");
 }
