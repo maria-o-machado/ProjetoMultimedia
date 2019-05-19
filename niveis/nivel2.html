@@ -638,22 +638,18 @@ function update() {
   }
 
   //tempo do nivel
-  time.destroy();
-  time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-   time.fixedToCamera=true;
+	time.destroy();
+ 	time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
   time.tint=0xfa0013;
 
-  //atualizaçao do score
+	//atualizaçao do score
   displayscore.destroy()
   displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
-  nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
-  nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
-  nomescore.fixedToCamera=true;
-  nometime.fixedToCamera=true;
   displayscore.tint=0xfa0013;
 
-  //  colisao do rato com as plataformas
+	//  colisao do rato com as plataformas
   var hitPlatform = game.physics.arcade.collide(layer, player);
 
   //COLISOES DO CHAO COM AS DIFERENTES COMPONENTES
