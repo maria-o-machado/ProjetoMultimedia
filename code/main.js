@@ -53,6 +53,18 @@ function messageEventHandler(ev, frm, musica){
 	else if(frameName=="tutorial.html" && message=="botaojogar"){
     frm.src = "./html/menuniveis.html";
   }
+	else if(frameName=="tutorial2.html" && message=="botaovoltar"){
+    frm.src = "./html/MenuPrincipal.html";
+  }
+	else if(frameName=="tutorial2.html" && message=="botaojogar"){
+    frm.src = "./html/menuniveis.html";
+  }
+	else if(frameName=="tutorial3.html" && message=="botaovoltar"){
+    frm.src = "./html/MenuPrincipal.html";
+  }
+	else if(frameName=="tutorial3.html" && message=="botaojogar"){
+    frm.src = "./html/menuniveis.html";
+  }
   else if(frameName=="creditos.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
   }
