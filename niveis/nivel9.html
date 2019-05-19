@@ -159,7 +159,12 @@ function create() {
   queijosB = game.add.group();
   queijosB.enableBody = true;
 
-  queijoB = queijosB.create(820, game.world.height-150, 'queijoBom');
+  queijoB = queijosB.create(815, game.world.height-150, 'queijoBom');
+  queijoB.body.gravity.y = 100;
+  queijoB.height=50;
+  queijoB.width=50;
+
+  queijoB = queijosB.create(825, game.world.height-150, 'queijoBom');
   queijoB.body.gravity.y = 100;
   queijoB.height=50;
   queijoB.width=50;
@@ -169,13 +174,22 @@ function create() {
   queijoB.height=50;
   queijoB.width=50;
 
-
   //QUEIJOS VENENOSOS
   queijosV = game.add.group();
   queijosV.enableBody = true;
   game.physics.arcade.enable(queijosV);
 
   queijoV=queijosV.create(1810, game.world.height-650,'queijoVenenoso');
+  queijoV.body.gravity.y = 100;
+  queijoV.height=50;
+  queijoV.width=50;
+
+  queijoV=queijosV.create(4200, game.world.height-650,'queijoVenenoso');
+  queijoV.body.gravity.y = 100;
+  queijoV.height=50;
+  queijoV.width=50;
+
+  queijoV=queijosV.create(4250, game.world.height-650,'queijoVenenoso');
   queijoV.body.gravity.y = 100;
   queijoV.height=50;
   queijoV.width=50;
@@ -192,7 +206,7 @@ function create() {
   mulher.body.velocity.x = 300;
   mulher.animations.play('right');
 
-  mulher1 = game.add.sprite(2425, game.world.height - 440 , 'pessoa');
+  mulher1 = game.add.sprite(2430, game.world.height - 440 , 'pessoa');
   mulher1.width=86
   mulher1.height=200
   game.physics.arcade.enable(mulher1);
@@ -217,6 +231,9 @@ function create() {
   armadilha.body.gravity.y = 100;
 
   armadilha=armadilhas.create(3300, game.world.height-660,'armadilha');
+  armadilha.body.gravity.y = 100;
+
+  armadilha=armadilhas.create(5075, game.world.height-150,'armadilha');
   armadilha.body.gravity.y = 100;
 
   //PODER
@@ -455,6 +472,7 @@ function resetGame(){
   game.time.reset();
   contadorImunidade=0;
   contadorVelocidade=0;
+  contadorTamanho=0;
   clearTimeout(timeout);
   clearTimeout(timeout2);
   poderCons=0;
@@ -470,6 +488,7 @@ function finish(player) {
   player.kill();
   contadorImunidade=0;
   contadorVelocidade=0;
+  contadorTamanho=0;
   var tempoTotal=parseInt(game.time.totalElapsedSeconds());
 	//O tempo de conclusao maximo para ganhar score com o tempo e 1min e 30 seg
   if (tempoTotal<90){
@@ -720,7 +739,7 @@ function update() {
   }
 
   if (mulher1){
-    if (mulher1.x < 2425){
+    if (mulher1.x < 2430){
       mulher1.body.velocity.x = 300;
       mulher1.animations.play('right');
     }
