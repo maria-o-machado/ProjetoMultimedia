@@ -85,6 +85,7 @@ function preload() {
 
 function create() {
 	audio = game.add.audio('musica');
+	musicaPoder = game.add.audio('musicaPoderes');
   matarMulher = game.add.audio('musicaMatarmulher');
   apanharBoas = game.add.audio('musicaBoas');
   apanharMas = game.add.audio('musicaMas');
@@ -92,7 +93,6 @@ function create() {
 	sons=localStorage.getItem("sons");
 
 	//SONS AO APANHAR OU TOCAR PODERES/INIMIGOS
-	musicaPoder.volume=0.15;
 	matarMulher.volume=0.15;
 	apanharBoas.volume=0.15;
 	apanharMas.volume=0.15;
