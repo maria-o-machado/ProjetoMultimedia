@@ -641,7 +641,7 @@ function tocarPoderVelocidade (player, poder) {
   player.poder.height=100;
   player.poder.width=150;
   player.poder.alpha=0.5;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
+  timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function tocarPoderTamanho (player, poder) {
@@ -655,13 +655,7 @@ function tocarPoderTamanho (player, poder) {
   score+=150;
   player.width=120;
   player.height=72;
-  player.anchor.setTo(0, -0.5);
-  poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
-  poder.height=200;
-  poder.width=200;
-  poder.alpha=0.5;
-
-  var timer= setTimeout(desativaPoderTam, 10000,poder);
+  var timer= setTimeout(desativaPoderTam, 10000);
 }
 
 function desativaPoder(poder){
@@ -674,7 +668,7 @@ function desativaPoder(poder){
 	poderCons=0;
 }
 
-function desativaPoderVelocidade(poder){
+function desativaPoderVelocidade(){
 	if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
@@ -685,12 +679,11 @@ function desativaPoderVelocidade(poder){
   poderConsVel=0;
 }
 
-function desativaPoderTam(poder){
+function desativaPoderTam(){
   if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
-  poder.kill();
   contadorTamanho  = 0;
   player.width=104;
   player.height=56;

@@ -628,7 +628,7 @@ function tocarPoderVelocidade (player, poder) {
   player.poder.height=100;
   player.poder.width=150;
   player.poder.alpha=0.5;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
+  timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
 function desativaPoder(poder){
@@ -641,7 +641,7 @@ function desativaPoder(poder){
   poderCons=0;
 }
 
-function desativaPoderVelocidade(poder){
+function desativaPoderVelocidade(){
   if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
