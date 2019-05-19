@@ -238,8 +238,6 @@ function create() {
 	passa.width = 94;
 	game.camera.follow(player);
 
-	cursors = game.input.keyboard.createCursorKeys();
-
 	button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
@@ -432,6 +430,7 @@ function create() {
 					}
       }
   };
+	cursors = game.input.keyboard.createCursorKeys();
 }
 
 function over() {
