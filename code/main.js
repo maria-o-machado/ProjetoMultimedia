@@ -116,10 +116,4 @@ function messageEventHandler(ev, frm, musica){
   else if(frameName=="definicoes.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
   }
-  else if(frameName=="definicoes.html" && message=="musicapara"){
-    musica.play();
-  }
-  else if(frameName=="definicoes.html" && message=="musicaretoma"){
-    musica.stop();
-  }
 }

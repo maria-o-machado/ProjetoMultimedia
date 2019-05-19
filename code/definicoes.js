@@ -74,15 +74,14 @@ function musicaClickHandler(ev, music, mainWindow){
 		onMusica.style.filter = "grayscale(100%)";
 		offMusica.style.filter = "none";
 		localStorage.setItem("musica", "off");
-		mainWindow.postMessage("musicapara", "*");
+		music.pause();
 
 	}
 	else if (botao==onMusica){
 		onMusica.style.filter = "none";
 		offMusica.style.filter = "grayscale(100%)";
 		localStorage.setItem("musica", "on");
-		mainWindow.postMessage("musicaretoma", "*");
-
+		music.play();
 	}
 	return;
 }
