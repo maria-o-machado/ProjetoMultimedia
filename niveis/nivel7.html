@@ -89,6 +89,12 @@ function create() {
   apanharMas = game.add.audio('musicaMas');
   musica=localStorage.getItem("musica");
 	sons=localStorage.getItem("sons");
+
+  musicaPoder.volume=0.15;
+	matarMulher.volume=0.15;
+	apanharBoas.volume=0.15;
+	apanharMas.volume=0.15;
+  
 	if(musica=="on"){
     audio.play();
   }
@@ -640,7 +646,7 @@ function desativaPoderVelocidade(poder){
 		musicaPoder.stop();
 		audio.resume();
 	}
- 
+
   player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
