@@ -13,9 +13,6 @@ function main()
   }
 
   var musica = document.getElementById('musica');
-  musica.play();
-  musica.loop=true;
-  musica.volume = 1;
 
   frm.src="html/login.html";
 
