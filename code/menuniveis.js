@@ -314,6 +314,28 @@ function buttonNivel9ClickHandler(ev, buttonAtivado)
 
 }
 
+function buttonNivel10ClickHandler(ev, buttonAtivado)
+{
+	if(buttonAtivado=="null"){
+		buttonNivel10.style.border="double";
+		buttonJogo.disabled = false;
+		buttonJogo.style.filter="none";
+		buttonJogo.style.cursor="pointer";
+		buttonAtivado="buttonNivel10";
+	}
+
+	else if(buttonAtivado=="buttonNivel10"){
+		buttonNivel10.style.border="none";
+		buttonJogo.disabled = true;
+		buttonJogo.style.filter="grayscale(100%)";
+		buttonJogo.style.cursor="auto";
+		buttonAtivado="null";
+	}
+
+	return buttonAtivado;
+
+}
+
 function jogarClickHandler(ev, mainWindow, nivelAtivo){
 	mainWindow.postMessage(nivelAtivo, "*");
 }
