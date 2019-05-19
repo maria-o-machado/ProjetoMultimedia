@@ -35,6 +35,9 @@ function messageEventHandler(ev, frm, musica){
   else if(frameName=="MenuPrincipal.html" && message=="botaojogar"){
     frm.src = "./html/menuniveis.html";
   }
+	else if(frameName=="MenuPrincipal.html" && message=="botaotutorial"){
+    frm.src = "./html/tutorial.html";
+  }
   else if(frameName=="MenuPrincipal.html" && message=="botaodefenicoes"){
     frm.src = "./html/definicoes.html";
   }
@@ -43,6 +46,12 @@ function messageEventHandler(ev, frm, musica){
   }
   else if(frameName=="MenuPrincipal.html" && message=="botaocreditos"){
     frm.src = "./html/creditos.html";
+  }
+	else if(frameName=="tutorial.html" && message=="botaovoltar"){
+    frm.src = "./html/MenuPrincipal.html";
+  }
+	else if(frameName=="tutorial.html" && message=="botaojogar"){
+    frm.src = "./html/menuniveis.html";
   }
   else if(frameName=="creditos.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";

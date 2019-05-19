@@ -26,6 +26,10 @@ function main()
 		jogarClickHandler(ev, mainWindow);
 	}
 
+	var tutorialClick = function(ev) {
+		tutorialClickHandler(ev, mainWindow);
+	}
+
 	var creditosClick = function(ev){
 		creditosClickHandler(ev, mainWindow);
 	}
@@ -44,6 +48,7 @@ function main()
 
 	jogar.addEventListener("click", jogarClick);
 	creditos.addEventListener("click", creditosClick);
+	tutorial.addEventListener("click", tutorialClick);
 	definicoes.addEventListener("click", definicoesClick);
 	ranking.addEventListener("click", rankingClick);
 	sair.addEventListener("click", sairClick);
@@ -63,6 +68,13 @@ function creditosClickHandler(ev, mainWindow)
 {
 	ev.stopPropagation();
   mainWindow.postMessage("botaocreditos", "*");
+
+}
+
+function tutorialClickHandler(ev, mainWindow)
+{
+	ev.stopPropagation();
+  mainWindow.postMessage("botaotutorial", "*");
 
 }
 
