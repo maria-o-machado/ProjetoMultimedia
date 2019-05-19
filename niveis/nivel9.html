@@ -51,6 +51,7 @@ function preload() {
   game.load.image('saude', '../resources/saude.png');
   game.load.image('saudenivel', '../resources/saudenivel.png');
   game.load.image('chaointerior', '../resources/chaointerior.png');
+  game.load.image('quick', '../resources/nuvemquick.png');
   game.load.tilemap('mapa', '../resources/nivel9.json', null, Phaser.Tilemap.TILED_JSON);
   game.load.image('queijoBom', '../resources/QueijoBom.png');
   game.load.image('queijoVenenoso', '../resources/QueijoVenenoso.png');
@@ -96,46 +97,46 @@ function create() {
 	if(musica=="on"){
     audio.play();
   }
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.pageAlignVertically = true;
+    game.scale.pageAlignHorizontally = true;
+
+    //  A simple background for our game
+    game.add.tileSprite(0, 0, 6000,750,'background');
+    game.world.setBounds(0, 0, 6000, 750);
+
+    map = game.add.tilemap('mapa');
+    map.addTilesetImage( 'chaointerior');
+    map.setCollision([1,2]);
+    layer = map.createLayer('Camada de Tiles 1');
+    //layer.debug = true;
+
   timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
   timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
 
   timeTamanho = game.add.bitmapText(50, 400, 'myfont', String(parseInt(tempoTamanho)), 40);
 
-  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-  time.fixedToCamera=true;
-  time.tint=0xfa0013;
+   time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+    time.fixedToCamera=true;
+    time.tint=0xfa0013;
 
-
-  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
-  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-  nomescore.fixedToCamera=true;
-  nometime.fixedToCamera=true;
-  displayscore.tint=0xfa0013;
-
-   //  We're going to be using physics, so enable the Arcade Physics system
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.scale.pageAlignVertically = true;
-  game.scale.pageAlignHorizontally = true;
-
-  //  A simple background for our game
-  game.add.tileSprite(0, 0, 6000,750,'background');
-  game.world.setBounds(0, 0, 6000, 750);
-  saudenivel= game.add.sprite(40, 15, 'saude');
-  barrasaude= game.add.sprite(40, 15, 'saudenivel');
-  barrasaude.fixedToCamera=true;
-  saudenivel.fixedToCamera=true;
+    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+    displayscore.fixedToCamera=true;
+    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+    nomescore.fixedToCamera=true;
+    nometime.fixedToCamera=true;
+    displayscore.tint=0xfa0013;
+  //  We're going to be using physics, so enable the Arcade
+  nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
+    saudenivel= game.add.sprite(220, 15, 'saude');
+    barrasaude= game.add.sprite(220, 15, 'saudenivel');
 
   saudenivel.width=280;
   barrasaude.width=280;
 
-  map = game.add.tilemap('mapa');
-  map.addTilesetImage( 'chaointerior');
-  map.setCollision([1,2]);
-  layer = map.createLayer('Camada de Tiles 1');
-  //layer.debug = true;
+
 
   //layer.resizeWorld();
   player = game.add.sprite(5, game.world.height - 630 , 'rato');
@@ -150,6 +151,9 @@ function create() {
   player.width=104;
   player.height=56;
   player.goesRight=true;
+  player.anchor.setTo(0, -0.5);
+  player.body.setSize(129, 69, 12,19 );
+
 
   //  Our two animations, walking left and right.
   player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
@@ -576,16 +580,21 @@ function tocarPoderImunidade (player, poder) {
 }
 
 function tocarPoderVelocidade (player, poder) {
-  if(sons=="on"){
-    audio.pause();
-    musicaPoder.play();
+	if(sons=="on"){
+		audio.pause();
+		musicaPoder.play();
 	}
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000);
+  player.anchor.setTo(0, -0.5);
+  player.poder = player.addChild(game.make.sprite(-125,50, 'quick'));
+  player.poder.height=100;
+  player.poder.width=150;
+  player.poder.alpha=0.5;
+  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
 }
 
 function tocarPoderTamanho (player, poder) {
@@ -616,6 +625,8 @@ function desativaPoderVelocidade(){
 		musicaPoder.stop();
 		audio.resume();
 	}
+  
+  player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }
@@ -638,17 +649,13 @@ function update() {
   }
 
   time.destroy();
-  time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time= game.add.bitmapText( 1350/2+50, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
   time.fixedToCamera=true;
   time.tint=0xfa0013;
 
   displayscore.destroy()
-  displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
+  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
-  nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-  nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-  nomescore.fixedToCamera=true;
-  nometime.fixedToCamera=true;
   displayscore.tint=0xfa0013;
 
   if (contadorImunidade==1){
@@ -741,6 +748,11 @@ function update() {
     }
     else{
       player.body.velocity.x = -400;
+      if (player.poder.scale.x>0){
+                player.poder.scale.x*=-1;
+                player.poder.x=295;
+
+            }
     }
     player.animations.play('left');
     player.goesRight = false;
@@ -753,6 +765,12 @@ function update() {
 
     else{
       player.body.velocity.x = 400;
+      if (player.poder.scale.x<0){
+          player.poder.scale.x*=-1;
+          player.poder.x= -125
+
+            }
+
     }
 
     player.animations.play('right');

@@ -53,6 +53,7 @@ function preload() {
   game.load.image('toca', '../resources/Toca.png');
   game.load.image('poder', '../resources/Poderes.png');
   game.load.image('armadilha', '../resources/Armadilha3.png');
+  game.load.image('quick', '../resources/nuvemquick.png');
   game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.image('buttonPausa', '../resources/botoes/pausa.png');
@@ -598,14 +599,20 @@ function tocarPoderVelocidade (player, poder) {
   if(sons=="on"){
     audio.pause();
     musicaPoder.play();
-	}
+  }
   tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000);
+  player.anchor.setTo(0, -0.5);
+  player.poder = player.addChild(game.make.sprite(-125,50, 'quick'));
+  player.poder.height=100;
+  player.poder.width=150;
+  player.poder.alpha=0.5;
+  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
 }
+
 
 function desativaPoder(){
   if(sons=="on"){
@@ -621,6 +628,8 @@ function desativaPoderVelocidade(){
 		musicaPoder.stop();
 		audio.resume();
 	}
+
+  player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }
@@ -719,6 +728,11 @@ time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time
     }
     else{
       player.body.velocity.x = -400;
+      if (player.poder.scale.x>0){
+                player.poder.scale.x*=-1;
+                player.poder.x=295;
+
+            }
     }
     player.animations.play('left');
     player.goesRight = false;
@@ -731,6 +745,13 @@ time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time
 
     else{
       player.body.velocity.x = 400;
+      if (player.poder.scale.x<0){
+          player.poder.scale.x*=-1;
+          player.poder.x= -125
+
+            }
+
+    
     }
 
     player.animations.play('right');

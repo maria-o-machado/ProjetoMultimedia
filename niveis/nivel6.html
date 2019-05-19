@@ -52,6 +52,7 @@ function preload() {
   game.load.image('poder', '../resources/Poderes.png');
   game.load.image('armadilha', '../resources/Armadilha3.png');
   game.load.image('buttonPausa', '../resources/botoes/pausa.png');
+  game.load.image('quick', '../resources/nuvemquick.png');
   game.load.image('buttonMenu', '../resources/botoes/menu.png');
 	game.load.image('buttonNiveis', '../resources/botoes/niveis.png');
 	game.load.image('buttonSair', '../resources/botoes/sair.png');
@@ -630,20 +631,20 @@ function tocarPoderVelocidade (player, poder) {
   if(sons=="on"){
     audio.pause();
     musicaPoder.play();
-	}
-  tfinalVelocidade = game.time.totalElapsedSeconds() + 20;
+  }
+  tfinalVelocidade = game.time.totalElapsedSeconds() + 15;
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
   player.anchor.setTo(0, -0.5);
-  poder = player.addChild(game.make.sprite(0, 0, 'poder'));
-  poder.height=200;
-  poder.width=200;
-  poder.alpha=0.5;
-  poder.tint=0xFFFF00;
-  timeout2= setTimeout(desativaPoderVelocidade, 20000,poder);
+  player.poder = player.addChild(game.make.sprite(-125,50, 'quick'));
+  player.poder.height=100;
+  player.poder.width=150;
+  player.poder.alpha=0.5;
+  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
 }
+
 
 function desativaPoder(poder){
   if(sons=="on"){
@@ -660,7 +661,8 @@ function desativaPoderVelocidade(poder){
 		musicaPoder.stop();
 		audio.resume();
 	}
-  poder.kill();
+  
+  player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }
@@ -784,6 +786,11 @@ function update() {
     }
     else{
       player.body.velocity.x = -400;
+      if (player.poder.scale.x>0){
+                player.poder.scale.x*=-1;
+                player.poder.x=295;
+
+            }
     }
     player.animations.play('left');
     player.goesRight = false;
@@ -795,7 +802,12 @@ function update() {
     }
 
     else{
-      player.body.velocity.x = 400;
+       player.body.velocity.x = 400;
+       if (player.poder.scale.x<0){
+                player.poder.scale.x*=-1;
+                player.poder.x= -125
+
+            }
     }
 
     player.animations.play('right');
