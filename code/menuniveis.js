@@ -95,6 +95,10 @@ function main()
 			buttonAtivado=buttonNivel9ClickHandler(ev, buttonAtivado);
 	}
 
+	var but10=function(ev){
+			buttonAtivado=buttonNivel10ClickHandler(ev, buttonAtivado);
+	}
+
 	var jogarNivel = function(ev){
 		jogarClickHandler(ev, mainWindow, buttonAtivado);
 	}
@@ -108,6 +112,7 @@ function main()
 	buttonNivel7.addEventListener("click", but7);
 	buttonNivel8.addEventListener("click", but8);
 	buttonNivel9.addEventListener("click", but9);
+	buttonNivel10.addEventListener("click", but10);
 	jogar.addEventListener("click", jogarNivel)
 }
 
