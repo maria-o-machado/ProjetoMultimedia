@@ -58,7 +58,17 @@ function preload() {
 	game.load.image('buttonNiveis', '../resources/botoes/niveis.png');
 	game.load.image('buttonSair', '../resources/botoes/sair.png');
 	game.load.image('buttonContinuar', '../resources/botoes/continuar.png');
-  game.load.image('caixaPausa', '../resources/caixa2.png');
+  game.load.image('caixaPausa', '../resources/caixa.png');
+  game.load.image('textMusica', '../resources/musica.png');
+	game.load.image('textSons', '../resources/sons.png');
+	game.load.image('buttonSonsOn', '../resources/botoes/on.png');
+	game.load.image('buttonSonsOff', '../resources/botoes/off.png');
+	game.load.image('buttonMusicaOn', '../resources/botoes/on.png');
+	game.load.image('buttonMusicaOff', '../resources/botoes/off.png');
+	game.load.image('buttonSonsOnDesativado', '../resources/botoes/onBlack.png');
+	game.load.image('buttonSonsOffDesativado', '../resources/botoes/offBlack.png');
+	game.load.image('buttonMusicaOnDesativado', '../resources/botoes/onBlack.png');
+	game.load.image('buttonMusicaOffDesativado', '../resources/botoes/offBlack.png');
   game.load.spritesheet('pessoa', '../resources/pessoas.png',1010,2430);
   game.load.spritesheet('rato', '../resources/ratos.png', 166.7, 90);
   game.load.bitmapFont('myfont', '../resources/font.png', '../resources/font.fnt');
@@ -110,7 +120,7 @@ function create() {
     nomescore.fixedToCamera=true;
     nometime.fixedToCamera=true;
     displayscore.tint=0xfa0013;
-  //  We're going to be using physics, so enable the Arcade 
+  //  We're going to be using physics, so enable the Arcade
   nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
     saudenivel= game.add.sprite(220, 15, 'saude');
     barrasaude= game.add.sprite(220, 15, 'saudenivel');
@@ -264,77 +274,195 @@ function create() {
   button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
-  button.fixedToCamera=true;
+	button.fixedToCamera=true;
   button.onInputOver.add(over, this);
-  button.onInputUp.add(function () {
-		this.game.canvas.style.cursor = "default";
-	  // When the paus button is pressed, we pause the game
-	  game.paused = true;
-		caixa = game.add.sprite(527, game.world.height - 570 , 'caixaPausa');
-		caixa.width=310.4;
-		caixa.height=417.2;
-    buttonMenu = game.add.button(625, 250, 'buttonContinuar');
-  	buttonMenu.height=49.35;
-  	buttonMenu.width=120.3;
-  	buttonNiveis = game.add.button(625, 325, 'buttonMenu');
-  	buttonNiveis.height=49.35;
-  	buttonNiveis.width=120.3;
-  	buttonSair = game.add.button(625, 400, 'buttonNiveis');
-  	buttonSair.height=49.35;
-  	buttonSair.width=120.3;
-  	buttonContinuar = game.add.button(625, 475, 'buttonSair');
-  	buttonContinuar.height=49.35;
-  	buttonContinuar.width=120.3;
-  	game.input.onDown.add(unpause, self);
-      });
-  		// And finally the method that handels the pause menu
-      function unpause(event){
-          // Only act if paused
-          if(game.paused){
-  					if(event.x > 625 && event.x < 745 && event.y > 250 && event.y < 299.35 ){
-  						caixa.destroy();
-  						buttonMenu.destroy();
-  						buttonNiveis.destroy();
-  						buttonSair.destroy();
-  						buttonContinuar.destroy();
-  						game.paused = false;
-  					}
-  					else if(event.x > 625 && event.x < 745 && event.y > 325 && event.y < 374.35 ){
-  						this.game.canvas.style.cursor = "pointer";
-  						player.kill();
-  						contadorImunidade=0;
-  						contadorVelocidade=0;
-  						game.time.reset();
-  						clearTimeout(timeout);
-  						clearTimeout(timeout2);
-  						poderCons=0;
-  						location.href = "../html/MenuPrincipal.html";
-  					}
-  					else if(event.x > 625 && event.x < 745 && event.y > 400 && event.y < 449.35 ){
-  						this.game.canvas.style.cursor = "pointer";
-  						player.kill();
-  						contadorImunidade=0;
-  					  contadorVelocidade=0;
-  						game.time.reset();
-  						clearTimeout(timeout);
-  						clearTimeout(timeout2);
-  						poderCons=0;
-  						location.href = "../html/menuniveis.html";
-  					}
+	button.onInputUp.add(function () {
+	this.game.canvas.style.cursor = "default";
+  // When the paus button is pressed, we pause the game
+  game.paused = true;
+	caixa = game.add.sprite(392, game.world.height - 570 , 'caixaPausa');
+	caixa.width=571.2;
+	caixa.height=417.2;
+	buttonContinuar = game.add.button(1200, 10, 'buttonContinuar');
+	buttonContinuar.height=49.35;
+	buttonContinuar.width=120.3;
+	buttonMenu = game.add.button(445, game.world.height - 510, 'buttonMenu');
+	buttonMenu.height=49.35;
+	buttonMenu.width=120.3;
+	buttonNiveis = game.add.button(625, game.world.height - 510, 'buttonNiveis');
+	buttonNiveis.height=49.35;
+	buttonNiveis.width=120.3;
+	buttonSair = game.add.button(800, game.world.height - 510, 'buttonSair');
+	buttonSair.height=49.35;
+	buttonSair.width=120.3;
+	textoMusica = game.add.button(445, game.world.height - 300, 'textMusica');
+	textoMusica.height=28.2;
+	textoMusica.width=119.4;
+	textoSons = game.add.button(445, game.world.height - 400, 'textSons');
+	textoSons.height=28.2;
+	textoSons.width=83.4;
+	if (musica=="on"){
+		buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
+		buttonMusicaOn.height=51;
+		buttonMusicaOn.width=69.5;
+		buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
+		buttonMusicaOffDesativado.height=51;
+		buttonMusicaOffDesativado.width=69.5;
+	}
+	else{
+		buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
+		buttonMusicaOnDesativado.height=51;
+		buttonMusicaOnDesativado.width=69.5;
+		buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
+		buttonMusicaOff.height=51;
+		buttonMusicaOff.width=69.5;
+	}
+	if (sons=="on"){
+		buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
+		buttonSonsOn.height=51;
+		buttonSonsOn.width=69.5;
+		buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
+		buttonSonsOffDesativado.height=51;
+		buttonSonsOffDesativado.width=69.5;
+	}
+	else{
+		buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
+		buttonSonsOnDesativado.height=51;
+		buttonSonsOnDesativado.width=69.5;
+		buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
+		buttonSonsOff.height=51;
+		buttonSonsOff.width=69.5;
+	}
+	game.input.onDown.add(unpause, self);
+  });
+		// And finally the method that handels the pause menu
+    function unpause(event){
+        // Only act if paused
+        if(game.paused){
+					sons=localStorage.getItem("sons");
+					musica=localStorage.getItem("musica");
+					if(event.x > 1200 && event.x < 1320 && event.y > 10 && event.y < 59.35 ){
+						caixa.destroy();
+						buttonMenu.destroy();
+						buttonNiveis.destroy();
+						buttonSair.destroy();
+						buttonContinuar.destroy();
+						textoSons.destroy();
+						textoMusica.destroy();
+						if (musica=="on"){
+							buttonMusicaOn.destroy();
+							buttonMusicaOffDesativado.destroy();
+						}
+						else{
+							buttonMusicaOnDesativado.destroy();
+							buttonMusicaOff.destroy();
+						}
+						if (sons=="on"){
+							buttonSonsOn.destroy();
+							buttonSonsOffDesativado.destroy();
 
-  					else if(event.x > 625 && event.x < 745 && event.y > 475 && event.y < 524.35 ){
-  						this.game.canvas.style.cursor = "pointer";
-  						player.kill();
-  						contadorImunidade=0;
-  					  contadorVelocidade=0;
-  						game.time.reset();
-  						clearTimeout(timeout);
-  						clearTimeout(timeout2);
-  						poderCons=0;
-  						window.close();
-  					}
-        }
-    };
+						}
+						else{
+							buttonSonsOnDesativado.destroy();
+							buttonSonsOff.destroy();
+						}
+						game.paused = false;
+					}
+					else if(event.x > 445 && event.x < 565 && event.y > 240 && event.y < 289.35 ){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+						contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						location.href = "../html/MenuPrincipal.html";
+					}
+					else if(event.x > 625 && event.x < 745 && event.y > 240 && event.y < 289.35){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+					  contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						location.href = "../html/menuniveis.html";
+					}
+
+					else if(event.x > 800 && event.x < 920 && event.y > 240 && event.y < 289.35){
+						this.game.canvas.style.cursor = "pointer";
+						player.kill();
+						contadorImunidade=0;
+					  contadorVelocidade=0;
+						game.time.reset();
+						clearTimeout(timeout);
+						clearTimeout(timeout2);
+						poderCons=0;
+						window.close();
+					}
+					//Sons
+					else if(event.x > 575 && event.x < 644.5 && event.y > 340 && event.y < 391){
+						if (sons=="off"){
+							buttonSonsOnDesativado.destroy();
+							buttonSonsOff.destroy();
+							buttonSonsOn = game.add.button(575, game.world.height - 410, 'buttonSonsOn');
+							buttonSonsOn.height=51;
+							buttonSonsOn.width=69.5;
+							buttonSonsOffDesativado = game.add.button(700, game.world.height - 410, 'buttonSonsOffDesativado');
+							buttonSonsOffDesativado.height=51;
+							buttonSonsOffDesativado.width=69.5;
+							localStorage.setItem("sons", "on");
+							return;
+						}
+					}
+					else if(event.x > 700 && event.x < 769.5 && event.y > 340 && event.y < 391){
+						if (sons=="on"){
+							buttonSonsOn.destroy();
+							buttonSonsOffDesativado.destroy();
+							buttonSonsOnDesativado = game.add.button(575, game.world.height - 410, 'buttonSonsOnDesativado');
+							buttonSonsOnDesativado.height=51;
+							buttonSonsOnDesativado.width=69.5;
+							buttonSonsOff = game.add.button(700, game.world.height - 410, 'buttonSonsOff');
+							buttonSonsOff.height=51;
+							buttonSonsOff.width=69.5;
+							localStorage.setItem("sons", "off");
+							return;
+						}
+					}
+					else if(event.x > 600 && event.x < 669.5 && event.y > 440 && event.y < 491){
+						if (musica=="off"){
+							buttonMusicaOnDesativado.destroy();
+							buttonMusicaOff.destroy();
+							buttonMusicaOn= game.add.button(600, game.world.height - 310, 'buttonMusicaOn');
+							buttonMusicaOn.height=51;
+							buttonMusicaOn.width=69.5;
+							buttonMusicaOffDesativado = game.add.button(725, game.world.height - 310, 'buttonMusicaOffDesativado');
+							buttonMusicaOffDesativado.height=51;
+							buttonMusicaOffDesativado.width=69.5;
+							localStorage.setItem("musica", "on");
+							audio.restart();
+							return;
+						}
+					}
+					else if(event.x > 725 && event.x < 794.5 && event.y > 440 && event.y < 491){
+						if (musica=="on"){
+							buttonMusicaOn.destroy();
+							buttonMusicaOffDesativado.destroy();
+							buttonMusicaOnDesativado= game.add.button(600, game.world.height - 310, 'buttonMusicaOnDesativado');
+							buttonMusicaOnDesativado.height=51;
+							buttonMusicaOnDesativado.width=69.5;
+							buttonMusicaOff = game.add.button(725, game.world.height - 310, 'buttonMusicaOff');
+							buttonMusicaOff.height=51;
+							buttonMusicaOff.width=69.5;
+							localStorage.setItem("musica", "off");
+							audio.stop();
+							return;
+						}
+					}
+      }
+  };
 
 	cursors = game.input.keyboard.createCursorKeys();
 }
@@ -532,7 +660,7 @@ function update() {
   displayscore.destroy()
   displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
   displayscore.fixedToCamera=true;
-  
+
   //nomesaude=game.add.bitmapText( 20, 20, 'myfont', "SAUDE:", 40);
  // nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
   //nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
