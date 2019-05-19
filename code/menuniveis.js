@@ -37,12 +37,12 @@ function main()
 	voltar.addEventListener("click", voltarClick, true);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão)
 
 	var botoes = [jogar]
-	var but = [buttonNivel1, buttonNivel2, buttonNivel3, buttonNivel4, buttonNivel5]
+	var but = [buttonNivel1, buttonNivel2, buttonNivel3, buttonNivel4, buttonNivel5, buttonNivel6, buttonNivel7, buttonNivel8, buttonNivel9, buttonNivel10]
 
 	for (var key in localStorage){
 		var bloqueado = localStorage.getItem(key);
 		if (bloqueado==0){
-			for (var i=1; i<5; i++){
+			for (var i=1; i<10; i++){
 				var result = localStorage.getItem(key+"-nivel"+i);
 				if (result==null){
 					but[i].disabled = true;
