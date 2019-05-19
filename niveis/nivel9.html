@@ -639,8 +639,8 @@ function tocarPoderTamanho (player, poder) {
   contadorTamanho = 1;
   poder.kill();
   score+=150;
-  player.width=104;
-  player.height=56;
+  player.width=120;
+  player.height=72;
   player.anchor.setTo(0, -0.5);
   poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
   poder.height=200;
@@ -677,8 +677,8 @@ function desativaPoderTam(poder){
 	}
   poder.kill();
   contadorTamanho  = 0;
-  player.width=87;
-  player.height=47.25;
+  player.width=104;
+  player.height=56;
 }
 
 function update() {
