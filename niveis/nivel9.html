@@ -26,6 +26,7 @@ var mulher;
 var score = 0;
 var timeout;
 var timeout2;
+var timer;
 var audio;
 var musicaPoder;
 var matarMulher;
@@ -373,6 +374,7 @@ function create() {
 						game.time.reset();
 						clearTimeout(timeout);
 						clearTimeout(timeout2);
+						clearTimeout(timer);
 						poderCons=0;
 						location.href = "../html/MenuPrincipal.html";
 					}
@@ -384,6 +386,7 @@ function create() {
 						game.time.reset();
 						clearTimeout(timeout);
 						clearTimeout(timeout2);
+						clearTimeout(timer);
 						poderCons=0;
 						location.href = "../html/menuniveis.html";
 					}
@@ -396,6 +399,7 @@ function create() {
 						game.time.reset();
 						clearTimeout(timeout);
 						clearTimeout(timeout2);
+						clearTimeout(timer);
 						poderCons=0;
 						window.close();
 					}
@@ -480,6 +484,7 @@ function resetGame(){
   contadorTamanho=0;
   clearTimeout(timeout);
   clearTimeout(timeout2);
+  clearTimeout(timer);
   poderCons=0;
   poderConsVel=0;
   score=0;
@@ -502,6 +507,7 @@ function finish(player) {
   game.time.reset();
   clearTimeout(timeout);
   clearTimeout(timeout2);
+  clearTimeout(timer);
   poderCons=0;
   poderConsVel=0;
   for (var key in localStorage) {
@@ -596,7 +602,13 @@ function tocarPoderImunidade (player, poder) {
   contadorImunidade=1;
   poderCons=1;
   score+=150;
-  timeout= setTimeout(desativaPoder, 10000);
+  player.anchor.setTo(0, -0.5);
+  poder = player.addChild(game.make.sprite(0, 0, 'poder'));
+  poder.height=200;
+  poder.width=200;
+  poder.alpha=0.5;
+
+  timeout= setTimeout(desativaPoder, 10000,poder);
 }
 
 function tocarPoderVelocidade (player, poder) {
@@ -609,7 +621,13 @@ function tocarPoderVelocidade (player, poder) {
   contadorVelocidade = 1;
   poderConsVel=1;
   score+=150;
-  timeout2= setTimeout(desativaPoderVelocidade, 15000);
+  player.anchor.setTo(0, -0.5);
+  poder = player.addChild(game.make.sprite(0, 0, 'poder'));
+  poder.height=200;
+  poder.width=200;
+  poder.alpha=0.5;
+  poder.tint=0xFFFF00;
+  timeout2= setTimeout(desativaPoderVelocidade, 15000,poder);
 }
 
 function tocarPoderTamanho (player, poder) {
@@ -617,41 +635,50 @@ function tocarPoderTamanho (player, poder) {
     audio.pause();
     musicaPoder.play();
 	}
-    tfinalTamanho = game.time.totalElapsedSeconds() + 10;
-    contadorTamanho = 1;
-    poder.kill();
-    score+=150;
-    player.width=121;
-    player.height=64,75;
-    var timer= setTimeout(desativaPoderTam, 10000);
+  tfinalTamanho = game.time.totalElapsedSeconds() + 10;
+  contadorTamanho = 1;
+  poder.kill();
+  score+=150;
+  player.width=104;
+  player.height=56;
+  player.anchor.setTo(0, -0.5);
+  poder = player.addChild(game.make.sprite(0, 0, 'poderAumenta'));
+  poder.height=200;
+  poder.width=200;
+  poder.alpha=0.5;
+
+  var timer= setTimeout(desativaPoderTam, 10000,poder);
 }
 
-function desativaPoder(){
+function desativaPoder(poder){
+	if(sons=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
+	poder.kill();
+	contadorImunidade=0;
+	poderCons=0;
+}
+
+function desativaPoderVelocidade(poder){
+	if(sons=="on"){
+		musicaPoder.stop();
+		audio.resume();
+	}
+	poder.kill();
+	contadorVelocidade = 0;
+	poderConsVel=0;
+}
+
+function desativaPoderTam(poder){
   if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
-  contadorImunidade=0;
-  poderCons=0;
-}
-
-function desativaPoderVelocidade(){
-  if(sons=="on"){
-		musicaPoder.stop();
-		audio.resume();
-	}
-  contadorVelocidade = 0;
-  poderConsVel=0;
-}
-
-function desativaPoderTam(){
-  if(sons=="on"){
-		musicaPoder.stop();
-		audio.resume();
-	}
-    contadorTamanho  = 0;
-    player.width=104;
-    player.height=56;
+  poder.kill();
+  contadorTamanho  = 0;
+  player.width=87;
+  player.height=47.25;
 }
 
 function update() {
