@@ -86,5 +86,5 @@ function rankingClickHandler(ev, mainWindow)
 
 function sairClickHandler(ev, mainWindow)
 {
-	alert("Agora não sais!");
+	mainWindow.postMessage("botaosair", "*");
 }

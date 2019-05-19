@@ -32,6 +32,9 @@ function messageEventHandler(ev, frm, musica){
   if(frameName=="login.html" && message=="botaologin"){
     frm.src = "./html/MenuPrincipal.html";
   }
+	else if(frameName=="login.html" && message=="botaosair"){
+    window.close();
+  }
   else if(frameName=="MenuPrincipal.html" && message=="botaojogar"){
     frm.src = "./html/menuniveis.html";
   }
@@ -46,6 +49,9 @@ function messageEventHandler(ev, frm, musica){
   }
   else if(frameName=="MenuPrincipal.html" && message=="botaocreditos"){
     frm.src = "./html/creditos.html";
+  }
+	else if(frameName=="MenuPrincipal.html" && message=="botaosair"){
+    window.close();
   }
 	else if(frameName=="tutorial.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
@@ -67,6 +73,9 @@ function messageEventHandler(ev, frm, musica){
   }
   else if(frameName=="creditos.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
+  }
+	else if(frameName=="creditos.html" && message=="botaosair"){
+    window.close();
   }
   else if(frameName=="ranking.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
@@ -136,5 +145,8 @@ function messageEventHandler(ev, frm, musica){
   }
   else if(frameName=="definicoes.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
+  }
+	else if(frameName=="fim.html" && message=="botaocreditos"){
+    frm.src = "./html/creditos.html";
   }
 }

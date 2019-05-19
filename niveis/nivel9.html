@@ -21,7 +21,6 @@ var player;
 var cursors;
 var poderCons=0;
 var poderConsVel=0;
-var stars;
 var mulher;
 var score = 0;
 var timeout;
@@ -97,73 +96,71 @@ function create() {
 	musica=localStorage.getItem("musica");
 	sons=localStorage.getItem("sons");
 
-  musicaPoder.volume=0.15;
+  //SONS AO APANHAR OU TOCAR PODERES/INIMIGOS
+	musicaPoder.volume=0.15;
 	matarMulher.volume=0.15;
 	apanharBoas.volume=0.15;
 	apanharMas.volume=0.15;
 
 	if(musica=="on"){
-    	audio.play();
-  }
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.scale.pageAlignVertically = true;
-    game.scale.pageAlignHorizontally = true;
+		audio.play();
+	}
 
-    //  A simple background for our game
-    game.add.tileSprite(0, 0, 6000,750,'background');
-    game.world.setBounds(0, 0, 6000, 750);
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	game.scale.pageAlignVertically = true;
+	game.scale.pageAlignHorizontally = true;
 
-    map = game.add.tilemap('mapa');
-    map.addTilesetImage( 'chaointerior');
-    map.setCollision([1,2]);
-    layer = map.createLayer('Camada de Tiles 1');
-    //layer.debug = true;
+  // imagem de background
+  game.add.tileSprite(0, 0, 6000,750,'background');
+  game.world.setBounds(0, 0, 6000, 750);
 
-  timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+  //mapa do nivel desenhado
+  map = game.add.tilemap('mapa');
+  map.addTilesetImage( 'chaointerior');
+  map.setCollision([1,2]);
+  layer = map.createLayer('Camada de Tiles 1');
 
-  timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+  //tempo do poder imunidade
+	timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
 
+	//tempo do poder velocidade
+	timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
+
+  //tempo do poder tamanho
   timeTamanho = game.add.bitmapText(50, 400, 'myfont', String(parseInt(tempoTamanho)), 40);
+  //tempo do nivel
+  time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
 
-   time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-
-    time.fixedToCamera=true;
-    time.tint=0xfa0013;
-
-    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
-    displayscore.fixedToCamera=true;
-    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
-    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
-    nomescore.fixedToCamera=true;
-    nometime.fixedToCamera=true;
-    displayscore.tint=0xfa0013;
-  //  We're going to be using physics, so enable the Arcade
+  //score do nivel que vai atualizando
+  displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+  nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+  nomescore.fixedToCamera=true;
+  nometime.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
   nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
-    saudenivel= game.add.sprite(220, 15, 'saude');
-    barrasaude= game.add.sprite(220, 15, 'saudenivel');
+
+  //Saude do rato
+  saudenivel= game.add.sprite(220, 15, 'saude');
+  barrasaude= game.add.sprite(220, 15, 'saudenivel');
+
+  barrasaude.fixedToCamera=true;
+  saudenivel.fixedToCamera=true;
+  nomesaude.fixedToCamera=true;
 
   saudenivel.width=280;
   barrasaude.width=280;
 
-	//  We're going to be using physics, so enable the Arcade
-	nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
-    saudenivel= game.add.sprite(220, 15, 'saude');
-    barrasaude= game.add.sprite(220, 15, 'saudenivel');
-
-	barrasaude.fixedToCamera=true;
-	saudenivel.fixedToCamera=true;
-	nomesaude.fixedToCamera=true;
-
-	saudenivel.width=280;
-	barrasaude.width=280;
-
-
+  //rato adicionado
 	player = game.add.sprite(5, game.world.height - 630 , 'rato');
 
-	// We need to enable physics on the player
+  // fisica ativa no rato
 	game.physics.arcade.enable(player);
 
-	// Player physics properties. Give the little guy a slight bounce.
+	//propriedades do rato
 	player.body.bounce.y = 0.3;
 	player.body.gravity.y = 800;
 	player.body.collideWorldBounds = false;
@@ -171,9 +168,9 @@ function create() {
 	player.height=56;
 	player.goesRight=true;
 	player.anchor.setTo(0, -0.5);
-  	player.body.setSize(129, 69, 12,19 );
+  player.body.setSize(129, 69, 12,19 );
 
-	//  Our two animations, walking left and right.
+  //  rato, andar esquerda e direita
 	player.animations.add('left', [0, 1, 2, 3, 4, 5], 20, true);
 	player.animations.add('right', [6, 7, 8, 9, 10, 11], 20, true);
 
@@ -284,6 +281,8 @@ function create() {
 	passa.height = 75;
 	passa.width = 94;
 	game.camera.follow(player);
+
+  //menu intermedio para ativar a pausa e escolher se quer sair, ou para outro nivel
   button = game.add.button(1200, 10, 'buttonPausa');
 	button.height=49.35;
 	button.width=120.3;
@@ -416,7 +415,7 @@ function create() {
 						clearTimeout(timeout2);
 						clearTimeout(timer);
 						poderCons=0;
-						window.close();
+						window.parent.close();
 					}
 					//Sons
 					else if(event.x > 575 && event.x < 644.5 && event.y > 340 && event.y < 391){
@@ -479,14 +478,15 @@ function create() {
 					}
       }
   };
-
-	cursors = game.input.keyboard.createCursorKeys();
+  //o rato e movido atraves das teclas de setas
+  cursors = game.input.keyboard.createCursorKeys();
 }
 
 function over() {
     this.game.canvas.style.cursor = "pointer";
 }
 
+//esta funcao e ativa quando a saude do rato acaba, reinicia o nivel
 function resetGame(){
   if(sons=="on"){
 		apanharMas.play();
@@ -506,6 +506,7 @@ function resetGame(){
   game.state.restart();
 }
 
+//funcao ativa quando o rato chega a toca e passa para outro nivel
 function finish(player) {
   apanharMas.stop();
   audio.stop();
@@ -525,6 +526,7 @@ function finish(player) {
   clearTimeout(timer);
   poderCons=0;
   poderConsVel=0;
+  //guardar o score do jogador para ranking
   for (var key in localStorage) {
 	    var score2=localStorage.getItem(key);
 	    if (score2==0){
@@ -545,79 +547,93 @@ function finish(player) {
   location.href =  "nivel10.html";
 }
 
+//comer queijo bom
 function comerQueijo (player, queijo) {
-  if(sons=="on"){
-    apanharBoas.play();
-  }
-  score+=100;
-  if (saudenivel.width!= 280){
-      saudenivel.width+=70;
-  }
-  queijo.kill();
+	if(sons=="on"){
+		apanharBoas.play();
+	}
+	//incrementa o score do jogador
+	score+=100;
+	//incrementa a saude do rato
+	if (saudenivel.width!= 280){
+		saudenivel.width+=70;
+	}
+	queijo.kill();
 }
 
+//comer queijo mau
 function comerQueijoMau (player, queijoMau) {
-    // Removes the star from the screen
+	if (poderCons==0){
+		if(sons=="on"){
+			apanharMas.play();
+		}
+		//decrementa a saude do rato
+		saudenivel.width-=70;
+		//se verificar que o rato ja nao tem mais saude reinicia o nivel
+		if (saudenivel.width<=0){
+			player.kill();
+		  resetGame();
+		}
+		queijoMau.kill();
+	}
+}
+
+//funcao ativa quando toca na mulher
+function ataqueMulher (player,mulher) {
+	//o rato toca na cabeça da mulher e mata a
+	if (mulher.body.touching.up) {
+		if(sons=="on"){
+			matarMulher.play();
+			}
+			//incrementa o score do jogador
+			score+=50;
+	    mulher.body.enable = false;
+	    player.body.velocity.y = -70;
+	    mulher.animations.stop();
+	    mulher.kill();
+	}
+	else{
+		//se tocar na mulher, perde saude
     if (poderCons==0){
-      if(sons=="on"){
-        apanharMas.play();
-      }
-      saudenivel.width-=70;
+			if(sons=="on"){
+				apanharMas.play();
+			}
+      saudenivel.width-=140;
+      mulher.kill();
+			//se verificar que o rato ja nao tem mais saude reinicia o nivel
       if (saudenivel.width<=0){
           player.kill();
           resetGame();
       }
-      queijoMau.kill();
     }
+	}
 }
 
-function ataqueMulher (player,mulher) {
-  if (mulher.body.touching.up){
-    if(sons=="on"){
-      matarMulher.play();
-    }
-    score+=50;
-    mulher.body.enable = false;
-    player.body.velocity.y = -70;
-    mulher.animations.stop();
-    mulher.kill();
-  }
-  else{
-    if (poderCons==0){
-      if(sons=="on"){
-        apanharMas.play();
-      }
-      saudenivel.width-=140;
-      mulher.kill();
-      if (saudenivel.width<=0){
-        player.kill();
-        resetGame();
-      }
-    }
-  }
-}
-
+//a armadilha "mata" o rato instantaneamente
 function tocarArmadilha (player, armadilha) {
-  if (poderCons==0){
-    if(sons=="on"){
+	if (poderCons==0){
+		if(sons=="on"){
 			apanharMas.play();
 		}
-    player.kill();
-    resetGame();
-  }
+	player.kill();
+	resetGame();
+	}
 }
 
+//funcao que ativa o poder de imunidade durante um certo periodo de tempo
 function tocarPoderImunidade (player, poder) {
-  if(sons=="on"){
-    audio.pause();
-    musicaPoder.play();
+	if(sons=="on"){
+		audio.pause();
+		musicaPoder.play();
 	}
   tfinalImunidade = game.time.totalElapsedSeconds() + 10;
   poder.kill();
   contadorImunidade=1;
   poderCons=1;
+	//incrementa o score por "apanhar" o poder
   score+=150;
   player.anchor.setTo(0, -0.5);
+	//"bola" de protecao a volta do rato
   poder = player.addChild(game.make.sprite(0, 0, 'poder'));
   poder.height=200;
   poder.width=200;
@@ -626,6 +642,7 @@ function tocarPoderImunidade (player, poder) {
   timeout= setTimeout(desativaPoder, 10000,poder);
 }
 
+//funcao que ativa o poder de velocidade durante um certo periodo de tempo
 function tocarPoderVelocidade (player, poder) {
 	if(sons=="on"){
 		audio.pause();
@@ -635,8 +652,10 @@ function tocarPoderVelocidade (player, poder) {
   poder.kill();
   contadorVelocidade = 1;
   poderConsVel=1;
+	//incrementa o score por "apanhar" o poder
   score+=150;
   player.anchor.setTo(0, -0.5);
+	//"nuvem" de velocidade
   player.poder = player.addChild(game.make.sprite(-125,50, 'quick'));
   player.poder.height=100;
   player.poder.width=150;
@@ -644,6 +663,7 @@ function tocarPoderVelocidade (player, poder) {
   timeout2= setTimeout(desativaPoderVelocidade, 15000);
 }
 
+//funcao que ativa o poder de tamanho durante um certo periodo de tempo
 function tocarPoderTamanho (player, poder) {
   if(sons=="on"){
     audio.pause();
@@ -652,33 +672,36 @@ function tocarPoderTamanho (player, poder) {
   tfinalTamanho = game.time.totalElapsedSeconds() + 10;
   contadorTamanho = 1;
   poder.kill();
+  //incrementa o score por "apanhar" o poder
   score+=150;
   player.width=120;
   player.height=72;
   var timer= setTimeout(desativaPoderTam, 10000);
 }
 
+//desativa poder de imunidade quando acaba o tempo definido na funcao tocarPoderImunidade()
 function desativaPoder(poder){
 	if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
-	poder.kill();
-	contadorImunidade=0;
-	poderCons=0;
+  poder.kill();
+  contadorImunidade=0;
+  poderCons=0;
 }
 
+//desativa poder de velocidade quando acaba o tempo definido na funcao tocarPoderVelocidade()
 function desativaPoderVelocidade(){
 	if(sons=="on"){
 		musicaPoder.stop();
 		audio.resume();
 	}
-
   player.poder.kill();
   contadorVelocidade = 0;
   poderConsVel=0;
 }
 
+//desativa poder de tamanho quando acaba o tempo definido na funcao tocarPoderTamanho()
 function desativaPoderTam(){
   if(sons=="on"){
 		musicaPoder.stop();
@@ -689,64 +712,67 @@ function desativaPoderTam(){
   player.height=56;
 }
 
-function update() {
 
+function update() {
   player.checkWorldBounds=true;
   if (player.body.y> game.world.height){
-        resetGame()
+      resetGame()
   }
 
-  time.destroy();
+  //variavel que verifica se o rato apanhou o poder, se estiver a 1 aparece no ecra a contagem decrescente
+	if (contadorImunidade==1){
+	    timeImunidade.destroy();
+	    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
+	    timeImunidade.fixedToCamera=true;
+	    timeImunidade.tint=0xfa0013;
+	    tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
+  	}
 
-time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-  time.fixedToCamera=true;
-  time.tint=0xfa0013;
-
-  displayscore.destroy()
-  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
-  displayscore.fixedToCamera=true;
-  displayscore.tint=0xfa0013;
-
-  if (contadorImunidade==1){
-    timeImunidade.destroy();
-    timeImunidade = game.add.bitmapText(50, 200, 'myfont', String(parseInt(tempoImunidade)), 40);
-    timeImunidade.fixedToCamera=true;
-    timeImunidade.tint=0xfa0013;
-    tempoImunidade = tfinalImunidade-game.time.totalElapsedSeconds()+1;
-  }
-
-  else{
-    timeImunidade.destroy();
-  }
-
-  if (contadorVelocidade==1){
+	else{
+  	timeImunidade.destroy();
+	}
+	//variavel que verifica se o rato apanhou o poder, se estiver a 1 aparece no ecra a contagem decrescente
+	if (contadorVelocidade==1){
     timeVelocidade.destroy();
     timeVelocidade = game.add.bitmapText(50, 300, 'myfont', String(parseInt(tempoVelocidade)), 40);
     timeVelocidade.fixedToCamera=true;
     timeVelocidade.tint=0xfa0013;
     tempoVelocidade = tfinalVelocidade-game.time.totalElapsedSeconds()+1;
-  }
+	}
 
-  else{
-    timeVelocidade.destroy();
-  }
+	else{
+  	timeVelocidade.destroy();
+	}
 
+  //variavel que verifica se o rato apanhou o poder, se estiver a 1 aparece no ecra a contagem decrescente
   if (contadorTamanho==1){
         timeTamanho.destroy();
         timeTamanho = game.add.bitmapText(50, 400, 'myfont', String(parseInt(tempoTamanho)), 40);
         timeTamanho.fixedToCamera=true;
         timeTamanho.tint=0xfa0013;
         tempoTamanho = tfinalTamanho-game.time.totalElapsedSeconds()+1;
-    }
+  }
 
-    else{
-        timeTamanho.destroy();
-    }
+  else{
+      timeTamanho.destroy();
+  }
 
-  //  Collide the player and the stars with the platforms
+  //tempo do nivel
+	time.destroy();
+ 	time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+  time.fixedToCamera=true;
+  time.tint=0xfa0013;
+
+	//atualizaçao do score
+  displayscore.destroy()
+  displayscore= game.add.bitmapText(1050, 20, 'myfont',String( score), 40);
+  displayscore.fixedToCamera=true;
+  displayscore.tint=0xfa0013;
+
+	//  colisao do rato com as plataformas
   var hitPlatform = game.physics.arcade.collide(layer, player);
 
-
+  //COLISOES DO CHAO COM AS DIFERENTES COMPONENTES
   game.physics.arcade.collide(queijosB, layer);
   game.physics.arcade.collide(queijosV, layer);
   game.physics.arcade.collide(queijosV, layer);
@@ -754,6 +780,7 @@ time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time
   game.physics.arcade.collide(poderes, layer);
   game.physics.arcade.collide(passa, layer);
 
+  //COLISOES DO RATO COM AS DIFERENTES COMPONENTES
   game.physics.arcade.overlap(player, queijosB, comerQueijo, null, this);
   game.physics.arcade.overlap(player, queijosV, comerQueijoMau, null, this);
   game.physics.arcade.overlap(player, mulher, ataqueMulher, null, this);
@@ -764,7 +791,8 @@ time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time
   game.physics.arcade.overlap(player, poderesTamanho, tocarPoderTamanho, null, this);
   game.physics.arcade.overlap(player, passa, finish, null, this);
 
-  if (mulher){
+  //controla a velocidade e a distancia que as mulheres percorrem
+	if (mulher){
     if (mulher.x < 1640){
       mulher.body.velocity.x = 300;
       mulher.animations.play('right');
@@ -786,72 +814,62 @@ time= game.add.bitmapText( 1350/2-20+70, 20, 'myfont', String(parseInt(game.time
     }
   }
 
-  //  Reset the players velocity (movement)
-  player.body.velocity.x = 0;
+  //reset da velocidade do rato
+	player.body.velocity.x = 0;
 
-  if (cursors.left.isDown)
-  {
-    //  Move to the left
-    if (poderConsVel==0){
-      player.body.velocity.x = -300;
-    }
-    else{
-      player.body.velocity.x = -400;
+	//CONTROLO DAS TECLAS QUE MOVEM O RATO
+
+	// move se para a esquerda
+	if (cursors.left.isDown){
+		if (poderConsVel==0){ //poder de velocidade desativo
+			player.body.velocity.x = -300;
+		}
+		else{ //poder de velocidade ativo
+			player.body.velocity.x = -400;
       if (player.poder.scale.x>0){
-                player.poder.scale.x*=-1;
-                player.poder.x=295;
-
-            }
-    }
-    player.animations.play('left');
-    player.goesRight = false;
-  }
-  else if (cursors.right.isDown){
-    //  Move to the right
-    if (poderConsVel==0){
-      player.body.velocity.x = 300;
-    }
-
-    else{
-      player.body.velocity.x = 400;
+          player.poder.scale.x*=-1;
+          player.poder.x=295;
+      }
+		}
+		player.animations.play('left');
+		player.goesRight = false;
+	}
+	// move se para a direita
+	else if (cursors.right.isDown){
+		//  Move to the right
+		if (poderConsVel==0){ //poder de velocidade desativo
+			player.body.velocity.x = 300;
+		}
+		else{ //poder de velocidade ativo
+			player.body.velocity.x = 400;
       if (player.poder.scale.x<0){
           player.poder.scale.x*=-1;
           player.poder.x= -125
+      }
+		}
+		player.animations.play('right');
+		player.goesRight = true;
+	}
+	else{
+		//quando o rato esta quieto
+		player.animations.stop();
+		if (player.goesRight){
+		    player.frame = 6;
+		}
+		else{
+		    player.frame = 5;
+		}
+	}
 
-            }
-
-    }
-
-    player.animations.play('right');
-    player.goesRight = true;
-  }
-
-  else{
-    //  Stand still
-    player.animations.stop();
-    if (player.goesRight){
-      player.frame = 6;
-    }
-    else{
-      player.frame = 5;
-    }
-  }
-
-  //  Allow the player to jump if they are touching the ground.
-  if (cursors.up.isDown && player.body.onFloor() && hitPlatform){
-    if (poderConsVel==0){
-      player.body.velocity.y = -450;
-    }
-    else{
-      player.body.velocity.y = -500;
-    }
-  }
-
-  //  Allow the player to jump if they are touching the ground.
-  if (cursors.up.isDown && player.body.onFloor() && hitPlatform)
-  {
-    player.body.velocity.y = -450;
-  }
+	// Permite ao rato saltar se estiver na plataforma
+	if (cursors.up.isDown && player.body.onFloor() && hitPlatform){
+		if (poderConsVel==0){
+			player.body.velocity.y = -450;
+		}
+		else{
+			player.body.velocity.y = -500;
+		}
+	}
 }
 
 </script>
