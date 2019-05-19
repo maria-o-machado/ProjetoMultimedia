@@ -711,34 +711,15 @@ function update() {
 
  // move se para a esquerda
  if (cursors.left.isDown){
-   if (poderConsVel==0){ //poder de velocidade desativo
      player.body.velocity.x = -300;
-   }
-   else{ //poder de velocidade ativo
-     player.body.velocity.x = -400;
-     if (player.poder.scale.x>0){
-         player.poder.scale.x*=-1;
-         player.poder.x=295;
-     }
-   }
-   player.animations.play('left');
-   player.goesRight = false;
+     player.animations.play('left');
+     player.goesRight = false;
  }
  // move se para a direita
  else if (cursors.right.isDown){
-   //  Move to the right
-   if (poderConsVel==0){ //poder de velocidade desativo
-     player.body.velocity.x = 300;
-   }
-   else{ //poder de velocidade ativo
-     player.body.velocity.x = 400;
-     if (player.poder.scale.x<0){
-         player.poder.scale.x*=-1;
-         player.poder.x= -125
-     }
-   }
-   player.animations.play('right');
-   player.goesRight = true;
+    player.body.velocity.x = 300;
+    player.animations.play('right');
+    player.goesRight = true;
  }
  else{
    //quando o rato esta quieto
@@ -753,13 +734,8 @@ function update() {
 
  // Permite ao rato saltar se estiver na plataforma
  if (cursors.up.isDown && player.body.onFloor() && hitPlatform){
-   if (poderConsVel==0){
      player.body.velocity.y = -450;
-   }
-   else{
-     player.body.velocity.y = -500;
-   }
- }
+  }
 }
 
 </script>
