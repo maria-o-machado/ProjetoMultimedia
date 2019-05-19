@@ -185,12 +185,12 @@ function create() {
   queijosV.enableBody = true;
   game.physics.arcade.enable(queijosV);
 
-  queijoV=queijosV.create(390, game.world.height-400,'queijoVenenoso'); 
+  queijoV=queijosV.create(390, game.world.height-400,'queijoVenenoso');
   queijoV.body.gravity.y = 100;
   queijoV.height=50;
   queijoV.width=50;
 
-  queijoV=queijosV.create(4070, game.world.height-400,'queijoVenenoso'); 
+  queijoV=queijosV.create(4070, game.world.height-400,'queijoVenenoso');
   queijoV.body.gravity.y = 100;
   queijoV.height=50;
   queijoV.width=50;
@@ -239,7 +239,7 @@ function create() {
   gato1.body.velocity.x = 300;
   gato1.animations.play('right');
 
-  gato2 = game.add.sprite(4400, game.world.height - 260, 'gato'); 
+  gato2 = game.add.sprite(4400, game.world.height - 260, 'gato');
   gato2.width= 132
   gato2.height= 110
   game.physics.arcade.enable(gato2);
@@ -249,7 +249,7 @@ function create() {
   gato2.body.velocity.x = 300;
   gato2.animations.play('right');
 
-  gato3 = game.add.sprite(4425, game.world.height - 530, 'gato'); 
+  gato3 = game.add.sprite(4425, game.world.height - 530, 'gato');
   gato3.width= 132
   gato3.height= 110
   game.physics.arcade.enable(gato3);
@@ -259,7 +259,7 @@ function create() {
   gato3.body.velocity.x = 300;
   gato3.animations.play('right');
 
-  gato4 = game.add.sprite(1200, game.world.height - 350, 'gato'); 
+  gato4 = game.add.sprite(1200, game.world.height - 350, 'gato');
   gato4.width= 132
   gato4.height= 110
   game.physics.arcade.enable(gato4);
@@ -552,15 +552,15 @@ function finish(player) {
 				var registado=localStorage.getItem(nome);
 				if (registado=="null"){
 					localStorage.setItem(nome, score);
-	        location.href = "../html/menuniveis.html";
+	        location.href = "../html/fim.html";
 				}
 				else if (registado<score) {
 					localStorage.setItem(nome, score);
-	        location.href = "../html/menuniveis.html";
+	        location.href = "../html/fim.html";
 				}
 	    }
 	}
-  location.href = "../html/menuniveis.html";
+  location.href = "../html/fim.html";
 }
 
 function comerQueijo (player, queijo) {

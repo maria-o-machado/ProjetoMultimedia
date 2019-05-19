@@ -137,4 +137,7 @@ function messageEventHandler(ev, frm, musica){
   else if(frameName=="definicoes.html" && message=="botaovoltar"){
     frm.src = "./html/MenuPrincipal.html";
   }
+	else if(frameName=="fim.html" && message=="botaocreditos"){
+    frm.src = "./html/creditos.html";
+  }
 }
