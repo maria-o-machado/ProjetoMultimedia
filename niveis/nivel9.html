@@ -117,18 +117,18 @@ function create() {
 
 	timeTamanho = game.add.bitmapText(50, 400, 'myfont', String(parseInt(tempoTamanho)), 40);
 
-	time= game.add.bitmapText( 1350/2-20, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
-	time.fixedToCamera=true;
-	time.tint=0xfa0013;
+	time= game.add.bitmapText( 1350/2+70, 20, 'myfont', String(parseInt(game.time.totalElapsedSeconds())), 40);
+    time.fixedToCamera=true;
+    time.tint=0xfa0013;
 
-
-	displayscore= game.add.bitmapText(1000, 20, 'myfont',String( score), 40);
-	displayscore.fixedToCamera=true;
-	nometime=game.add.bitmapText( 1350/2-160, 20, 'myfont', "TIME:", 40);
-	nomescore=game.add.bitmapText( 820, 20, 'myfont', "SCORE:", 40);
-	nomescore.fixedToCamera=true;
-	nometime.fixedToCamera=true;
-	displayscore.tint=0xfa0013;
+    displayscore= game.add.bitmapText(1100, 20, 'myfont',String( score), 40);
+    displayscore.fixedToCamera=true;
+    nometime=game.add.bitmapText( 1350/2-90, 20, 'myfont', "TIME:", 40);
+    nomescore=game.add.bitmapText( 870, 20, 'myfont', "SCORE:", 40);
+    nomescore.fixedToCamera=true;
+    nometime.fixedToCamera=true;
+    displayscore.tint=0xfa0013;
+	//  We're going to be using physics, so enable the Arcade
 	nomesaude=game.add.bitmapText( 30, 20, 'myfont', "SAUDE:", 40);
     saudenivel= game.add.sprite(220, 15, 'saude');
     barrasaude= game.add.sprite(220, 15, 'saudenivel');
