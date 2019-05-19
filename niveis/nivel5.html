@@ -97,7 +97,7 @@ function create() {
 	matarMulher.volume=0.15;
 	apanharBoas.volume=0.15;
 	apanharMas.volume=0.15;
-	
+
 	if(musica=="on"){
     audio.play();
   }
@@ -382,7 +382,7 @@ function create() {
 						clearTimeout(timeout);
 						clearTimeout(timeout2);
 						poderCons=0;
-						window.close();
+						window.parent.close();
 					}
 					//Sons
 					else if(event.x > 575 && event.x < 644.5 && event.y > 340 && event.y < 391){

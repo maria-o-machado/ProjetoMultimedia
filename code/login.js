@@ -26,8 +26,13 @@ function main()
 		loginClickHandler(ev, mainWindow);
 	}
 
+	var sairClick=function(ev){
+		sairClickHandler(ev, mainWindow);
+	}
+
+
 	login.addEventListener("click", but);  //intersecta evento na capture phase (i.e., na descida) e não na bubbling phase (i.e., subida, por omissão)
-	sair.addEventListener("click", sairClickHandler, true);
+	sair.addEventListener("click", sairClick);
 }
 
 function loginClickHandler(ev, mainWindow)
@@ -63,7 +68,7 @@ function loginClickHandler(ev, mainWindow)
 	}
 }
 
-function sairClickHandler(ev)
+function sairClickHandler(ev, mainWindow)
 {
-	alert("Agora não sais!");
+	mainWindow.postMessage("botaosair", "*");
 }
